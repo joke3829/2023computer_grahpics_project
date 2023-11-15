@@ -12,14 +12,15 @@ public:
 
 	GLuint s_program;					// 클래스가 가르키는 실 셰이더
 	static ShaderProgram* getShader();			// 셰이더를 반환해준다
-	void DeleteShader();				// 사용이 끝나면 반환
-	void Initialize();					// 셰이더 생성
+
 protected:
 private:
 	
 	char* filetobuf(std::string);
 	bool CreateVertexShader();
 	bool CreateFragmentShader();
+	void Initialize();					// 셰이더 생성
+	void DeleteShader();				// 사용이 끝나면 반환
 	
 	
 	static ShaderProgram* pShader;

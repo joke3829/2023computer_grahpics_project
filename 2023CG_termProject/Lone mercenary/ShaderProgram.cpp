@@ -2,16 +2,19 @@
 
 ShaderProgram* ShaderProgram::pShader = nullptr;
 
+// 디폴트 생성자
 ShaderProgram::ShaderProgram()
 {
 	Initialize();
 }
 
+// 파괴자
 ShaderProgram::~ShaderProgram()
 {
 	DeleteShader();
 }
 
+// 싱글톤 사용, pShader를 반환하고 없으면 생성한다
 ShaderProgram* ShaderProgram::getShader()
 {
 	if (nullptr == pShader) {
@@ -23,6 +26,7 @@ ShaderProgram* ShaderProgram::getShader()
 	}
 }
 
+// 사용이 끝나면 삭제
 void ShaderProgram::DeleteShader()
 {
 	if (nullptr != pShader) {
@@ -31,6 +35,7 @@ void ShaderProgram::DeleteShader()
 	}
 }
 
+// 새로 만들었다면 초기화한다(셰이더 생성)
 void ShaderProgram::Initialize()
 {
 	if (not CreateVertexShader())
@@ -59,6 +64,7 @@ void ShaderProgram::Initialize()
 	glUseProgram(s_program);
 }
 
+// 셰이더 읽기 함수
 char* ShaderProgram::filetobuf(std::string file)
 {
 	static std::string buf = "";
@@ -78,6 +84,7 @@ char* ShaderProgram::filetobuf(std::string file)
 	return c;
 }
 
+// 버텍스 셰이더 생성 함수
 bool ShaderProgram::CreateVertexShader()
 {
 	vertexSource = filetobuf("ShaderFile\\VertexShader.glsl");
@@ -96,6 +103,7 @@ bool ShaderProgram::CreateVertexShader()
 	return true;
 }
 
+// 프레그먼트 셰이더 생성 함수
 bool ShaderProgram::CreateFragmentShader()
 {
 	fragSource = filetobuf("ShaderFile\\FragmentShader.glsl");

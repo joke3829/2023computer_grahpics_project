@@ -13,27 +13,89 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="shaderProgram">
+    <Filter Include="소스 파일\mainProgram">
+      <UniqueIdentifier>{6a70fc7a-b730-402b-bb4a-20153625a9d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\camera">
+      <UniqueIdentifier>{0be0c7bd-02a7-4911-b534-35141acd6f1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Shader">
+      <UniqueIdentifier>{59c4558a-4ccd-47fc-90a2-e70e909df8da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Shader\ShaderFile">
+      <UniqueIdentifier>{cd62f4fe-8925-42f4-9ee1-0ccec4e7fda7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Shader\shaderProgram">
       <UniqueIdentifier>{b747e373-e4e7-4f85-90f5-e384be996c10}</UniqueIdentifier>
     </Filter>
-    <Filter Include="mainProgram">
-      <UniqueIdentifier>{6a70fc7a-b730-402b-bb4a-20153625a9d0}</UniqueIdentifier>
+    <Filter Include="소스 파일\Projection">
+      <UniqueIdentifier>{bf4a2aaa-c1dc-4b8d-ad45-3a779843f388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Player_enemy_item">
+      <UniqueIdentifier>{f6dcd625-28b2-485a-826a-8853861b366c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MeshBase">
+      <UniqueIdentifier>{dbca591b-7577-44c5-8dde-184e60a17283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Player_enemy_item\Player">
+      <UniqueIdentifier>{eeeda344-7503-4d6f-9172-24470ac1a4a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderProgram.h">
-      <Filter>shaderProgram</Filter>
+      <Filter>소스 파일\Shader\shaderProgram</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="ENUM.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraObj.h">
+      <Filter>소스 파일\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjObj.h">
+      <Filter>소스 파일\Projection</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterBase.h">
+      <Filter>소스 파일\Player_enemy_item</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\Player_enemy_item\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>소스 파일\MeshBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShaderProgram.cpp">
-      <Filter>shaderProgram</Filter>
+      <Filter>소스 파일\Shader\shaderProgram</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>mainProgram</Filter>
+    <ClCompile Include="LM.cpp">
+      <Filter>소스 파일\mainProgram</Filter>
     </ClCompile>
+    <ClCompile Include="CameraObj.cpp">
+      <Filter>소스 파일\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjObj.cpp">
+      <Filter>소스 파일\Projection</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterBase.cpp">
+      <Filter>소스 파일\Player_enemy_item</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\Player_enemy_item\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>소스 파일\MeshBase</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ShaderFile\FragmentShader.glsl">
+      <Filter>소스 파일\Shader\ShaderFile</Filter>
+    </None>
+    <None Include="ShaderFile\VertexShader.glsl">
+      <Filter>소스 파일\Shader\ShaderFile</Filter>
+    </None>
   </ItemGroup>
 </Project>

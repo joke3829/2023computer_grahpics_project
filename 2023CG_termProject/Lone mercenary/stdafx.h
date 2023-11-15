@@ -1,3 +1,6 @@
+//==============================================================
+// stdafx.h			기본적으로 사용하는 헤더 모음
+//==============================================================
 
 #include<iostream>
 #include<gl/glew.h>
@@ -11,3 +14,5 @@
 #include<string>
 #include <vector>
 #include <random>
+
+#include "ENUM.h"

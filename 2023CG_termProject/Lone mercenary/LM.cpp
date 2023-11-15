@@ -1,5 +1,5 @@
 
-#include "ShaderProgram.h"
+#include "stdafx.h"
 #pragma comment(lib, "freeglut")
 #pragma comment(lib, "glew32")
 
@@ -28,7 +28,7 @@ void main(int argc, char** argv)
 	}
 	else
 		std::cout << "GLEW Initialized\n";
-	ShaderProgram* tt = ShaderProgram::getShader();
+
 	glutDisplayFunc(drawScene);						// 출력 함수의 지정
 	glutReshapeFunc(Reshape);						// 다시 그리기 함수 지정
 	glutMainLoop();									// 이벤트 처리 시작
