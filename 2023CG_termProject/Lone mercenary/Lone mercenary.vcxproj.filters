@@ -40,6 +40,9 @@
     <Filter Include="소스 파일\Player_enemy_item\Player">
       <UniqueIdentifier>{eeeda344-7503-4d6f-9172-24470ac1a4a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\MainApp">
+      <UniqueIdentifier>{d1b5bcc5-afbd-4460-acfe-5015c27fd261}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderProgram.h">
@@ -66,6 +69,9 @@
     <ClInclude Include="Mesh.h">
       <Filter>소스 파일\MeshBase</Filter>
     </ClInclude>
+    <ClInclude Include="MainApp.h">
+      <Filter>소스 파일\MainApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShaderProgram.cpp">
@@ -88,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>소스 파일\MeshBase</Filter>
+    </ClCompile>
+    <ClCompile Include="MainApp.cpp">
+      <Filter>소스 파일\MainApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

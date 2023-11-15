@@ -2,12 +2,19 @@
 #include "Mesh.h"
 #include "ShaderProgram.h"
 
+Mesh::Mesh() {};
+
 Mesh::Mesh(std::string filename) {
 	Initialize(filename);
 }
 
 Mesh::~Mesh()
 {
+	// 사용했으면 반환해라
+	glBindVertexArray(VAO);
+	glDeleteBuffers(1, &EBO);
+	glDeleteBuffers(3, VBO);
+	glDeleteVertexArrays(1, &VAO);
 }
 
 void Mesh::Initialize(std::string filename)

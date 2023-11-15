@@ -1,5 +1,8 @@
 #include "CharacterBase.h"
 
+// 디폴트 생성자
+CharacterBase::CharacterBase() {};
+
 // 생성자
 CharacterBase::CharacterBase(float hp, float max, float spd, float def, float atk)
 	: HP(hp), MAXHP(max), speed(spd), DEF(def), ATK(atk) {};

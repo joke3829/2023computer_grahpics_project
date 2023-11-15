@@ -7,6 +7,7 @@
 
 class CharacterBase {
 public:
+	CharacterBase();
 	CharacterBase(float, float, float, float, float);				// 초기화
 	~CharacterBase();
 	void Update_HP(float);				// 체력 수정 상대 ATK를 받아와서 사용

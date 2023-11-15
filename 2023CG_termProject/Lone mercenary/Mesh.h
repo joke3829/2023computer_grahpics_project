@@ -9,6 +9,7 @@
 class ShaderProgram;
 class Mesh {
 public:
+	Mesh();
 	Mesh(std::string);
 	virtual ~Mesh();
 	void init_scale(float);
