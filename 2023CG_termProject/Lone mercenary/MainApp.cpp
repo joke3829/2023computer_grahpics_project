@@ -1,19 +1,16 @@
 
 #include "MainApp.h"
+#include "CameraObj.h"
+#include "ProjObj.h"
 #include "Player.h"
-#include "RenderManager.h"
-
-MainApp::MainApp()
-{
-	mPlayer = nullptr;
-	renderer = nullptr;
-}
 
 
 bool MainApp::Initialize()
 {
-	if (not renderer)
-		renderer = new RenderManager;
+	mPlayer = new Player(100, 200, 5, 10, 0);
+	camera = new CameraObj;
+	proj = new ProjObj;
+
 	game_state = ≈∏¿Ã∆≤;
 	return true;
 }

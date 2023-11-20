@@ -2,8 +2,6 @@
 
 // =========================P_Mesh==========================
 
-P_Mesh::P_Mesh() : Mesh() {};
-
 P_Mesh::P_Mesh(std::string filename) : Mesh(filename) {};
 
 P_Mesh::~P_Mesh() {};

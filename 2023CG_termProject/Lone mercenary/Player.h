@@ -9,7 +9,6 @@
 
 class P_Mesh : public Mesh {
 public:
-	P_Mesh();
 	P_Mesh(std::string);
 	~P_Mesh();
 protected:

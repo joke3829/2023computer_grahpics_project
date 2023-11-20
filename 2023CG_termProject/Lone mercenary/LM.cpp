@@ -8,6 +8,8 @@
 GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
 
+
+
 int width, height;			// 종횡 크기
 double frameTime;			// 출력 시간
 

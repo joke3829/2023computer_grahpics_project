@@ -2,8 +2,6 @@
 #include "Mesh.h"
 #include "ShaderProgram.h"
 
-Mesh::Mesh() {};
-
 Mesh::Mesh(std::string filename) {
 	Initialize(filename);
 }
@@ -37,15 +35,12 @@ void Mesh::Initialize(std::string filename)
 		colors.push_back(temp_color);
 	}
 
-	modelTrans = glm::mat4(1.0f);
-
-	init_pos = glm::vec3(0, 0, 0);
-	cur_loc = glm::vec3(0, 0, 0);
-	init_rot = glm::vec3(0, 0, 0);
-	cur_rot = glm::vec3(0, 0, 0);
+	scaleMatrix = glm::mat4(1.0f);
+	rotateMatrix = glm::mat4(1.0f);
+	transMatrix = glm::mat4(1.0f);
 
 	shader = ShaderProgram::getShader();
-	//shader->Initialize();
+	
 	glUseProgram(shader->s_program);
 
 	glGenVertexArrays(1, &VAO);
@@ -204,35 +199,14 @@ bool Mesh::ReadOBJ(std::string filename)
 	return true;
 }
 
-void Mesh::Render()
+void Mesh::Render() const
 {
+	glm::mat4 modelTrans(1.0f);
+	modelTrans = transMatrix * rotateMatrix * scaleMatrix;
 	int loc = glGetUniformLocation(shader->s_program, "transform");
 	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(modelTrans));
+	loc = glGetUniformLocation(shader->s_program, "rotateMatrix");
+	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(rotateMatrix));
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 3 * triangle_num, GL_UNSIGNED_INT, 0);
-}
-
-void Mesh::init_scale(float size)
-{
-	glm::mat4 temp = glm::mat4(1.0f);
-	modelTrans = glm::scale(temp, glm::vec3(size, size, size)) * modelTrans;
-}
-
-void Mesh::init_position(float x, float y, float z)
-{
-	glm::mat4 temp = glm::mat4(1.0f);
-	modelTrans = glm::translate(temp, glm::vec3(x, y, z)) * modelTrans;
-	init_pos = glm::vec3(x, y, z);
-}
-
-void Mesh::init_rotate(float rad, float x, float y, float z)
-{
-	if (x > y && x > z)
-		init_rot.x += rad;
-	else if (y > x && y > z)
-		init_rot.y += rad;
-	else if (z > x && z > y)
-		init_rot.z += rad;
-	glm::mat4 temp = glm::mat4(1.0f);
-	modelTrans = glm::rotate(temp, glm::radians(rad), glm::vec3(x, y, z)) * modelTrans;
 }
