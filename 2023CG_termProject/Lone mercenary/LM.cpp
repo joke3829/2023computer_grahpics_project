@@ -1,5 +1,6 @@
 
-#include "stdafx.h"
+
+#include "MainApp.h"
 #pragma comment(lib, "freeglut")
 #pragma comment(lib, "glew32")
 
@@ -7,11 +8,18 @@
 GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
 
-int width, height;
+int width, height;			// 종횡 크기
+double frameTime;			// 출력 시간
+
+
+void Timer(int);			// 타이머 요소
+
+MainApp* mainApp;			// MainApp 포인터
 
 void main(int argc, char** argv)
 {
 	width = height = 800;
+	frameTime = 1000 / 60;			// 1초에 60번 출력
 	//윈도우 생성하기
 	glutInit(&argc, argv);							// glut 초기화
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);	// 디스플레이 모드 설정
@@ -29,8 +37,17 @@ void main(int argc, char** argv)
 	else
 		std::cout << "GLEW Initialized\n";
 
+	//============================================================
+	mainApp = new MainApp;			// MainApp 생성
+	if (not mainApp->Initialize()) {				// MainApp 초기화
+		std::cout << "MainApp 초기화 실패!" << std::endl;
+		return;
+	}
+	//============================================================
+
 	glutDisplayFunc(drawScene);						// 출력 함수의 지정
 	glutReshapeFunc(Reshape);						// 다시 그리기 함수 지정
+	glutTimerFunc(frameTime, Timer, 0);
 	glutMainLoop();									// 이벤트 처리 시작
 }
 
@@ -40,7 +57,8 @@ GLvoid drawScene()									// 콜백 함수: 그리기 콜백 함수
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-
+	if (not mainApp->Render())
+		return;
 
 	glutSwapBuffers();								// 화면에 출력하기
 }
@@ -48,4 +66,10 @@ GLvoid drawScene()									// 콜백 함수: 그리기 콜백 함수
 GLvoid Reshape(int w, int h)						// 콜백 함수: 다시 그리기 콜백 함수
 {
 	glViewport(0, 0, w, h);
+}
+
+void Timer(int value)
+{
+	glutPostRedisplay();
+	glutTimerFunc(frameTime, Timer, 0);
 }

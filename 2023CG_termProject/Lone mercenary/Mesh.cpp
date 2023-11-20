@@ -45,7 +45,7 @@ void Mesh::Initialize(std::string filename)
 	cur_rot = glm::vec3(0, 0, 0);
 
 	shader = ShaderProgram::getShader();
-
+	//shader->Initialize();
 	glUseProgram(shader->s_program);
 
 	glGenVertexArrays(1, &VAO);
@@ -56,8 +56,9 @@ void Mesh::Initialize(std::string filename)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * index.size(), &index.front(), GL_STATIC_DRAW);
 
-	GLuint loc = glGetAttribLocation(shader->s_program, "vPos");
+	int loc = glGetAttribLocation(shader->s_program, "vPos");
 	// 좌표
+
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vertexs.size(), &vertexs.front(), GL_STATIC_DRAW);
 	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
@@ -77,7 +78,7 @@ void Mesh::Initialize(std::string filename)
 	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(loc);
 
-}
+ }
 
 // 제대로 읽어 오면 true반환, 지금은 정점과 index만 저장, 추후 수정
 bool Mesh::ReadOBJ(std::string filename)
@@ -205,7 +206,7 @@ bool Mesh::ReadOBJ(std::string filename)
 
 void Mesh::Render()
 {
-	unsigned int loc = glGetUniformLocation(shader->s_program, "transform");
+	int loc = glGetUniformLocation(shader->s_program, "transform");
 	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(modelTrans));
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 3 * triangle_num, GL_UNSIGNED_INT, 0);

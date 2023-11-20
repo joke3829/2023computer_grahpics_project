@@ -14,7 +14,7 @@ CameraObj::~CameraObj() {};
 void CameraObj::Initialize()
 {
 	shader = ShaderProgram::getShader();
-	cameraEYE = glm::vec3(10, 0, 0);
+	cameraEYE = glm::vec3(20, 0, 0);
 	cameraAT = glm::vec3(0.0f);
 	cameraUP = glm::vec3(0, 1, 0);
 	OutToShader();

@@ -81,6 +81,10 @@ char* ShaderProgram::filetobuf(std::string file)
 	}
 	char* c = const_cast<char*>(buf.c_str());
 	std::cout << c << std::endl;
+	/*char* c = new char[buf.size() + 1];
+	std::copy(buf.begin(), buf.end(), c);
+	c[buf.size()] = '\0';
+	std::cout << c << std::endl;*/
 	return c;
 }
 
@@ -88,7 +92,9 @@ char* ShaderProgram::filetobuf(std::string file)
 bool ShaderProgram::CreateVertexShader()
 {
 	vertexSource = filetobuf("ShaderFile\\VertexShader.glsl");
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	if (!vertexSource)
+		std::cout << "²¨Áö¼À ¤·¤·" << '\n';
+		vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexSource, NULL);
 	glCompileShader(vertexShader);
 
@@ -107,6 +113,8 @@ bool ShaderProgram::CreateVertexShader()
 bool ShaderProgram::CreateFragmentShader()
 {
 	fragSource = filetobuf("ShaderFile\\FragmentShader.glsl");
+	if (!fragSource)
+		std::cout << "ee²¨Áö¼À ¤·¤·" << '\n';
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragSource, NULL);
 	glCompileShader(fragmentShader);

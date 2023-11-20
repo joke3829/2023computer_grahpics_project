@@ -4,17 +4,21 @@
 //==========================================================
 
 #include "stdafx.h"
+#include "CameraObj.h"
+#include "ProjObj.h"
 
 class CharacterBase;
+class RenderManager;
 class MainApp {
 public:
 	MainApp();
-	~MainApp();
 	bool Initialize();
 	bool Update_MainApp();
-	bool DestoryMainApp();
+	void DestoryMainApp();
+	bool Render();
 protected:
 private:
 	int game_state;
 	CharacterBase* mPlayer;
+	RenderManager* renderer;
 };

@@ -7,11 +7,13 @@ in vec3 FragPos;
 out vec4 FragColor;
 
 uniform vec3 veiwPos;
-uniform vec3 lightPos;		// 조명 위치
-uniform vec3 lightColor;	// 조명의 색
+//uniform vec3 lightPos;		// 조명 위치
+//uniform vec3 lightColor;	// 조명의 색
 
 void main()
 {
+	vec3 lightColor = vec3(1.0, 1.0, 1.0);
+	vec3 lightPos = vec3(0.0, 1.0, 0.0);
 	vec3 lightPower = lightColor / (length(lightColor - FragPos)*0.35);
 	vec3 ambientLight = vec3(0.3);
 	vec3 ambient = ambientLight * lightColor;

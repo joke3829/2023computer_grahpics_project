@@ -23,7 +23,8 @@ public:
 	Player();
 	Player(float hp, float max, float spd, float def, float atk);
 	~Player();
+	Mesh* arm;
 protected:
 private:
-	Mesh* arm;
+	
 };
