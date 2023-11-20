@@ -24,11 +24,19 @@ bool MainApp::Update_MainApp()
 
 bool MainApp::Render()
 {
-	
+	switch (game_state) {
+	case 타이틀:
+	case 필드:
+	}
 	return true;
 }
 
 void MainApp::DestoryMainApp()
 {
-
+	if (nullptr != mPlayer)
+		delete mPlayer;
+	if (nullptr != camera)
+		delete camera;
+	if (nullptr != proj)
+		delete proj;
 }

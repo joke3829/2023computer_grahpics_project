@@ -7,22 +7,21 @@
 #include "CharacterBase.h"
 #include "Mesh.h"
 
-class P_Mesh : public Mesh {
-public:
-	P_Mesh(std::string);
-	~P_Mesh();
-protected:
-private:
-	// Mesh가 사용할 여러 회전이나 변환 넣기
-	// 회전이나 여러가지넣기
-};
+//class P_Mesh : public Mesh {
+//public:
+//	P_Mesh(std::string);
+//	~P_Mesh();
+//protected:
+//private:
+//	// Mesh가 사용할 여러 회전이나 변환 넣기
+//	// 회전이나 여러가지넣기
+//};
 
 class Player : public CharacterBase {
 public:
 	Player();
 	Player(float hp, float max, float spd, float def, float atk);
 	~Player();
-	Mesh* arm;
 protected:
 private:
 	
