@@ -29,7 +29,7 @@ void main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);	// 디스플레이 모드 설정
 	glutInitWindowPosition(100, 100);				// 윈도우의 위치 지정
 	glutInitWindowSize(width, height);					// 윈도우의 크기 지정
-	glutCreateWindow("테스트");					// 윈도우 생성(윈도우 이름)
+	glutCreateWindow("Lone Mercenary");					// 윈도우 생성(윈도우 이름)
 
 	//GLEW 초기화하기
 	glewExperimental = GL_TRUE;
