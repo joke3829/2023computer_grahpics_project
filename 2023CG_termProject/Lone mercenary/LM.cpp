@@ -10,7 +10,6 @@ GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
 
 
-
 int width, height;			// 종횡 크기
 double frameTime;			// 출력 시간
 
@@ -51,6 +50,13 @@ void main(int argc, char** argv)
 
 	glutDisplayFunc(drawScene);						// 출력 함수의 지정
 	glutReshapeFunc(Reshape);						// 다시 그리기 함수 지정
+	glutKeyboardFunc([](unsigned char key, int x, int y) {
+		mainApp->pKeyboard->Keyboard(key, x, y);
+	});						// 키 누를 때
+	glutKeyboardUpFunc([](unsigned char key, int x, int y) {
+		mainApp->pKeyboard->KeyboardUp(key, x, y);
+	});					// 키 뗄때
+	//glutPassiveMotionFunc
 	glutTimerFunc(frameTime, Timer, 0);
 	glutMainLoop();									// 이벤트 처리 시작
 }

@@ -4,11 +4,12 @@
 // 상속시켜 사용한다
 //============================================================
 #pragma once
+#include "stdafx.h"
 
 class CharacterBase {
 public:
 	CharacterBase(float, float, float, float, float);				// 초기화
-
+	virtual ~CharacterBase();
 	void Update_HP(float);				// 체력 수정 상대 ATK를 받아와서 사용
 	bool Death_check();					// 체력이 0이하면 true 반환
 protected:

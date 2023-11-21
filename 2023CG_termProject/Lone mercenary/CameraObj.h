@@ -2,7 +2,7 @@
 // CameraObj.h
 // 카메라를 관리하는 헤더
 //===============================================================
-
+#pragma once
 #include "stdafx.h"
 
 class ShaderProgram;
@@ -11,7 +11,8 @@ public:
 	CameraObj();
 	
 	// 카메라 조작 함수 추가
-
+	void setCameraEYE(glm::vec3);			// player위치 받아오자
+	void setCameraAngle(glm::vec2);			// 마찬가지, player꺼 받아오자
 protected:
 private:
 	ShaderProgram* shader;
