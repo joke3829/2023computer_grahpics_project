@@ -52,6 +52,12 @@
     <Filter Include="소스 파일\Player_enemy_item\weapons\pistol">
       <UniqueIdentifier>{654cd604-fbeb-4b9f-b992-0f03ec5edeb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\control">
+      <UniqueIdentifier>{d00d4156-8fc0-45c8-8def-0e1c76d634ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\control\keyboard">
+      <UniqueIdentifier>{104d144e-7dc5-4c4f-aef4-38de82bfc8a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderProgram.h">
@@ -87,6 +93,12 @@
     <ClInclude Include="Mouse.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="KeyboardFunc.h">
+      <Filter>소스 파일\control\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="main_define.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShaderProgram.cpp">
@@ -115,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="Pistol.cpp">
       <Filter>소스 파일\Player_enemy_item\weapons\pistol</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardFunc.cpp">
+      <Filter>소스 파일\control\keyboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

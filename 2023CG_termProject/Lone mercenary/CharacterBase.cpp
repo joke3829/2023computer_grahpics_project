@@ -4,6 +4,8 @@
 CharacterBase::CharacterBase(float hp, float max, float spd, float def, float atk)
 	: HP(hp), MAXHP(max), speed(spd), DEF(def), ATK(atk) {};
 
+CharacterBase::~CharacterBase() {};
+
 // 체력 업데이트
 void CharacterBase::Update_HP(float received)
 {

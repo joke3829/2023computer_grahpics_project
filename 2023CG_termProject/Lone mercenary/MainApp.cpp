@@ -1,9 +1,6 @@
 
 #include "MainApp.h"
-#include "CameraObj.h"
-#include "ProjObj.h"
-#include "Player.h"
-#include "Pistol.h"
+#include "main_define.h"
 
 // 최종본엔 이걸 사용할것
 bool MainApp::Initialize()
@@ -23,6 +20,8 @@ bool MainApp::test_Initialize()
 	camera = new CameraObj;
 	proj = new ProjObj;
 	pistol = new Pistol("test_obj\\cube.obj", 10, 10);
+	pKeyboard = new KeyboardFunc(mPlayer, camera);
+	pKeyboard->setGame_stete(game_state);
 	return true;
 }
 
@@ -37,6 +36,10 @@ bool MainApp::Update_MainApp()
 	case 아이템선택:
 		break;
 	case 필드:
+		//  업데이트 헤더에서 애니메이션 적용하기
+		dynamic_cast<Player*>(mPlayer)->animation();
+		camera->setCameraEYE(dynamic_cast<Player*>(mPlayer)->getLoc());		// 카메라 업데이트 해주기
+		camera->setCameraAngle(dynamic_cast<Player*>(mPlayer)->getRot());
 		break;
 	case 결과창:
 		break;
@@ -58,7 +61,7 @@ bool MainApp::Render()
 	}
 	return true;
 }
-// 자워을 사용했으면 반납해라
+// 자원을 사용했으면 반납해라
 void MainApp::DestoryMainApp()
 {
 	if (nullptr != mPlayer) {
@@ -76,5 +79,9 @@ void MainApp::DestoryMainApp()
 	if (nullptr != pistol) {
 		delete pistol;
 		pistol = nullptr;
+	}
+	if (nullptr != pKeyboard) {
+		delete pKeyboard;
+		pKeyboard = nullptr;
 	}
 }
