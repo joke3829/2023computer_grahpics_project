@@ -7,15 +7,12 @@ ProjObj::ProjObj() {
 	Initialize();
 }
 
-// 파괴자
-ProjObj::~ProjObj() {};
-
 // 초기화 함수
 void ProjObj::Initialize()
 {
 	shader = ShaderProgram::getShader();
 	fovy = 45;
-	aspect = 1;
+	aspect = 1280.0f / 720.0f;
 	n = 0.1;
 	f = 200;
 	OutToShader();

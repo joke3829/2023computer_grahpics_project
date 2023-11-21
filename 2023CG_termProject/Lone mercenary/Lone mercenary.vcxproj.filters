@@ -43,8 +43,14 @@
     <Filter Include="소스 파일\MainApp">
       <UniqueIdentifier>{d1b5bcc5-afbd-4460-acfe-5015c27fd261}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\RenderManager">
-      <UniqueIdentifier>{1f9fb4b6-3896-43aa-9d37-c9e6bb4ab282}</UniqueIdentifier>
+    <Filter Include="소스 파일\Player_enemy_item\weapons">
+      <UniqueIdentifier>{2b297541-100c-4d49-bfa4-d5ffb0ca577a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Player_enemy_item\weapons\knife">
+      <UniqueIdentifier>{e16a1ada-31cc-4f75-9bb8-4df145ef1c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Player_enemy_item\weapons\pistol">
+      <UniqueIdentifier>{654cd604-fbeb-4b9f-b992-0f03ec5edeb7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,8 +81,11 @@
     <ClInclude Include="MainApp.h">
       <Filter>소스 파일\MainApp</Filter>
     </ClInclude>
-    <ClInclude Include="RenderManager.h">
-      <Filter>소스 파일\RenderManager</Filter>
+    <ClInclude Include="Pistol.h">
+      <Filter>소스 파일\Player_enemy_item\weapons\pistol</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -104,8 +113,8 @@
     <ClCompile Include="MainApp.cpp">
       <Filter>소스 파일\MainApp</Filter>
     </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
-      <Filter>소스 파일\RenderManager</Filter>
+    <ClCompile Include="Pistol.cpp">
+      <Filter>소스 파일\Player_enemy_item\weapons\pistol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

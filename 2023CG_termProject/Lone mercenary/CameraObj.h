@@ -9,7 +9,6 @@ class ShaderProgram;
 class CameraObj {
 public:
 	CameraObj();
-	~CameraObj();
 	
 	// 카메라 조작 함수 추가
 
@@ -21,6 +20,9 @@ private:
 	glm::vec3 cameraUP;			// 카메라 UP
 
 	glm::mat4 viewMatrix;		// 뷰변환 행렬
+
+	glm::vec2 rotation_angle;	// 카메라 회전 각
+	float camera_dis;			// EYE - AT의 크기
 
 	void OutToShader();
 	void Initialize();

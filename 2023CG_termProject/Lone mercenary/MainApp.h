@@ -8,10 +8,13 @@
 class CharacterBase;
 class CameraObj;
 class ProjObj;
+class Pistol;
 
 class MainApp {
 public:
-	bool Initialize();
+	// 미완성, 수정 예정
+	bool Initialize();				
+	bool test_Initialize();			// 테스트용 초기화
 	bool Update_MainApp();
 	void DestoryMainApp();
 	bool Render();
@@ -21,4 +24,5 @@ private:
 	CharacterBase* mPlayer;
 	CameraObj* camera;
 	ProjObj* proj;
+	Pistol* pistol;
 };

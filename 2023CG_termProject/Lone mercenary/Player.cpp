@@ -10,16 +10,10 @@
 
 //==========================Player===========================
 
-Player::Player() : CharacterBase() {};
-
 Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
 
-}
-
-Player::~Player()
-{
 }
 
 //===========================================================

@@ -1,6 +1,7 @@
 
 
 #include "MainApp.h"
+#include "Mouse.h"
 #pragma comment(lib, "freeglut")
 #pragma comment(lib, "glew32")
 
@@ -20,7 +21,8 @@ MainApp* mainApp;			// MainApp 포인터
 
 void main(int argc, char** argv)
 {
-	width = height = 800;
+	width = 1280;
+	height = 720;
 	frameTime = 1000 / 60;			// 1초에 60번 출력
 	//윈도우 생성하기
 	glutInit(&argc, argv);							// glut 초기화
@@ -40,8 +42,8 @@ void main(int argc, char** argv)
 		std::cout << "GLEW Initialized\n";
 
 	//============================================================
-	mainApp = new MainApp;			// MainApp 생성
-	if (not mainApp->Initialize()) {				// MainApp 초기화
+	mainApp = new MainApp;								// MainApp 생성
+	if (not mainApp->test_Initialize()) {				// MainApp 초기화
 		std::cout << "MainApp 초기화 실패!" << std::endl;
 		return;
 	}
@@ -72,6 +74,7 @@ GLvoid Reshape(int w, int h)						// 콜백 함수: 다시 그리기 콜백 함수
 
 void Timer(int value)
 {
+	mainApp->Update_MainApp();
 	glutPostRedisplay();
 	glutTimerFunc(frameTime, Timer, 0);
 }

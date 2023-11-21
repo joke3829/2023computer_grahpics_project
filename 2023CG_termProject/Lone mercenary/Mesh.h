@@ -3,7 +3,7 @@
 // 메쉬 출력 맟 관리 헤더
 // 상속 시켜 각자 변환 사용하자
 //============================================================
-
+#pragma once
 #include "stdafx.h"
 
 class ShaderProgram;
@@ -11,6 +11,11 @@ class Mesh {
 public:
 	Mesh(std::string);
 	virtual ~Mesh();
+
+	void init_scale(float);							// 초기 스케일 조정
+	void init_position(float, float, float);		// 초기 위치 설정
+	void init_rotate(float, float, float, float);	// 초기 회전 설정
+
 	void Render() const;
 protected:
 	unsigned int triangle_num;
@@ -21,9 +26,15 @@ protected:
 	std::vector<glm::vec3> vertex_normal;	// 노말
 	std::vector<unsigned int> index;
 
-	glm::mat4 scaleMatrix;					// 스케일
-	glm::mat4 rotateMatrix;					// 자전
-	glm::mat4 transMatrix;					// 이동
+	glm::mat4 modelTrans;
+	glm::mat4 rotateMatrix;		// 노말 벡터를 돌리기 위한 행렬
+
+	glm::vec3 init_pos;			// 초기 위치 지정
+	glm::vec3 cur_loc;			// 현재 위치
+
+	glm::vec3 init_rot;			// 초기 회전
+	glm::vec3 cur_rot;			// 현재 회전각
+
 
 	bool ReadOBJ(std::string);		// OBJ읽어오기
 	void Initialize(std::string);				// 초기화

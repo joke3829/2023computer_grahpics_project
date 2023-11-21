@@ -9,7 +9,6 @@ class ShaderProgram;
 class ProjObj {
 public:
 	ProjObj();
-	~ProjObj();
 	
 	// 필요하면 변경 함수 추가
 

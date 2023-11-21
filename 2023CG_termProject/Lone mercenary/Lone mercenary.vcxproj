@@ -133,9 +133,10 @@
     <ClInclude Include="ENUM.h" />
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProjObj.h" />
-    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
@@ -145,9 +146,9 @@
     <ClCompile Include="LM.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjObj.cpp" />
-    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
