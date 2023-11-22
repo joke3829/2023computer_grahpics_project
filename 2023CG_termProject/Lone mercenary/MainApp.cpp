@@ -23,6 +23,13 @@ bool MainApp::test_Initialize()
 	camera = new CameraObj;
 	proj = new ProjObj;
 	pistol = new Pistol("test_obj\\cube.obj", 10, 10);
+<<<<<<< Updated upstream
+=======
+	pKeyboard = new KeyboardFunc(mPlayer, camera);
+	pMouse = new MouseFunc(mPlayer);
+	pKeyboard->setGame_stete(game_state);
+	pMouse->setGame_stete(game_state);
+>>>>>>> Stashed changes
 	return true;
 }
 
@@ -77,4 +84,15 @@ void MainApp::DestoryMainApp()
 		delete pistol;
 		pistol = nullptr;
 	}
+<<<<<<< Updated upstream
+=======
+	if (nullptr != pKeyboard) {
+		delete pKeyboard;
+		pKeyboard = nullptr;
+	}
+	if (nullptr != pMouse) {
+		delete pMouse;
+		pMouse = nullptr;
+	}
+>>>>>>> Stashed changes
 }

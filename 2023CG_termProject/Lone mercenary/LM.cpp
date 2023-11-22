@@ -23,7 +23,7 @@ void main(int argc, char** argv)
 {
 	width = 1280;
 	height = 720;
-	frameTime = 1000 / 60;			// 1초에 60번 출력
+	frameTime = 1000.0f / 60.0f;			// 1초에 60번 출력
 	//윈도우 생성하기
 	glutInit(&argc, argv);							// glut 초기화
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);	// 디스플레이 모드 설정
@@ -51,6 +51,18 @@ void main(int argc, char** argv)
 
 	glutDisplayFunc(drawScene);						// 출력 함수의 지정
 	glutReshapeFunc(Reshape);						// 다시 그리기 함수 지정
+<<<<<<< Updated upstream
+=======
+	glutKeyboardFunc([](unsigned char key, int x, int y) {
+		mainApp->pKeyboard->Keyboard(key, x, y);
+	});						// 키 누를 때
+	glutKeyboardUpFunc([](unsigned char key, int x, int y) {
+		mainApp->pKeyboard->KeyboardUp(key, x, y);
+	});					// 키 뗄때
+	glutPassiveMotionFunc([](int x,int y) {
+		mainApp->pMouse->Motion(x_conversion(x,1280), y_conversion(y, 720));
+	});
+>>>>>>> Stashed changes
 	glutTimerFunc(frameTime, Timer, 0);
 	glutMainLoop();									// 이벤트 처리 시작
 }
