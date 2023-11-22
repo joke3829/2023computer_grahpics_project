@@ -19,9 +19,11 @@ bool MainApp::test_Initialize()
 	mPlayer = new Player(100, 200, 5, 10, 0);
 	camera = new CameraObj;
 	proj = new ProjObj;
-	pistol = new Pistol("test_obj\\cube.obj", 10, 10);
+	pistol = new Pistol("test_obj\\obj_rifle.obj", 10, 10);
 	pKeyboard = new KeyboardFunc(mPlayer, camera);
 	pKeyboard->setGame_stete(game_state);
+
+	field = new Field;
 	return true;
 }
 
@@ -57,6 +59,7 @@ bool MainApp::Render()
 		break;
 	case ÇÊµå:
 		pistol->Render();
+		field->Render();
 		break;
 	}
 	return true;
@@ -83,5 +86,9 @@ void MainApp::DestoryMainApp()
 	if (nullptr != pKeyboard) {
 		delete pKeyboard;
 		pKeyboard = nullptr;
+	}
+	if (nullptr != field) {
+		delete field;
+		field = nullptr;
 	}
 }

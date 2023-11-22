@@ -11,6 +11,7 @@ class CameraObj;
 class ProjObj;
 class Pistol;
 class KeyboardFunc;
+class Field;
 
 class MainApp {
 public:
@@ -24,8 +25,12 @@ public:
 protected:
 private:
 	int game_state;
-	CharacterBase* mPlayer;
 	CameraObj* camera;
 	ProjObj* proj;
+
+
+	CharacterBase* mPlayer;
 	Pistol* pistol;
+
+	Field* field;
 };
