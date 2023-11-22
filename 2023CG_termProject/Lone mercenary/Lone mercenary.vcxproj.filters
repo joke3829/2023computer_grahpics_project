@@ -58,6 +58,18 @@
     <Filter Include="소스 파일\control\keyboard">
       <UniqueIdentifier>{104d144e-7dc5-4c4f-aef4-38de82bfc8a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\scene">
+      <UniqueIdentifier>{8cc3840c-6584-43f1-9556-74e3685a9fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\scene\field">
+      <UniqueIdentifier>{067c1d69-4b78-4f64-b326-e86195f90fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Player_enemy_item\Enemy">
+      <UniqueIdentifier>{f2cfc734-fbe5-428f-9bfa-c5783fac66a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Player_enemy_item\Enemy\normal_zombie">
+      <UniqueIdentifier>{d4be7427-48de-4aa8-9382-2d3d508488ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderProgram.h">
@@ -99,6 +111,12 @@
     <ClInclude Include="main_define.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>소스 파일\scene\field</Filter>
+    </ClInclude>
+    <ClInclude Include="NM_zombie.h">
+      <Filter>소스 파일\Player_enemy_item\Enemy\normal_zombie</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShaderProgram.cpp">
@@ -130,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="KeyboardFunc.cpp">
       <Filter>소스 파일\control\keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>소스 파일\scene\field</Filter>
+    </ClCompile>
+    <ClCompile Include="NM_zombie.cpp">
+      <Filter>소스 파일\Player_enemy_item\Enemy\normal_zombie</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -237,4 +237,20 @@ void Mesh::init_rotate(float rad, float x, float y, float z)
 		init_rot.z += rad;
 	glm::mat4 temp = glm::mat4(1.0f);
 	modelTrans = glm::rotate(temp, glm::radians(rad), glm::vec3(x, y, z)) * modelTrans;
+	temp = glm::mat4(1.0f);
+	rotateMatrix = glm::rotate(temp, glm::radians(rad), glm::vec3(x, y, z)) * rotateMatrix;
+}
+
+void Mesh::setLoc(glm::vec3 new_loc)
+{
+	glm::mat4 temp(1.0f);
+	modelTrans = glm::translate(temp, -cur_loc) * modelTrans; temp = glm::mat4(1.0f);
+	cur_loc = new_loc;
+	modelTrans = glm::translate(temp, cur_loc) * modelTrans;
+}
+
+void Mesh::setRot(glm::vec3 new_rot)
+{
+	glm::mat4 temp(1.0f);
+	
 }
