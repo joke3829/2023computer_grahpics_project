@@ -52,10 +52,75 @@
     <Filter Include="소스 파일\Player_enemy_item\weapons\pistol">
       <UniqueIdentifier>{654cd604-fbeb-4b9f-b992-0f03ec5edeb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\ProjObj">
+      <UniqueIdentifier>{a8f9fc96-8274-40bb-9097-e94a24b6e793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Shader">
+      <UniqueIdentifier>{22f4e8c1-d8d1-4b51-9eca-e038dbc40656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Shader\ShaderFile">
+      <UniqueIdentifier>{d4e04793-bc37-4566-8cab-d8b7fd315631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Shader\ShaderProgram">
+      <UniqueIdentifier>{0819e532-7ab2-423b-8198-100674a9aad0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Weapon\Rifle">
+      <UniqueIdentifier>{bd10f1ed-b4cb-48f8-9f90-04d4db665470}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Weapon\Knife">
+      <UniqueIdentifier>{65ac4fa8-3b3d-4c6f-bf52-f57ca945b8be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ShaderProgram.h">
-      <Filter>소스 파일\Shader\shaderProgram</Filter>
+    <ClCompile Include="CameraObj.cpp">
+      <Filter>소스 파일\CameraObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterBase.cpp">
+      <Filter>소스 파일\Player, Item, Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>소스 파일\Scene\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardFunc.cpp">
+      <Filter>소스 파일\Control\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="LM.cpp">
+      <Filter>소스 파일\Lone_mercenary</Filter>
+    </ClCompile>
+    <ClCompile Include="MainApp.cpp">
+      <Filter>소스 파일\MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>소스 파일\MeshBase</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseFunc.cpp">
+      <Filter>소스 파일\Control\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="NM_zombie.cpp">
+      <Filter>소스 파일\Player, Item, Enemy\Enemy\Normal_zombie</Filter>
+    </ClCompile>
+    <ClCompile Include="Pistol.cpp">
+      <Filter>소스 파일\Weapon\Pistol</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\Player, Item, Enemy\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjObj.cpp">
+      <Filter>소스 파일\ProjObj</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram.cpp">
+      <Filter>소스 파일\Shader\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="Rifle.cpp">
+      <Filter>소스 파일\Weapon\Rifle</Filter>
+    </ClCompile>
+    <ClCompile Include="Knife.cpp">
+      <Filter>소스 파일\Weapon\Knife</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CameraObj.h">
+      <Filter>소스 파일\CameraObj</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>헤더 파일</Filter>
@@ -86,6 +151,15 @@
     </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgram.h">
+      <Filter>소스 파일\Shader\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Rifle.h">
+      <Filter>소스 파일\Weapon\Rifle</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
+      <Filter>소스 파일\Weapon\Knife</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

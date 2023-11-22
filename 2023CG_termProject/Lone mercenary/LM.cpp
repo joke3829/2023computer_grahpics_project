@@ -51,8 +51,6 @@ void main(int argc, char** argv)
 
 	glutDisplayFunc(drawScene);						// 출력 함수의 지정
 	glutReshapeFunc(Reshape);						// 다시 그리기 함수 지정
-<<<<<<< Updated upstream
-=======
 	glutKeyboardFunc([](unsigned char key, int x, int y) {
 		mainApp->pKeyboard->Keyboard(key, x, y);
 	});						// 키 누를 때
@@ -60,9 +58,11 @@ void main(int argc, char** argv)
 		mainApp->pKeyboard->KeyboardUp(key, x, y);
 	});					// 키 뗄때
 	glutPassiveMotionFunc([](int x,int y) {
-		mainApp->pMouse->Motion(x_conversion(x,1280), y_conversion(y, 720));
+		mainApp->pMouse->MotionPassive(x, y);
 	});
->>>>>>> Stashed changes
+	glutMouseFunc([](int button,int state,int x, int y) {
+		mainApp->pMouse->Mouse(button,state,x, y);
+	});
 	glutTimerFunc(frameTime, Timer, 0);
 	glutMainLoop();									// 이벤트 처리 시작
 }

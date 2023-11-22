@@ -10,4 +10,4 @@ enum GAME_STATE{타이틀, 메인, 아이템선택, 필드, 결과창};
 enum EQUIP_ITEM{김도영의_자켓, 김도영의_핸드폰, 등등};
 
 // 무기별 번호, 추가하기---
-enum WEAPONS{나이프, 권총};
+enum WEAPONS{나이프, 권총, 라이플};

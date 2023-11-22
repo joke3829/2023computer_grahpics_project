@@ -10,3 +10,14 @@ float Pistol::getATK()
 {
 	return ATK;
 }
+
+void Pistol::Shoot()
+{
+	if (reloaded_ammo > 0) {
+		reloaded_ammo--;
+		std::cout << "남은 총알 - " << reloaded_ammo << std::endl;
+	}
+	else {
+		std::cout << "못쏴용가리치킨~"<< std::endl;
+	}
+}

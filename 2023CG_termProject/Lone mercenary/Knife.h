@@ -1,6 +1,6 @@
 //=========================================================
-// Pistol.h
-// 권총 클래스
+// Knife.h
+// 나이프 클래스
 //=========================================================
 #pragma once
 
@@ -8,11 +8,12 @@
 #include "Mesh.h"
 #include "CharacterBase.h"
 
-class Pistol : public Mesh, public CharacterBase {
+class Knife :  public CharacterBase, public Mesh {
 public:
-	Pistol(std::string filename, int s_ammo, int r_ammo);
-	void Shoot();
+	Knife(std::string filename, int s_ammo, int r_ammo);
+
 	float getATK();					// 공격력 받아오기
+	void Shoot();
 protected:
 private:
 	int weapon_num;			// 무기 번호

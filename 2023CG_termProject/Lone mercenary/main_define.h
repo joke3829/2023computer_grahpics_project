@@ -8,5 +8,7 @@
 #include "ProjObj.h"
 #include "Player.h"
 #include "Pistol.h"
+#include "Rifle.h"
+#include "Knife.h"
 #include "KeyboardFunc.h"
 #include "MouseFunc.h"

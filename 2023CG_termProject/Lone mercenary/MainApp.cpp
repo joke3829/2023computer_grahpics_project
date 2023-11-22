@@ -19,17 +19,18 @@ bool MainApp::Initialize()
 bool MainApp::test_Initialize()
 {
 	game_state = 필드;
-	mPlayer = new Player(100, 200, 5, 10, 0);
+	mPlayer = new Player(100, 200, 8, 10, 0);
 	camera = new CameraObj;
 	proj = new ProjObj;
-	pistol = new Pistol("test_obj\\cube.obj", 10, 10);
-<<<<<<< Updated upstream
-=======
+	pistol = new Pistol("test_obj\\obj_rifle.obj", 10, 10);
+	rifle = new Rifle("test_obj\\obj_rifle.obj", 30, 30);
+	knife = new Knife("test_obj\\obj_rifle.obj", 1, 1);
 	pKeyboard = new KeyboardFunc(mPlayer, camera);
 	pMouse = new MouseFunc(mPlayer);
 	pKeyboard->setGame_stete(game_state);
 	pMouse->setGame_stete(game_state);
->>>>>>> Stashed changes
+
+	glutWarpPointer(1280 / 2, 720 / 2);
 	return true;
 }
 
@@ -44,6 +45,10 @@ bool MainApp::Update_MainApp()
 	case 아이템선택:
 		break;
 	case 필드:
+		//  업데이트 헤더에서 애니메이션 적용하기
+		dynamic_cast<Player*>(mPlayer)->animation();
+		camera->setCameraEYE(dynamic_cast<Player*>(mPlayer)->getLoc());		// 카메라 업데이트 해주기
+		camera->setCameraAngle(dynamic_cast<Player*>(mPlayer)->getRot());
 		break;
 	case 결과창:
 		break;
@@ -61,11 +66,12 @@ bool MainApp::Render()
 		break;
 	case 필드:
 		pistol->Render();
+		field->Render();
 		break;
 	}
 	return true;
 }
-// 자워을 사용했으면 반납해라
+// 자원을 사용했으면 반납해라
 void MainApp::DestoryMainApp()
 {
 	if (nullptr != mPlayer) {
@@ -84,8 +90,14 @@ void MainApp::DestoryMainApp()
 		delete pistol;
 		pistol = nullptr;
 	}
-<<<<<<< Updated upstream
-=======
+	if (nullptr != knife) {
+		delete knife;
+		knife = nullptr;
+	}
+	if (nullptr != rifle) {
+		delete rifle;
+		rifle = nullptr;
+	}
 	if (nullptr != pKeyboard) {
 		delete pKeyboard;
 		pKeyboard = nullptr;

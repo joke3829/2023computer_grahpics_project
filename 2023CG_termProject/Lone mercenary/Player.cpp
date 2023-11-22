@@ -1,4 +1,7 @@
 #include "Player.h"
+#include "Knife.h"
+#include "Pistol.h"
+#include "Rifle.h"
 
 // =========================P_Mesh==========================
 
@@ -13,9 +16,11 @@
 Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
-	cur_loc = glm::vec3(-20, 0, 10);				// 초기 위치 지정, 이거 바꿔주면 자연스래 카메라도 위치 바뀜
-	cur_rot = glm::vec2(0.0f,0.0f);
+	weapon = 나이프; //기본 무기는 나이프
+	cur_loc = glm::vec3(-20, 10, 10);				// 초기 위치 지정, 이거 바꿔주면 자연스래 카메라도 위치 바뀜
+	cur_rot = glm::vec2(0.0f, 0.0f);
 	move[0] = move[1] = move[2] = move[3] = false;
+	mousesense = 0.02f;
 }
 
 void Player::animation()
@@ -39,12 +44,8 @@ void Player::animation()
 	}
 	else if (move[0]) {
 		// 현재 cur_loc에 바라보는 방향으로 spd/60만큼 더한다.(60프레임이니까 4cm/s일시 4/60하자)
-<<<<<<< Updated upstream
-		
-=======
 		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x)), 0, glm::sin(glm::radians(cur_rot.x)));
 		cur_loc += (speed * dir) / 60.0f;
->>>>>>> Stashed changes
 	}
 	else if (move[1]) {
 		// 현재 cur_loc에 바라보는 방향의 왼쪽으로 이하 동문
@@ -61,9 +62,32 @@ void Player::animation()
 	}
 }
 
-void Player::setRot() {
+void Player::animi_rot(int garo,int sero) {
 	//마우스 움직임에 따른 각도 변환
-	cur_rot += 1.0f;
+	if (garo > 0) {
+		cur_rot.x += mousesense * garo;
+	}
+	if (garo < 0) {
+		cur_rot.x += mousesense * garo;
+	}
+	if (sero > 0) {
+		cur_rot.y -= mousesense * sero;
+	}
+	if (sero < 0) {
+		cur_rot.y -= mousesense * sero;
+	}
+	if (cur_rot.x > 360.0f) {
+		cur_rot.x = 0.0f;
+	}
+	if (cur_rot.x < -360.0f) {
+		cur_rot.x = 0.0f;
+	}
+	if (cur_rot.y > 90.0f) {
+		cur_rot.y = 0.0f;
+	}
+	if (cur_rot.y < -90.0f) {
+		cur_rot.y = 0.0f;
+	}
 }
 
 glm::vec3 Player::getLoc()
@@ -94,4 +118,44 @@ void Player::setMove(char way, bool flag)
 	}
 }
 
+void Player::setWeapon(char type)
+{
+	switch (type) {
+	case '1':
+		weapon = 라이플;
+		ATK = 20;
+		std::cout << "라이플 - " << ATK << std::endl;
+		break;
+	case '2':
+		weapon = 권총;
+		ATK = 10;
+		std::cout << "권총 - " << ATK << std::endl;
+		break;
+	case '3':
+		weapon = 나이프;
+		ATK = 5;
+		std::cout << "나이프 - " << ATK << std::endl;
+		break;
+	}
+}
+
+void Player::setsensative(char key)
+{
+	switch (key) {
+	case '+':
+		mousesense += 0.005f;
+		break;
+	case '-':
+		mousesense -= 0.005f;
+		if (mousesense <= 0.0f) {
+			mousesense = 0.005f;
+		}
+		break;
+	}
+}
+
+int Player::Weapon()
+{
+	return weapon;
+}
 //===========================================================
