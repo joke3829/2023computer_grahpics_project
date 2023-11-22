@@ -12,7 +12,7 @@ public:
 	MouseFunc(CharacterBase*);
 
 	void Mouse(int,int, int, int);
-	void Motion( int, int);
+	void MotionPassive( int, int);
 
 	void setGame_stete(int);
 protected:

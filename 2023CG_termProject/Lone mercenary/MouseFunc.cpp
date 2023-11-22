@@ -16,10 +16,11 @@ void MouseFunc::Mouse(int button,int state, int x, int y)
 	glutPostRedisplay();		// ???
 }
 
-void MouseFunc::Motion(int x, int y)
+void MouseFunc::MotionPassive(int x, int y)
 {
 	if (ÇÊµå == game_state) {
-		
+
+		glutWarpPointer(1280 / 2, 720 / 2);
 	}
 	glutPostRedisplay();		// ???
 }

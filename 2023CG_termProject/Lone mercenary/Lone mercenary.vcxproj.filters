@@ -70,6 +70,9 @@
     <Filter Include="소스 파일\Player_enemy_item\Enemy\normal_zombie">
       <UniqueIdentifier>{d4be7427-48de-4aa8-9382-2d3d508488ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\control\Mouse">
+      <UniqueIdentifier>{f41eb23f-09bf-4c47-b4f9-947a171aceb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderProgram.h">
@@ -105,14 +108,17 @@
     <ClInclude Include="Mouse.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardFunc.h">
-      <Filter>소스 파일\control\keyboard</Filter>
+    <ClInclude Include="MouseFunc.h">
+      <Filter>소스 파일\control\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>소스 파일\scene\field</Filter>
     </ClInclude>
     <ClInclude Include="main_define.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Field.h">
-      <Filter>소스 파일\scene\field</Filter>
+    <ClInclude Include="KeyboardFunc.h">
+      <Filter>소스 파일\control\keyboard</Filter>
     </ClInclude>
     <ClInclude Include="NM_zombie.h">
       <Filter>소스 파일\Player_enemy_item\Enemy\normal_zombie</Filter>
@@ -146,11 +152,14 @@
     <ClCompile Include="Pistol.cpp">
       <Filter>소스 파일\Player_enemy_item\weapons\pistol</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardFunc.cpp">
-      <Filter>소스 파일\control\keyboard</Filter>
+    <ClCompile Include="MouseFunc.cpp">
+      <Filter>소스 파일\control\Mouse</Filter>
     </ClCompile>
     <ClCompile Include="Field.cpp">
       <Filter>소스 파일\scene\field</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardFunc.cpp">
+      <Filter>소스 파일\control\keyboard</Filter>
     </ClCompile>
     <ClCompile Include="NM_zombie.cpp">
       <Filter>소스 파일\Player_enemy_item\Enemy\normal_zombie</Filter>

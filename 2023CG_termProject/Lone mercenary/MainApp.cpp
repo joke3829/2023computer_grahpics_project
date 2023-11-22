@@ -26,6 +26,8 @@ bool MainApp::test_Initialize()
 	field = new Field;
 	pMouse = new MouseFunc(mPlayer);
 	pMouse->setGame_stete(game_state);
+
+	glutWarpPointer(1280 / 2, 720 / 2);
 	return true;
 }
 
