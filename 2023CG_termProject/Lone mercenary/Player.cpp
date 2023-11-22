@@ -14,7 +14,7 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
 	cur_loc = glm::vec3(-20, 0, 10);				// 초기 위치 지정, 이거 바꿔주면 자연스래 카메라도 위치 바뀜
-	cur_rot = glm::vec2(0.0f,0.0f);
+	cur_rot = glm::vec2(0.0f, 0.0f);
 	move[0] = move[1] = move[2] = move[3] = false;
 }
 
