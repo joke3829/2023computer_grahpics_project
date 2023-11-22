@@ -24,6 +24,8 @@ bool MainApp::test_Initialize()
 	pKeyboard->setGame_stete(game_state);
 
 	field = new Field;
+	pMouse = new MouseFunc(mPlayer);
+	pMouse->setGame_stete(game_state);
 	return true;
 }
 
@@ -90,5 +92,9 @@ void MainApp::DestoryMainApp()
 	if (nullptr != field) {
 		delete field;
 		field = nullptr;
+	}
+	if (nullptr != pMouse) {
+		delete pMouse;
+		pMouse = nullptr;
 	}
 }

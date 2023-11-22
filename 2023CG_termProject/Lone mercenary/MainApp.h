@@ -5,13 +5,15 @@
 
 #include "stdafx.h"
 #include "KeyboardFunc.h"
+#include "MouseFunc.h"
 
 class CharacterBase;
 class CameraObj;
 class ProjObj;
 class Pistol;
-class KeyboardFunc;
 class Field;
+class KeyboardFunc;
+class MouseFunc;
 
 class MainApp {
 public:
@@ -22,6 +24,7 @@ public:
 	void DestoryMainApp();
 	bool Render();
 	KeyboardFunc* pKeyboard;
+	MouseFunc* pMouse;
 protected:
 private:
 	int game_state;

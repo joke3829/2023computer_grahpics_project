@@ -104,7 +104,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,13 +131,10 @@
     <ClInclude Include="CameraObj.h" />
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="ENUM.h" />
-    <ClInclude Include="Field.h" />
-    <ClInclude Include="KeyboardFunc.h" />
     <ClInclude Include="MainApp.h" />
-    <ClInclude Include="main_define.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mouse.h" />
-    <ClInclude Include="NM_zombie.h" />
+    <ClInclude Include="MouseFunc.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProjObj.h" />
@@ -148,12 +144,10 @@
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp" />
     <ClCompile Include="CharacterBase.cpp" />
-    <ClCompile Include="Field.cpp" />
-    <ClCompile Include="KeyboardFunc.cpp" />
     <ClCompile Include="LM.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="NM_zombie.cpp" />
+    <ClCompile Include="MouseFunc.cpp" />
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjObj.cpp" />

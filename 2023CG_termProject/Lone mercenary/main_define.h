@@ -10,3 +10,4 @@
 #include "Pistol.h"
 #include "KeyboardFunc.h"
 #include "Field.h"
+#include "MouseFunc.h"
