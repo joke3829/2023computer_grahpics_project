@@ -25,6 +25,11 @@ void Player::animation()
 	// ex)
 	if (move[0]) {
 		// 현재 cur_loc에 바라보는 방향으로 spd/60만큼 더한다.(60프레임이니까 4cm/s일시 4/60하자)
+<<<<<<< Updated upstream
+=======
+		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x)), 0, glm::sin(glm::radians(cur_rot.x)));
+		cur_loc += (speed * dir) / 60.0f;
+>>>>>>> Stashed changes
 	}
 	else if (move[1]) {
 		// 현재 cur_loc에 바라보는 방향의 왼쪽으로 이하 동문

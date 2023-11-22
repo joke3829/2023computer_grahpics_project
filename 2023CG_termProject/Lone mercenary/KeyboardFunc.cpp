@@ -17,6 +17,21 @@ void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
 		case 'w':
 			dynamic_cast<Player*>(mPlayer)->setMove('w', true);
 			break;
+<<<<<<< Updated upstream
+=======
+		case 'a':
+			dynamic_cast<Player*>(mPlayer)->setMove('a', true);
+			break;
+		case 's':
+			dynamic_cast<Player*>(mPlayer)->setMove('s', true);
+			break;
+		case 'd':
+			dynamic_cast<Player*>(mPlayer)->setMove('d', true);
+			break;
+		case 27:	// ESC 그 잘난 김도영이 해냈습니다.
+			glutLeaveMainLoop();
+			break;
+>>>>>>> Stashed changes
 		}
 	}
 	glutPostRedisplay();		// ???

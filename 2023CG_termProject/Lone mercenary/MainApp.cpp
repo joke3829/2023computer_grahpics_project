@@ -24,6 +24,13 @@ bool MainApp::test_Initialize()
 	pKeyboard->setGame_stete(game_state);
 
 	field = new Field;
+<<<<<<< Updated upstream
+=======
+	pMouse = new MouseFunc(mPlayer);
+	pMouse->setGame_stete(game_state);
+
+	glutWarpPointer(1280 / 2, 720 / 2);
+>>>>>>> Stashed changes
 	return true;
 }
 

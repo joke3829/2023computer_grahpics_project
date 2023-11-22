@@ -138,6 +138,10 @@
     <ClInclude Include="main_define.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mouse.h" />
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="MouseFunc.h" />
+>>>>>>> Stashed changes
     <ClInclude Include="NM_zombie.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
@@ -153,6 +157,10 @@
     <ClCompile Include="LM.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Mesh.cpp" />
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="MouseFunc.cpp" />
+>>>>>>> Stashed changes
     <ClCompile Include="NM_zombie.cpp" />
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />

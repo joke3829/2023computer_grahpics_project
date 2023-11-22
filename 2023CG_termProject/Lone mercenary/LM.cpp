@@ -56,7 +56,13 @@ void main(int argc, char** argv)
 	glutKeyboardUpFunc([](unsigned char key, int x, int y) {
 		mainApp->pKeyboard->KeyboardUp(key, x, y);
 	});					// 키 뗄때
+<<<<<<< Updated upstream
 	//glutPassiveMotionFunc
+=======
+	glutPassiveMotionFunc([](int x,int y) {
+		mainApp->pMouse->MotionPassive(x, y);
+	});
+>>>>>>> Stashed changes
 	glutTimerFunc(frameTime, Timer, 0);
 	glutMainLoop();									// 이벤트 처리 시작
 }
