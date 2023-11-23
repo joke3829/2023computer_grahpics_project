@@ -135,6 +135,9 @@
     <ClCompile Include="Rifle.cpp">
       <Filter>소스 파일\Weapon\Rifle</Filter>
     </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -231,6 +234,9 @@
     </ClInclude>
     <ClInclude Include="Rifle.h">
       <Filter>소스 파일\Weapon\Rifle</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>소스 파일\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,5 @@
 #include "Player.h"
-#include "Knife.h"
-#include "Pistol.h"
-#include "Rifle.h"
+#include "Weapon.h"
 
 // =========================P_Mesh==========================
 
@@ -21,6 +19,9 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	cur_rot = glm::vec2(0.0f, 0.0f);
 	move[0] = move[1] = move[2] = move[3] = false;
 	mousesense = 0.02f;
+	pistol = new Pistol("",10,10);
+	rifle = new Rifle("",30,30);
+	knife = new Knife("",1,1);
 }
 
 void Player::animation()
@@ -122,21 +123,29 @@ void Player::setWeapon(char type)
 {
 	switch (type) {
 	case '1':
-		weapon = 라이플;
-		ATK = 20;
-		std::cout << "라이플 - " << ATK << std::endl;
+		cur_Wea = rifle;
+		weapon = cur_Wea->getWep();
+		ATK = cur_Wea->getATK();
+		std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	case '2':
-		weapon = 권총;
-		ATK = 10;
-		std::cout << "권총 - " << ATK << std::endl;
+		cur_Wea = pistol;
+		weapon = cur_Wea->getWep();
+		ATK = cur_Wea->getATK();
+		std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	case '3':
-		weapon = 나이프;
-		ATK = 5;
-		std::cout << "나이프 - " << ATK << std::endl;
+		cur_Wea = knife;
+		weapon = cur_Wea->getWep();
+		ATK = cur_Wea->getATK();
+		std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	}
+}
+
+void Player::attack()
+{
+	cur_Wea->Shoot();
 }
 
 void Player::setsensative(char key)

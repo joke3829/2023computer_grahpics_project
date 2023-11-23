@@ -7,6 +7,7 @@
 
 
 #include "CharacterBase.h"
+#include "Weapon.h"
 
 class Player : public CharacterBase {
 private:
@@ -15,6 +16,10 @@ private:
 	bool move[4];		// 0 w, 1 a
 	int weapon;
 	float mousesense;
+	Weapon* cur_Wea = nullptr;
+	Weapon* pistol;
+	Weapon* rifle;
+	Weapon* knife;
 protected:
 
 public:
@@ -26,7 +31,7 @@ public:
 	void setMove(char, bool);
 	void setsensative(char);
 	void setWeapon(char);
-
+	void attack();
 	glm::vec3 getLoc();				// 현재 위치 받아오기
 	glm::vec2 getRot();				// 현재 바라보는 방향 받아오기
 	int Weapon();

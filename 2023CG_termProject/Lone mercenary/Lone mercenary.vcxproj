@@ -131,17 +131,24 @@
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="KeyboardFunc.cpp" />
-    <ClCompile Include="Knife.cpp" />
+    <ClCompile Include="Knife.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="LM.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MouseFunc.cpp" />
     <ClCompile Include="NM_zombie.cpp" />
-    <ClCompile Include="Pistol.cpp" />
+    <ClCompile Include="Pistol.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjObj.cpp" />
-    <ClCompile Include="Rifle.cpp" />
+    <ClCompile Include="Rifle.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraObj.h" />
@@ -149,19 +156,26 @@
     <ClInclude Include="ENUM.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="KeyboardFunc.h" />
-    <ClInclude Include="Knife.h" />
+    <ClInclude Include="Knife.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="main_define.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseFunc.h" />
     <ClInclude Include="NM_zombie.h" />
-    <ClInclude Include="Pistol.h" />
+    <ClInclude Include="Pistol.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProjObj.h" />
-    <ClInclude Include="Rifle.h" />
+    <ClInclude Include="Rifle.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ShaderFile\FragmentShader.glsl" />

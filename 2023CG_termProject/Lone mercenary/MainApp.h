@@ -10,9 +10,7 @@
 class CharacterBase;
 class CameraObj;
 class ProjObj;
-class Pistol;
-class Rifle;
-class Knife;
+class Weapon;
 class Field;
 class KeyboardFunc;
 class MouseFunc;
@@ -35,9 +33,9 @@ private:
 
 
 	CharacterBase* mPlayer;
-	Pistol* pistol;
-	Rifle* rifle;
-	Knife* knife;
+	//Weapon* pistol;
+	//Weapon* rifle;
+	//Weapon* knife;
 
 	Field* field;
 };

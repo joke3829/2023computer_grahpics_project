@@ -15,20 +15,7 @@ void MouseFunc::Mouse(int button, int state, int x, int y)
 {
 	if (필드 == game_state) {
 		if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-			switch (dynamic_cast<Player*>(mPlayer)->Weapon()) {
-			case 나이프:
-			{
-				Knife* knifePtr = dynamic_cast<Knife*>(mPlayer);
-				if (knifePtr == nullptr) {
-					std::cout << "skir" << std::endl;
-
-				}
-				//dynamic_cast<Knife*>(mPlayer)->Shoot();
-			}
-
-			
-			break;
-			}
+			dynamic_cast<Player*>(mPlayer)->attack();
 		}
 	}
 	glutPostRedisplay();		// ???

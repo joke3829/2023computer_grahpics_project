@@ -13,6 +13,7 @@ Mesh::~Mesh()
 	glDeleteBuffers(1, &EBO);
 	glDeleteBuffers(3, VBO);
 	glDeleteVertexArrays(1, &VAO);
+	std::cout << "Mesh »èÁ¦" << '\n';
 }
 
 void Mesh::Initialize(std::string filename)

@@ -19,9 +19,9 @@ bool MainApp::test_Initialize()
 	mPlayer = new Player(100, 200, 8, 10, 0);
 	camera = new CameraObj;
 	proj = new ProjObj;
-	pistol = new Pistol("test_obj\\obj_rifle.obj", 10, 10);
+	/*pistol = new Pistol("test_obj\\obj_rifle.obj", 10, 10);
 	rifle = new Rifle("test_obj\\obj_rifle.obj", 30, 30);
-	knife = new Knife("test_obj\\obj_rifle.obj", 1, 1);
+	knife = new Knife("test_obj\\obj_rifle.obj", 1, 1);*/
 	pKeyboard = new KeyboardFunc(mPlayer, camera);
 	pKeyboard->setGame_stete(game_state);
 
@@ -64,7 +64,7 @@ bool MainApp::Render()
 		
 		break;
 	case ÇÊµå:
-		pistol->Render();
+		//pistol->Render();
 		field->Render();
 		break;
 	}
@@ -85,7 +85,7 @@ void MainApp::DestoryMainApp()
 		delete proj;
 		proj = nullptr;
 	}
-	if (nullptr != pistol) {
+	/*if (nullptr != pistol) {
 		delete pistol;
 		pistol = nullptr;
 	}
@@ -96,7 +96,7 @@ void MainApp::DestoryMainApp()
 	if (nullptr != rifle) {
 		delete rifle;
 		rifle = nullptr;
-	}
+	}*/
 	if (nullptr != pKeyboard) {
 		delete pKeyboard;
 		pKeyboard = nullptr;
