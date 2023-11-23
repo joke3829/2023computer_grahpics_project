@@ -16,7 +16,7 @@ bool MainApp::Initialize()
 bool MainApp::test_Initialize()
 {
 	game_state = 필드;
-	mPlayer = new Player(100, 200, 8, 10, 0);
+	mPlayer = new Player(100, 200, 40, 10, 0);
 	camera = new CameraObj;
 	proj = new ProjObj;
 	/*pistol = new Pistol("test_obj\\obj_rifle.obj", 10, 10);
@@ -48,6 +48,9 @@ bool MainApp::Update_MainApp()
 		dynamic_cast<Player*>(mPlayer)->animation();
 		camera->setCameraEYE(dynamic_cast<Player*>(mPlayer)->getLoc());		// 카메라 업데이트 해주기
 		camera->setCameraAngle(dynamic_cast<Player*>(mPlayer)->getRot());
+		// 총기 위치 변경
+		dynamic_cast<Player*>(mPlayer)->getWeapon()->setLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
+		dynamic_cast<Player*>(mPlayer)->getWeapon()->setRot(dynamic_cast<Player*>(mPlayer)->getRot());
 		break;
 	case 결과창:
 		break;
@@ -64,8 +67,8 @@ bool MainApp::Render()
 		
 		break;
 	case 필드:
-		//pistol->Render();
 		field->Render();
+		dynamic_cast<Player*>(mPlayer)->getWeapon()->Render();		// 현재 들고 있는 무기를 렌더링 합니다.
 		break;
 	}
 	return true;

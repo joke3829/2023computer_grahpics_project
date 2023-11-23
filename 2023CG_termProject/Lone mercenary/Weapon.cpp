@@ -26,29 +26,23 @@ void Weapon::Shoot()
 
 int Weapon::getWep()
 {
-	return 0;
+	return weapon_num;
 }
 //====================================================================
 
-Knife::Knife(std::string filename, int s_ammo, int r_ammo) : Weapon(filename,1,1){
+Knife::Knife(std::string filename, int s_ammo, int r_ammo) : Weapon(filename, s_ammo, r_ammo) {
 	weapon_num = 나이프;
-	total_ammo = s_ammo;
-	reloaded_ammo = r_ammo;
 }
 
 
 //========================================================================
-Pistol::Pistol(std::string filename, int s_ammo, int r_ammo) : Weapon(filename, 1, 1) {
+Pistol::Pistol(std::string filename, int s_ammo, int r_ammo) : Weapon(filename, s_ammo, r_ammo) {
 	weapon_num = 권총;
-	total_ammo = s_ammo;
-	reloaded_ammo = r_ammo;
 }
 
 //=================================================================================
-Rifle::Rifle(std::string filename, int s_ammo, int r_ammo) : Weapon(filename, 1, 1) {
+Rifle::Rifle(std::string filename, int s_ammo, int r_ammo) : Weapon(filename, s_ammo, r_ammo) {
 	weapon_num = 라이플;
-	total_ammo = s_ammo;
-	reloaded_ammo = r_ammo;
 }
 
 //==================================================================================

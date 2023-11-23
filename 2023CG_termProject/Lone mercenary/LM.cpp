@@ -57,7 +57,11 @@ void main(int argc, char** argv)
 	glutKeyboardUpFunc([](unsigned char key, int x, int y) {
 		mainApp->pKeyboard->KeyboardUp(key, x, y);
 	});					// Å° ¶¿¶§
-	glutPassiveMotionFunc([](int x,int y) {
+
+	glutMotionFunc([](int x, int y) {
+		mainApp->pMouse->MotionPassive(x, y);
+	});
+	glutPassiveMotionFunc([](int x,int y) {			// motionPassive
 		mainApp->pMouse->MotionPassive(x, y);
 	});
 	glutMouseFunc([](int button,int state,int x, int y) {

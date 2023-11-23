@@ -14,14 +14,23 @@
 Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
+	pistol = new Pistol("test_obj\\obj_rifle.obj",10,10);
+	rifle = new Rifle("test_obj\\obj_rifle.obj",30,30);
+	knife = new Knife("test_obj\\obj_rifle.obj",1,1);
+
+	knife->init_scale(0.2);
+	knife->init_rotate(-90, 0, 1, 0);
+	knife->init_position(1, -0.5, 0.35);
+
 	weapon = 나이프; //기본 무기는 나이프
-	cur_loc = glm::vec3(-20, 10, 10);				// 초기 위치 지정, 이거 바꿔주면 자연스래 카메라도 위치 바뀜
+	cur_Wea = knife;
+
+	cur_loc = glm::vec3(0, 10, 0);				// 초기 위치 지정, 이거 바꿔주면 자연스래 카메라도 위치 바뀜
 	cur_rot = glm::vec2(0.0f, 0.0f);
 	move[0] = move[1] = move[2] = move[3] = false;
 	mousesense = 0.02f;
-	pistol = new Pistol("",10,10);
-	rifle = new Rifle("",30,30);
-	knife = new Knife("test_obj\\obj_rifle.obj",1,1);
+
+	
 }
 
 void Player::animation()
@@ -166,5 +175,10 @@ void Player::setsensative(char key)
 int Player::Weapon()
 {
 	return weapon;
+}
+
+Weapon* Player::getWeapon() const
+{
+	return cur_Wea;
 }
 //===========================================================

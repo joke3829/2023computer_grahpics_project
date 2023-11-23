@@ -34,5 +34,7 @@ public:
 	void attack();
 	glm::vec3 getLoc();				// 현재 위치 받아오기
 	glm::vec2 getRot();				// 현재 바라보는 방향 받아오기
+
+	Weapon* getWeapon() const;		// 내가 들고 있는 무기 정보 받기
 	int Weapon();
 };
