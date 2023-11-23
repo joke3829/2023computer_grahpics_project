@@ -17,7 +17,7 @@ public:
 	void init_rotate(float, float, float, float);	// 초기 회전 설정
 
 	void setLoc(glm::vec3);							// 위치 바꿔주기
-	void setRot(glm::vec3);							// 회전율 바꿔주기
+	void setRot(glm::vec2);							// 회전율 바꿔주기
 
 	void Render() const;
 protected:
@@ -36,7 +36,7 @@ protected:
 	glm::vec3 cur_loc;			// 현재 위치
 
 	glm::vec3 init_rot;			// 초기 회전
-	glm::vec3 cur_rot;			// 현재 회전각
+	glm::vec2 cur_rot;			// 현재 회전각
 
 
 	bool ReadOBJ(std::string);		// OBJ읽어오기

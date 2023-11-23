@@ -21,7 +21,7 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	mousesense = 0.02f;
 	pistol = new Pistol("",10,10);
 	rifle = new Rifle("",30,30);
-	knife = new Knife("",1,1);
+	knife = new Knife("test_obj\\obj_rifle.obj",1,1);
 }
 
 void Player::animation()

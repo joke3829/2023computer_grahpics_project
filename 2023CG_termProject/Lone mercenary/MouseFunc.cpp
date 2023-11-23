@@ -24,7 +24,7 @@ void MouseFunc::Mouse(int button, int state, int x, int y)
 void MouseFunc::MotionPassive(int x, int y)
 {
 	if (ÇÊµå == game_state) {
-		auto pos = glm::vec2(x, y);
+		glm::vec2 pos = glm::vec2(x, y);
 		dynamic_cast<Player*>(mPlayer)->animi_rot(pos.x - 640, pos.y - 360);
 		glutWarpPointer(1280 / 2, 720 / 2);
 	}
