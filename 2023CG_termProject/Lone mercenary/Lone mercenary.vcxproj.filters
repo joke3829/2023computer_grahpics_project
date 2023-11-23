@@ -129,11 +129,11 @@
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>소스 파일\Shader\ShaderProgram</Filter>
     </ClCompile>
-    <ClCompile Include="Rifle.cpp">
-      <Filter>소스 파일\Weapon\Rifle</Filter>
-    </ClCompile>
     <ClCompile Include="Knife.cpp">
       <Filter>소스 파일\Weapon\Knife</Filter>
+    </ClCompile>
+    <ClCompile Include="Rifle.cpp">
+      <Filter>소스 파일\Weapon\Rifle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +225,12 @@
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
       <Filter>소스 파일\Shader\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
+      <Filter>소스 파일\Weapon\Knife</Filter>
+    </ClInclude>
+    <ClInclude Include="Rifle.h">
+      <Filter>소스 파일\Weapon\Rifle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

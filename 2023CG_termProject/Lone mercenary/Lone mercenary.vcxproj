@@ -131,6 +131,7 @@
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="KeyboardFunc.cpp" />
+    <ClCompile Include="Knife.cpp" />
     <ClCompile Include="LM.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjObj.cpp" />
+    <ClCompile Include="Rifle.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +149,7 @@
     <ClInclude Include="ENUM.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="KeyboardFunc.h" />
+    <ClInclude Include="Knife.h" />
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="main_define.h" />
     <ClInclude Include="Mesh.h" />
@@ -156,6 +159,7 @@
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProjObj.h" />
+    <ClInclude Include="Rifle.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

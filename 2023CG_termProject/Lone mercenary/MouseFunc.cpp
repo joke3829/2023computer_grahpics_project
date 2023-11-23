@@ -23,9 +23,10 @@ void MouseFunc::Mouse(int button, int state, int x, int y)
 					std::cout << "skir" << std::endl;
 
 				}
+				//dynamic_cast<Knife*>(mPlayer)->Shoot();
 			}
 
-			dynamic_cast<Knife*>(mPlayer)->Shoot();
+			
 			break;
 			}
 		}
