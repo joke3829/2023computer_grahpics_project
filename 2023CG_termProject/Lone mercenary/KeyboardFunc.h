@@ -1,22 +1,23 @@
 //==================================================================
-// MouseFunc.h
-// 마우스에 관여
+// KeyboardFunc.h
+// 키보드 입력에 관여
 //=================================================================
 #pragma once
 #include "stdafx.h"
 
 class CharacterBase;
 class CameraObj;
-class MouseFunc {
+class KeyboardFunc {
 public:
-	MouseFunc(CharacterBase*);
+	KeyboardFunc(CharacterBase*, CameraObj*);
 
-	void Mouse(int,int, int, int);
-	void MotionPassive( int, int);
+	void Keyboard(unsigned char, int, int);
+	void KeyboardUp(unsigned char, int, int);
 
 	void setGame_stete(int);
 protected:
 private:
 	CharacterBase* mPlayer{ nullptr };
+	CameraObj* mCamera{ nullptr };
 	int game_state;
 };

@@ -11,4 +11,5 @@
 #include "Rifle.h"
 #include "Knife.h"
 #include "KeyboardFunc.h"
+#include "Field.h"
 #include "MouseFunc.h"

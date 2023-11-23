@@ -4,11 +4,8 @@
 //==========================================================
 
 #include "stdafx.h"
-<<<<<<< Updated upstream
-=======
 #include "KeyboardFunc.h"
 #include "MouseFunc.h"
->>>>>>> Stashed changes
 
 class CharacterBase;
 class CameraObj;
@@ -19,7 +16,6 @@ class Knife;
 class Field;
 class KeyboardFunc;
 class MouseFunc;
->>>>>>> Stashed changes
 
 class MainApp {
 public:
@@ -34,9 +30,11 @@ public:
 protected:
 private:
 	int game_state;
-	CharacterBase* mPlayer;
 	CameraObj* camera;
 	ProjObj* proj;
+
+
+	CharacterBase* mPlayer;
 	Pistol* pistol;
 	Rifle* rifle;
 	Knife* knife;

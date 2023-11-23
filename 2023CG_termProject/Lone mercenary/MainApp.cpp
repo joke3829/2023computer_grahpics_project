@@ -1,9 +1,6 @@
 
 #include "MainApp.h"
-#include "CameraObj.h"
-#include "ProjObj.h"
-#include "Player.h"
-#include "Pistol.h"
+#include "main_define.h"
 
 // 최종본엔 이걸 사용할것
 bool MainApp::Initialize()
@@ -26,8 +23,10 @@ bool MainApp::test_Initialize()
 	rifle = new Rifle("test_obj\\obj_rifle.obj", 30, 30);
 	knife = new Knife("test_obj\\obj_rifle.obj", 1, 1);
 	pKeyboard = new KeyboardFunc(mPlayer, camera);
-	pMouse = new MouseFunc(mPlayer);
 	pKeyboard->setGame_stete(game_state);
+
+	field = new Field;
+	pMouse = new MouseFunc(mPlayer);
 	pMouse->setGame_stete(game_state);
 
 	glutWarpPointer(1280 / 2, 720 / 2);
@@ -102,9 +101,12 @@ void MainApp::DestoryMainApp()
 		delete pKeyboard;
 		pKeyboard = nullptr;
 	}
+	if (nullptr != field) {
+		delete field;
+		field = nullptr;
+	}
 	if (nullptr != pMouse) {
 		delete pMouse;
 		pMouse = nullptr;
 	}
->>>>>>> Stashed changes
 }

@@ -16,6 +16,9 @@ public:
 	void init_position(float, float, float);		// 초기 위치 설정
 	void init_rotate(float, float, float, float);	// 초기 회전 설정
 
+	void setLoc(glm::vec3);							// 위치 바꿔주기
+	void setRot(glm::vec3);							// 회전율 바꿔주기
+
 	void Render() const;
 protected:
 	unsigned int triangle_num;
