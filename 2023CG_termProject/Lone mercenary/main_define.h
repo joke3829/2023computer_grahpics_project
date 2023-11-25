@@ -11,3 +11,5 @@
 #include "KeyboardFunc.h"
 #include "Field.h"
 #include "MouseFunc.h"
+#include "Enemy.h"
+#include "NM_zombie.h"

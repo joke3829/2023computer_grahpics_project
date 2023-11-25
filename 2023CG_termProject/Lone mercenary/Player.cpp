@@ -72,7 +72,7 @@ void Player::animation()
 	}
 }
 
-void Player::animi_rot(int garo,int sero) {
+void Player::animi_rot(int garo,int sero) {		// 변수 이름??
 	//마우스 움직임에 따른 각도 변환
 	if (garo > 0) {
 		cur_rot.x += mousesense * garo;
@@ -92,11 +92,12 @@ void Player::animi_rot(int garo,int sero) {
 	if (cur_rot.x < -360.0f) {
 		cur_rot.x = 0.0f;
 	}
-	if (cur_rot.y > 90.0f) {
-		cur_rot.y = 0.0f;
+	if (cur_rot.y > 87.0f) {
+		cur_rot.y = 87.0f;
+
 	}
-	if (cur_rot.y < -90.0f) {
-		cur_rot.y = 0.0f;
+	if (cur_rot.y < -87.0f) {
+		cur_rot.y = -87.0f;
 	}
 }
 

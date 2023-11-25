@@ -138,6 +138,9 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>소스 파일\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일\Player, Item, Enemy\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -237,6 +240,12 @@
     </ClInclude>
     <ClInclude Include="Weapon.h">
       <Filter>소스 파일\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>소스 파일\Player, Item, Enemy\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="NMMesh.h">
+      <Filter>소스 파일\Player, Item, Enemy\Enemy\Normal_zombie</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

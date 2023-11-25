@@ -14,6 +14,7 @@ class Weapon;
 class Field;
 class KeyboardFunc;
 class MouseFunc;
+class EnemyBase;
 
 class MainApp {
 public:
@@ -36,6 +37,8 @@ private:
 	//Weapon* pistol;
 	//Weapon* rifle;
 	//Weapon* knife;
+
+	EnemyBase* nmz;
 
 	Field* field;
 };

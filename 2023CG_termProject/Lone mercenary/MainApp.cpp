@@ -30,6 +30,12 @@ bool MainApp::test_Initialize()
 	pMouse->setGame_stete(game_state);
 
 	glutWarpPointer(1280 / 2, 720 / 2);
+
+
+
+	nmz = new NM_zombie(100, 10, 5, 10, 5);
+
+
 	return true;
 }
 
@@ -51,6 +57,9 @@ bool MainApp::Update_MainApp()
 		// 총기 위치 변경
 		dynamic_cast<Player*>(mPlayer)->getWeapon()->setLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
 		dynamic_cast<Player*>(mPlayer)->getWeapon()->setRot(dynamic_cast<Player*>(mPlayer)->getRot());
+
+		nmz->setPlayerLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
+		nmz->walk_ani();
 		break;
 	case 결과창:
 		break;
@@ -69,6 +78,8 @@ bool MainApp::Render()
 	case 필드:
 		field->Render();
 		dynamic_cast<Player*>(mPlayer)->getWeapon()->Render();		// 현재 들고 있는 무기를 렌더링 합니다.
+
+		nmz->Render();
 		break;
 	}
 	return true;
