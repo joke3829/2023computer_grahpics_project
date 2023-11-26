@@ -20,14 +20,23 @@ public:
 	void setRot(glm::vec2);							// 회전율 바꿔주기
 
 	void Render() const;
+
+	static bool box_check;
+
 protected:
 	unsigned int triangle_num;
 	GLuint VAO, VBO[3], EBO;
+	GLuint B_VAO, B_VBO[3], B_EBO;	// 충돌체크용 박스
 	// 텍스쳐 추가 예정
 	std::vector<glm::vec3> vertexs;			// 정점
 	std::vector<glm::vec3> colors;			// 컬러(아마 삭제 예상, 텍스처)
 	std::vector<glm::vec3> vertex_normal;	// 노말
 	std::vector<unsigned int> index;
+
+
+	glm::vec3 LB;			// Left-Bottom
+	glm::vec3 RT;			// Right-Top
+
 
 	glm::mat4 modelTrans;
 	glm::mat4 rotateMatrix;		// 노말 벡터를 돌리기 위한 행렬

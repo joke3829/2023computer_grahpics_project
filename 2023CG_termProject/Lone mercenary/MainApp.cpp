@@ -2,19 +2,30 @@
 #include "MainApp.h"
 #include "main_define.h"
 
+MainApp::~MainApp()
+{
+	DestroyMainApp();
+}
+
 // 최종본엔 이걸 사용할것
 bool MainApp::Initialize()
 {
+	Mesh::box_check = false;
 	mPlayer = new Player(100, 200, 5, 10, 0);
 	camera = new CameraObj;
 	proj = new ProjObj;
 	game_state = 타이틀;
+
+	max_alive = 12;			// 한 필드에 12마리
+	aliving = 0;
+
 	return true;
 }
 
 
 bool MainApp::test_Initialize()
 {
+	Mesh::box_check = false;
 	game_state = 필드;
 	mPlayer = new Player(100, 200, 40, 10, 0);
 	camera = new CameraObj;
@@ -32,8 +43,10 @@ bool MainApp::test_Initialize()
 	glutWarpPointer(1280 / 2, 720 / 2);
 
 
+	e_arrayReady();			// 좀비 준비
+	max_alive = 6;			// 한 필드에 12마리
+	aliving = 0;
 
-	nmz = new NM_zombie(100, 10, 5, 10, 5);
 
 
 	return true;
@@ -58,8 +71,19 @@ bool MainApp::Update_MainApp()
 		dynamic_cast<Player*>(mPlayer)->getWeapon()->setLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
 		dynamic_cast<Player*>(mPlayer)->getWeapon()->setRot(dynamic_cast<Player*>(mPlayer)->getRot());
 
-		nmz->setPlayerLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
-		nmz->walk_ani();
+		aliving = 0;
+		for (int i = 0; enemy_array.size(); ++i) {
+			if (aliving < max_alive) {
+				if (not enemy_array[i]->Death_check()) {
+					enemy_array[i]->setPlayerLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
+					enemy_array[i]->walk_ani();
+					++aliving;
+				}
+			}
+			else
+				break;
+		}
+
 		break;
 	case 결과창:
 		break;
@@ -79,13 +103,41 @@ bool MainApp::Render()
 		field->Render();
 		dynamic_cast<Player*>(mPlayer)->getWeapon()->Render();		// 현재 들고 있는 무기를 렌더링 합니다.
 
-		nmz->Render();
+
+		aliving = 0;
+		for (int i = 0; enemy_array.size(); ++i) {
+			if (aliving < max_alive) {
+				if (not enemy_array[i]->Death_check()) {
+					enemy_array[i]->Render();
+					++aliving;
+				}
+			}
+			else
+				break;
+		}
+
 		break;
 	}
 	return true;
 }
+
+bool MainApp::e_arrayReady()
+{
+	if (0 != enemy_array.size()) {
+		for (EnemyBase* e : enemy_array)
+			delete e;
+		enemy_array.clear();
+	}
+
+	for (int i = 0; i < 10; ++i) {
+		enemy_array.push_back(new NM_zombie(100, 200, i, 10, 10));
+	}
+
+	return true;
+}
+
 // 자원을 사용했으면 반납해라
-void MainApp::DestoryMainApp()
+void MainApp::DestroyMainApp()
 {
 	if (nullptr != mPlayer) {
 		delete mPlayer;
@@ -99,18 +151,6 @@ void MainApp::DestoryMainApp()
 		delete proj;
 		proj = nullptr;
 	}
-	/*if (nullptr != pistol) {
-		delete pistol;
-		pistol = nullptr;
-	}
-	if (nullptr != knife) {
-		delete knife;
-		knife = nullptr;
-	}
-	if (nullptr != rifle) {
-		delete rifle;
-		rifle = nullptr;
-	}*/
 	if (nullptr != pKeyboard) {
 		delete pKeyboard;
 		pKeyboard = nullptr;
@@ -122,5 +162,11 @@ void MainApp::DestoryMainApp()
 	if (nullptr != pMouse) {
 		delete pMouse;
 		pMouse = nullptr;
+	}
+	// 좀비 반환
+	if (0 != enemy_array.size()) {
+		for (EnemyBase* e : enemy_array)
+			delete e;
+		enemy_array.clear();
 	}
 }

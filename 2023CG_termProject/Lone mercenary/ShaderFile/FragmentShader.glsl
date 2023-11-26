@@ -19,7 +19,8 @@ void main()
 	vec3 ambient = ambientLight * lightColor;
 
 	vec3 normalVector = normalize(PassNormal);
-	vec3 lightDir = normalize(lightPos - FragPos);
+	//vec3 lightDir = normalize(lightPos - FragPos);
+	vec3 lightDir = normalize(vec3(0, 1, -1));
 
 	float diffuseLight = max(dot(normalVector, lightDir), 0.0);
 	vec3 diffuse = diffuseLight * lightPower;

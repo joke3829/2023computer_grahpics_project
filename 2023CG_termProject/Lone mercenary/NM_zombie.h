@@ -19,6 +19,8 @@ public:
 	void Render() const;
 protected:
 private:
+	NM_Mesh* head;		// ¸Ó¸®
 	NM_Mesh* body;		// ¸öÅë
-	//NM_Mesh* leg[2];	// ¿Þ´Ù¸®, ¿À¸¥´Ù¸®
+	NM_Mesh* arm[2];	// ¿ÞÆÈ, ¿À¸¥ÆÈ
+	NM_Mesh* leg[2];	// ¿Þ´Ù¸®, ¿À¸¥´Ù¸®
 };

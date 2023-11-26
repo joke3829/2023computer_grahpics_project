@@ -2,6 +2,8 @@
 #include "Mesh.h"
 #include "ShaderProgram.h"
 
+bool Mesh::box_check = false;
+
 Mesh::Mesh(std::string filename) {
 	Initialize(filename);
 }
@@ -13,6 +15,11 @@ Mesh::~Mesh()
 	glDeleteBuffers(1, &EBO);
 	glDeleteBuffers(3, VBO);
 	glDeleteVertexArrays(1, &VAO);
+
+	glBindVertexArray(B_VAO);
+	glDeleteBuffers(1, &B_EBO);
+	glDeleteBuffers(3, B_VBO);
+	glDeleteVertexArrays(1, &B_VAO);
 	std::cout << "Mesh 삭제" << '\n';
 }
 
@@ -75,6 +82,114 @@ void Mesh::Initialize(std::string filename)
 	// 정점 노말
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vertex_normal.size(), &vertex_normal.front(), GL_STATIC_DRAW);
+	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(loc);
+
+	LB = glm::vec3(0.0f);
+	RT = glm::vec3(0.0f);
+	for (glm::vec3& pos : vertexs) {
+		if (LB.x > pos.x)
+			LB.x = pos.x;
+		if (LB.y > pos.y)
+			LB.y = pos.y;
+		if (LB.z > pos.z)
+			LB.z = pos.z;
+		if (RT.x < pos.x)
+			RT.x = pos.x;
+		if (RT.y < pos.y)
+			RT.y = pos.y;
+		if (RT.z < pos.z)
+			RT.z = pos.z;
+	}
+	std::vector<glm::vec3> B_pos;
+	{
+		B_pos.push_back(glm::vec3(LB.x, LB.y, LB.z));
+		B_pos.push_back(glm::vec3(LB.x, LB.y, RT.z));
+		B_pos.push_back(glm::vec3(RT.x, LB.y, RT.z));
+		B_pos.push_back(glm::vec3(RT.x, LB.y, LB.z));
+		B_pos.push_back(glm::vec3(LB.x, RT.y, LB.z));
+		B_pos.push_back(glm::vec3(LB.x, RT.y, RT.z));
+		B_pos.push_back(glm::vec3(RT.x, RT.y, RT.z));
+		B_pos.push_back(glm::vec3(RT.x, RT.y, LB.z));
+	}
+	std::vector<glm::vec3> B_color;
+	{
+		for(int i = 0 ; i < 8; ++i)
+			B_color.push_back(glm::vec3(0, 1, 0));
+	}
+	std::vector<unsigned int> B_index;
+	{
+		// 아래
+		B_index.push_back(0);
+		B_index.push_back(3);
+		B_index.push_back(1);
+		B_index.push_back(1);
+		B_index.push_back(3);
+		B_index.push_back(2);
+		// 왼쪽
+		B_index.push_back(0);
+		B_index.push_back(1);
+		B_index.push_back(4);
+		B_index.push_back(1);
+		B_index.push_back(5);
+		B_index.push_back(4);
+		// 정면
+		B_index.push_back(1);
+		B_index.push_back(2);
+		B_index.push_back(5);
+		B_index.push_back(5);
+		B_index.push_back(2);
+		B_index.push_back(6);
+		// 우측
+		B_index.push_back(2);
+		B_index.push_back(3);
+		B_index.push_back(6);
+		B_index.push_back(6);
+		B_index.push_back(3);
+		B_index.push_back(7);
+		// 후면
+		B_index.push_back(0);
+		B_index.push_back(4);
+		B_index.push_back(7);
+		B_index.push_back(0);
+		B_index.push_back(7);
+		B_index.push_back(3);
+		// 윗면
+		B_index.push_back(5);
+		B_index.push_back(6);
+		B_index.push_back(4);
+		B_index.push_back(4);
+		B_index.push_back(6);
+		B_index.push_back(7);
+	}
+
+	glGenVertexArrays(1, &B_VAO);
+	glGenBuffers(3, B_VBO);
+	glGenBuffers(1, &B_EBO);
+
+	glBindVertexArray(B_VAO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, B_EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * B_index.size(), &B_index.front(), GL_STATIC_DRAW);
+
+	loc = glGetAttribLocation(shader->s_program, "vPos");
+	// 좌표
+
+	glBindBuffer(GL_ARRAY_BUFFER, B_VBO[0]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * B_pos.size(), &B_pos.front(), GL_STATIC_DRAW);
+	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(loc);
+
+	loc = glGetAttribLocation(shader->s_program, "vColor");
+	// 컬러
+	glBindBuffer(GL_ARRAY_BUFFER, B_VBO[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * B_color.size(), &B_color.front(), GL_STATIC_DRAW);
+	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(loc);
+
+	loc = glGetAttribLocation(shader->s_program, "vNormal");
+	// 정점 노말
+	glBindBuffer(GL_ARRAY_BUFFER, B_VBO[2]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * B_pos.size(), &B_pos.front(), GL_STATIC_DRAW);
 	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(loc);
 
@@ -212,6 +327,11 @@ void Mesh::Render() const
 	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(rotateMatrix));
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 3 * triangle_num, GL_UNSIGNED_INT, 0);
+
+	if (box_check) {
+		glBindVertexArray(B_VAO);
+		glDrawElements(GL_LINE_LOOP, 3 * 12, GL_UNSIGNED_INT, 0);
+	}
 }
 
 

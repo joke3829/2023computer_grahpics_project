@@ -44,6 +44,12 @@ void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
 		case '-':
 			dynamic_cast<Player*>(mPlayer)->setsensative('-');
 			break;
+		case 't':
+			if (Mesh::box_check)
+				Mesh::box_check = false;
+			else
+				Mesh::box_check = true;
+			break;
 		}
 	}
 	glutPostRedisplay();		// ???

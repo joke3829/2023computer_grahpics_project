@@ -19,10 +19,15 @@ class EnemyBase;
 class MainApp {
 public:
 	// 미완성, 수정 예정
+	~MainApp();
+
 	bool Initialize();				
 	bool test_Initialize();			// 테스트용 초기화
 	bool Update_MainApp();
-	void DestoryMainApp();
+	void DestroyMainApp();
+
+	bool e_arrayReady();			// 좀비 배열 준비
+
 	bool Render();
 	KeyboardFunc* pKeyboard;
 	MouseFunc* pMouse;
@@ -38,7 +43,11 @@ private:
 	//Weapon* rifle;
 	//Weapon* knife;
 
-	EnemyBase* nmz;
+
+
+	std::vector<EnemyBase*> enemy_array;
+	int max_alive;		// 한 필드에 최대 존재 좀비 수
+	int aliving;		// 한 필드에 존재하는 좀비 수
 
 	Field* field;
 };
