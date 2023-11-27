@@ -88,6 +88,9 @@
     <Filter Include="소스 파일\Weapon\Knife">
       <UniqueIdentifier>{65ac4fa8-3b3d-4c6f-bf52-f57ca945b8be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Player, Item, Enemy\Item">
+      <UniqueIdentifier>{bc07f16a-7a9c-4010-a4f7-65b94f4b4332}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -140,6 +143,9 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일\Player, Item, Enemy\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>소스 파일\Player, Item, Enemy\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +252,9 @@
     </ClInclude>
     <ClInclude Include="NMMesh.h">
       <Filter>소스 파일\Player, Item, Enemy\Enemy\Normal_zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>소스 파일\Player, Item, Enemy\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

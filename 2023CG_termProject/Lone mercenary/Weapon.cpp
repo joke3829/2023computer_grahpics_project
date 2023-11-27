@@ -4,7 +4,7 @@
 Weapon::Weapon(std::string filename, int s_ammo, int r_ammo, int AT)
 	: Mesh(filename), CharacterBase(0, 0, 0, 0, AT), total_ammo(s_ammo), reloaded_ammo(r_ammo)
 {
-
+	max_ammo = r_ammo;
 }
 
 int Weapon::getATK()
@@ -28,6 +28,30 @@ void Weapon::Shoot()
 int Weapon::getWep()
 {
 	return weapon_num;
+}
+
+bool Weapon::exist_ammo()
+{
+	if (reloaded_ammo > 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void Weapon::reloading()
+{
+	int last = 0;
+	if (total_ammo > 0) {
+		last = max_ammo - reloaded_ammo;
+		reloaded_ammo = max_ammo;
+		total_ammo -= last;
+		std::cout << "³²Àº ÃÑ ÃÑ¾Ë - " << total_ammo << "ÀåÀüµÈ ÃÑ¾Ë - " << reloaded_ammo << std::endl;
+	}
+	else {
+		std::cout << "³²Àº ÃÑ¾ËÀÌ ¾ø¾îÀ¯~"<< std::endl;
+	}
 }
 //====================================================================
 

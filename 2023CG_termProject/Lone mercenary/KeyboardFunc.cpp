@@ -38,6 +38,9 @@ void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
 		case '3':
 			dynamic_cast<Player*>(mPlayer)->setWeapon('3');
 			break;
+		case 'r':
+			dynamic_cast<Player*>(mPlayer)->setWeapon('r');
+			break;
 		case '+':
 			dynamic_cast<Player*>(mPlayer)->setsensative('+');
 			break;

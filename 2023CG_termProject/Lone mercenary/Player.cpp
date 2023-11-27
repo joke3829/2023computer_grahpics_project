@@ -180,6 +180,9 @@ void Player::setWeapon(char type)
 		changing = true;
 		std::cout << weapon << " - " << ATK << std::endl;
 		break;
+	case 'r':
+		cur_Wea->reloading();
+		break;
 	}
 }
 
@@ -189,15 +192,19 @@ void Player::attack()
 		if (cur_Wea == rifle) {
 			if (cnt % 10 == 0) {
 				cur_Wea->Shoot();
-				cur_rot.y += 1.0f; //반동
-				init_Weapon_rot.y += 1.0f; //반동
+				if (cur_Wea->exist_ammo()) {
+					cur_rot.y += 1.0f; //반동
+					init_Weapon_rot.y += 1.0f; //반동
+				}
 			}
 		}
 		else {
 			cur_Wea->Shoot();
 			if (cur_Wea == pistol) {
-				cur_rot.y += 1.0f; //반동
-				init_Weapon_rot.y += 1.0f; //반동
+				if (cur_Wea->exist_ammo()) {
+					cur_rot.y += 1.0f; //반동
+					init_Weapon_rot.y += 1.0f; //반동
+				}
 			}
 			atck = false;
 		}

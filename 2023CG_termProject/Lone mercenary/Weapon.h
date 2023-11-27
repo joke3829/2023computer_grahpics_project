@@ -16,10 +16,12 @@ public:
 	int getATK();					// 공격력 받아오기
 	void Shoot();
 	int getWep();
+	bool exist_ammo();
+	void reloading();
 protected:
 	int weapon_num;			// 무기 번호
 
-
+	int max_ammo;
 	int total_ammo;			// 총 탄약 수
 	int reloaded_ammo;		// 장전된 탄약수
 private:

@@ -131,6 +131,7 @@
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="KeyboardFunc.cpp" />
     <ClCompile Include="Knife.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -157,6 +158,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="ENUM.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="KeyboardFunc.h" />
     <ClInclude Include="Knife.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
