@@ -14,13 +14,17 @@
 Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
-	pistol = new Pistol("test_obj\\obj_rifle.obj",10,10,10);
+	pistol = new Pistol("test_obj\\obj_pistol.obj",10,10,10);
 	rifle = new Rifle("test_obj\\obj_rifle.obj",30,30,20);
 	knife = new Knife("test_obj\\Knife.obj",1,1,5);
 
 	rifle->init_scale(0.2);
 	rifle->init_rotate(-90, 0, 1, 0);
 	rifle->init_position(1, -0.5, 0.35);
+
+	pistol->init_scale(0.5);
+	pistol->init_rotate(-90, 0, 1, 0);
+	pistol->init_position(1, -0.5, 0.35);
 
 	knife->init_scale(0.5);
 	knife->init_rotate(90, 1, 0, 0);

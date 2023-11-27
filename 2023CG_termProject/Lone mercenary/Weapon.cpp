@@ -45,9 +45,16 @@ void Weapon::reloading()
 	int last = 0;
 	if (total_ammo > 0) {
 		last = max_ammo - reloaded_ammo;
-		reloaded_ammo = max_ammo;
-		total_ammo -= last;
-		std::cout << "³²Àº ÃÑ ÃÑ¾Ë - " << total_ammo << "ÀåÀüµÈ ÃÑ¾Ë - " << reloaded_ammo << std::endl;
+		if (total_ammo >= last) {
+			reloaded_ammo = max_ammo;
+			total_ammo -= last;
+			std::cout << "³²Àº ÃÑ ÃÑ¾Ë - " << total_ammo << "ÀåÀüµÈ ÃÑ¾Ë - " << reloaded_ammo << std::endl;
+		}
+		else {
+			reloaded_ammo += total_ammo;
+			total_ammo = 0;
+			std::cout << "³²Àº ÃÑ ÃÑ¾Ë - " << total_ammo << "ÀåÀüµÈ ÃÑ¾Ë - " << reloaded_ammo << std::endl;
+		}
 	}
 	else {
 		std::cout << "³²Àº ÃÑ¾ËÀÌ ¾ø¾îÀ¯~"<< std::endl;
