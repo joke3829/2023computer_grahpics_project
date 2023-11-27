@@ -16,11 +16,15 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 {
 	pistol = new Pistol("test_obj\\obj_rifle.obj",10,10);
 	rifle = new Rifle("test_obj\\obj_rifle.obj",30,30);
-	knife = new Knife("test_obj\\obj_rifle.obj",1,1);
+	knife = new Knife("test_obj\\Knife.obj",1,1);
 
-	knife->init_scale(0.2);
-	knife->init_rotate(-90, 0, 1, 0);
-	knife->init_position(1, -0.5, 0.35);
+	rifle->init_scale(0.2);
+	rifle->init_rotate(-90, 0, 1, 0);
+	rifle->init_position(1, -0.5, 0.35);
+
+	knife->init_scale(0.5);
+	knife->init_rotate(180, 0, 0, 1);
+	knife->init_position(1.3, -0.5, 0.65);
 
 	weapon = 나이프; //기본 무기는 나이프
 	cur_Wea = knife;
