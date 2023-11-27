@@ -23,6 +23,7 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	rifle->init_position(1, -0.5, 0.35);
 
 	knife->init_scale(0.5);
+	knife->init_rotate(90, 1, 0, 0);
 	knife->init_rotate(180, 0, 0, 1);
 	knife->init_position(1.3, -0.5, 0.65);
 
