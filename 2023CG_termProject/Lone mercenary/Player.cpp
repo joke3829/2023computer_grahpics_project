@@ -32,8 +32,10 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 
 	cur_loc = glm::vec3(0, 10, 0);				// 초기 위치 지정, 이거 바꿔주면 자연스래 카메라도 위치 바뀜
 	cur_rot = glm::vec2(0.0f, 0.0f);
+	init_Weapon_rot = glm::vec2(cur_rot.x, cur_rot.y + 90.0f);
 	move[0] = move[1] = move[2] = move[3] = false;
 	atck = false;
+	changing = true;
 	cnt = 0;
 	mousesense = 0.02f;
 
@@ -83,28 +85,35 @@ void Player::animi_rot(int garo,int sero) {		// 변수 이름??
 	//마우스 움직임에 따른 각도 변환
 	if (garo > 0) {
 		cur_rot.x += mousesense * garo;
+		init_Weapon_rot.x += mousesense * garo;
 	}
 	if (garo < 0) {
 		cur_rot.x += mousesense * garo;
+		init_Weapon_rot.x += mousesense * garo;
 	}
 	if (sero > 0) {
 		cur_rot.y -= mousesense * sero;
+		init_Weapon_rot.y -= mousesense * sero;
 	}
 	if (sero < 0) {
 		cur_rot.y -= mousesense * sero;
+		init_Weapon_rot.y -= mousesense * sero;
 	}
 	if (cur_rot.x > 360.0f) {
 		cur_rot.x = 0.0f;
+		init_Weapon_rot.x = 0.0f;
 	}
 	if (cur_rot.x < -360.0f) {
 		cur_rot.x = 0.0f;
+		init_Weapon_rot.x = 0.0f;
 	}
 	if (cur_rot.y > 87.0f) {
 		cur_rot.y = 87.0f;
-
+		init_Weapon_rot.y = 87.0f;
 	}
 	if (cur_rot.y < -87.0f) {
 		cur_rot.y = -87.0f;
+		init_Weapon_rot.y = 87.0f;
 	}
 }
 
@@ -116,6 +125,11 @@ glm::vec3 Player::getLoc()
 glm::vec2 Player::getRot()
 {
 	return cur_rot;
+}
+
+glm::vec2 Player::getWepRot()
+{
+	return init_Weapon_rot;
 }
 
 void Player::setMove(char way, bool flag)
@@ -143,18 +157,27 @@ void Player::setWeapon(char type)
 		cur_Wea = rifle;
 		weapon = cur_Wea->getWep();
 		ATK = cur_Wea->getATK();
+		init_Weapon_rot.x = cur_rot.x;
+		init_Weapon_rot.y = cur_rot.y + 90.0f;
+		changing = true;
 		std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	case '2':
 		cur_Wea = pistol;
 		weapon = cur_Wea->getWep();
 		ATK = cur_Wea->getATK();
+		init_Weapon_rot.x = cur_rot.x;
+		init_Weapon_rot.y = cur_rot.y + 90.0f;
+		changing = true;
 		std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	case '3':
 		cur_Wea = knife;
 		weapon = cur_Wea->getWep();
 		ATK = cur_Wea->getATK();
+		init_Weapon_rot.x = cur_rot.x;
+		init_Weapon_rot.y = cur_rot.y + 90.0f;
+		changing = true;
 		std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	}
@@ -166,10 +189,16 @@ void Player::attack()
 		if (cur_Wea == rifle) {
 			if (cnt % 10 == 0) {
 				cur_Wea->Shoot();
+				cur_rot.y += 1.0f; //반동
+				init_Weapon_rot.y += 1.0f; //반동
 			}
 		}
 		else {
 			cur_Wea->Shoot();
+			if (cur_Wea == pistol) {
+				cur_rot.y += 1.0f; //반동
+				init_Weapon_rot.y += 1.0f; //반동
+			}
 			atck = false;
 		}
 		cnt++;
@@ -180,6 +209,16 @@ void Player::conti_attack(bool St)
 {
 	atck = St;
 	cnt = 0;
+}
+
+void Player::take_out_Wep()
+{
+	if (changing) {
+		init_Weapon_rot.y -= 5.0f;
+		if (cur_rot.y - 2.5f <= init_Weapon_rot.y && init_Weapon_rot.y <= cur_rot.y + 2.5f) {
+			changing = false;
+		}
+	}
 }
 
 void Player::setsensative(char key)

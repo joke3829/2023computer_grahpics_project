@@ -69,8 +69,9 @@ bool MainApp::Update_MainApp()
 		camera->setCameraEYE(dynamic_cast<Player*>(mPlayer)->getLoc());		// 카메라 업데이트 해주기
 		camera->setCameraAngle(dynamic_cast<Player*>(mPlayer)->getRot());
 		// 총기 위치 변경
+		dynamic_cast<Player*>(mPlayer)->take_out_Wep();
 		dynamic_cast<Player*>(mPlayer)->getWeapon()->setLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
-		dynamic_cast<Player*>(mPlayer)->getWeapon()->setRot(dynamic_cast<Player*>(mPlayer)->getRot());
+		dynamic_cast<Player*>(mPlayer)->getWeapon()->setRot(dynamic_cast<Player*>(mPlayer)->getWepRot());
 
 		aliving = 0;
 		for (int i = 0; enemy_array.size(); ++i) {
