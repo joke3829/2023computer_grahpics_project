@@ -1,9 +1,10 @@
 #include "Weapon.h"
 
 //===================================================================
-Weapon::Weapon(std::string filename, int s_ammo, int r_ammo)
-	: Mesh(filename), CharacterBase(0, 0, 0, 0, 0), total_ammo(s_ammo), reloaded_ammo(r_ammo)
+Weapon::Weapon(std::string filename, int s_ammo, int r_ammo, int AT)
+	: Mesh(filename), CharacterBase(0, 0, 0, 0, AT), total_ammo(s_ammo), reloaded_ammo(r_ammo)
 {
+
 }
 
 int Weapon::getATK()
@@ -30,18 +31,18 @@ int Weapon::getWep()
 }
 //====================================================================
 
-Knife::Knife(std::string filename, int s_ammo, int r_ammo) : Weapon(filename, s_ammo, r_ammo) {
+Knife::Knife(std::string filename, int s_ammo, int r_ammo, int AT) : Weapon(filename, s_ammo, r_ammo,AT) {
 	weapon_num = 나이프;
 }
 
 
 //========================================================================
-Pistol::Pistol(std::string filename, int s_ammo, int r_ammo) : Weapon(filename, s_ammo, r_ammo) {
+Pistol::Pistol(std::string filename, int s_ammo, int r_ammo, int AT) : Weapon(filename, s_ammo, r_ammo, AT) {
 	weapon_num = 권총;
 }
 
 //=================================================================================
-Rifle::Rifle(std::string filename, int s_ammo, int r_ammo) : Weapon(filename, s_ammo, r_ammo) {
+Rifle::Rifle(std::string filename, int s_ammo, int r_ammo, int AT) : Weapon(filename, s_ammo, r_ammo, AT) {
 	weapon_num = 라이플;
 }
 

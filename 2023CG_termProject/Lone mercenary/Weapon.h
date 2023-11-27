@@ -11,7 +11,7 @@
 
 class Weapon : public Mesh, public CharacterBase {
 public:
-	Weapon(std::string filename, int s_ammo, int r_ammo);
+	Weapon(std::string filename, int s_ammo, int r_ammo, int AT);
 
 	int getATK();					// 공격력 받아오기
 	void Shoot();
@@ -30,7 +30,7 @@ private:
 
 class Pistol : public Weapon {
 public:
-	Pistol(std::string filename, int s_ammo, int r_ammo);
+	Pistol(std::string filename, int s_ammo, int r_ammo,int ATK);
 protected:
 private:
 };
@@ -38,7 +38,7 @@ private:
 
 class Knife : public Weapon {
 public:
-	Knife(std::string filename, int s_ammo, int r_ammo);
+	Knife(std::string filename, int s_ammo, int r_ammo, int ATK);
 protected:
 private:
 };
@@ -46,7 +46,7 @@ private:
 
 class Rifle : public Weapon {
 public:
-	Rifle(std::string filename, int s_ammo, int r_ammo);
+	Rifle(std::string filename, int s_ammo, int r_ammo, int ATK);
 protected:
 private:
 };

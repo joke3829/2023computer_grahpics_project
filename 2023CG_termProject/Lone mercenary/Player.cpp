@@ -14,9 +14,9 @@
 Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
-	pistol = new Pistol("test_obj\\obj_rifle.obj",10,10);
-	rifle = new Rifle("test_obj\\obj_rifle.obj",30,30);
-	knife = new Knife("test_obj\\Knife.obj",1,1);
+	pistol = new Pistol("test_obj\\obj_rifle.obj",10,10,10);
+	rifle = new Rifle("test_obj\\obj_rifle.obj",30,30,20);
+	knife = new Knife("test_obj\\Knife.obj",1,1,5);
 
 	rifle->init_scale(0.2);
 	rifle->init_rotate(-90, 0, 1, 0);
@@ -33,6 +33,8 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	cur_loc = glm::vec3(0, 10, 0);				// 초기 위치 지정, 이거 바꿔주면 자연스래 카메라도 위치 바뀜
 	cur_rot = glm::vec2(0.0f, 0.0f);
 	move[0] = move[1] = move[2] = move[3] = false;
+	atck = false;
+	cnt = 0;
 	mousesense = 0.02f;
 
 	
@@ -160,7 +162,24 @@ void Player::setWeapon(char type)
 
 void Player::attack()
 {
-	cur_Wea->Shoot();
+	if (atck) {
+		if (cur_Wea == rifle) {
+			if (cnt % 10 == 0) {
+				cur_Wea->Shoot();
+			}
+		}
+		else {
+			cur_Wea->Shoot();
+			atck = false;
+		}
+		cnt++;
+	}
+}
+
+void Player::conti_attack(bool St)
+{
+	atck = St;
+	cnt = 0;
 }
 
 void Player::setsensative(char key)

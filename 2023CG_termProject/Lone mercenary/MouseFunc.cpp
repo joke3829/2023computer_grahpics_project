@@ -14,8 +14,13 @@ MouseFunc::MouseFunc(CharacterBase* t_player)
 void MouseFunc::Mouse(int button, int state, int x, int y)
 {
 	if (ÇÊµå == game_state) {
-		if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-			dynamic_cast<Player*>(mPlayer)->attack();
+		if (button == GLUT_LEFT_BUTTON) {
+			if (state == GLUT_DOWN) {
+				dynamic_cast<Player*>(mPlayer)->conti_attack(true);
+			}
+			else {
+				dynamic_cast<Player*>(mPlayer)->conti_attack(false);
+			}
 		}
 	}
 	glutPostRedisplay();		// ???

@@ -65,6 +65,7 @@ bool MainApp::Update_MainApp()
 	case 필드:
 		//  업데이트 헤더에서 애니메이션 적용하기
 		dynamic_cast<Player*>(mPlayer)->animation();
+		dynamic_cast<Player*>(mPlayer)->attack();
 		camera->setCameraEYE(dynamic_cast<Player*>(mPlayer)->getLoc());		// 카메라 업데이트 해주기
 		camera->setCameraAngle(dynamic_cast<Player*>(mPlayer)->getRot());
 		// 총기 위치 변경
