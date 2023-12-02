@@ -38,12 +38,13 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	cur_rot = glm::vec2(0.0f, 0.0f);
 	init_Weapon_rot = glm::vec2(cur_rot.x, cur_rot.y + 90.0f);
 	move[0] = move[1] = move[2] = move[3] = false;
+	item[0] = item[1] = item[2] = item[3] = false;
 	atck = false;
 	changing = true;
 	cnt = 0;
 	mousesense = 0.02f;
 
-	
+
 }
 
 void Player::animation()
@@ -229,6 +230,79 @@ void Player::take_out_Wep()
 		if (cur_rot.y - 2.5f <= init_Weapon_rot.y && init_Weapon_rot.y <= cur_rot.y + 2.5f) {
 			changing = false;
 		}
+	}
+}
+
+void Player::set_item(int x,int y)
+{
+	if (200 <= x && x <= 400) {
+		if (200 <= y && y <= 300) {
+			if (!item[0]) {
+				item[0] = true;
+				std::cout << "1번 아이템 선택" << std::endl;
+			}
+			else {
+				item[0] = false;
+				std::cout << "1번 아이템 취소" << std::endl;
+			}
+		}
+		if (400 <= y && y <= 500) {
+			if (!item[2]) {
+				item[2] = true;
+				std::cout << "3번 아이템 선택" << std::endl;
+			}
+			else {
+				item[2] = false;
+				std::cout << "3번 아이템 취소" << std::endl;
+			}
+		}
+	}
+	if (500 <= x && x <= 700) {
+		if (200 <= y && y <= 300) {
+			if (!item[1]) {
+				item[1] = true;
+				std::cout << "2번 아이템 선택" << std::endl;
+			}
+			else {
+				item[1] = false;
+				std::cout << "2번 아이템 취소" << std::endl;
+			}
+		}
+		if (400 <= y && y <= 500) {
+			if (!item[3]) {
+				item[3] = true;
+				std::cout << "4번 아이템 선택" << std::endl;
+			}
+			else {
+				item[3] = false;
+				std::cout << "4번 아이템 취소" << std::endl;
+			}
+		}
+	}
+}
+
+void Player::apply_item()
+{
+	if (item[0]) { //방어력 증가
+		DEF += 30;
+		item[0] = false;
+		std::cout << "플레이어 방어력 증가 완료 : " << DEF << std::endl;
+	}
+	if (item[1]) { //최대 체력 증가
+		MAXHP += 200;
+		item[1] = false;
+		std::cout << "플레이어 최대 체력 증가 증가 완료 : " << MAXHP << std::endl;
+	}
+	if (item[2]) { //탄약 수 2배
+		rifle->D_ammo();
+		pistol->D_ammo();
+		item[2] = false;
+		std::cout << "플레이어 탄약 수 증가 완료 : " << std::endl;
+	}
+	if (item[3]) { //공격력 증가
+		ATK += 5;
+		item[3] = false;
+		std::cout << "플레이어 공격력 증가 완료 : " << ATK << std::endl;
 	}
 }
 

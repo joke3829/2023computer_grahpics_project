@@ -15,6 +15,7 @@ public:
 	void MotionPassive( int, int);
 
 	void setGame_stete(int);
+	int getGame_state();
 protected:
 private:
 	CharacterBase* mPlayer{ nullptr };
