@@ -14,9 +14,9 @@
 Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
-	pistol = new Pistol("obj\\weapon\\pistol\\obj_pistol.obj", "obj\\temp_texture.jpg", 1024, 1024, 10, 10, 10);
-	rifle = new Rifle("obj\\weapon\\rifle\\obj_rifle.obj", "obj\\weapon\\rifle\\texture_rifle.jpg", 1024, 1024, 30, 30, 20);
-	knife = new Knife("obj\\weapon\\knife\\Knife.obj", "obj\\temp_texture.jpg", 1024, 1024, 1, 1, 5);
+	pistol = new Pistol("obj_source\\weapon\\pistol\\obj_pistol.obj", "obj_source\\temp_texture.jpg", 1024, 1024, 10, 10, 10);
+	rifle = new Rifle("obj_source\\weapon\\rifle\\obj_rifle.obj", "obj_source\\weapon\\rifle\\texture_rifle.jpg", 1024, 1024, 30, 30, 20);
+	knife = new Knife("obj_source\\weapon\\knife\\Knife.obj", "obj_source\\temp_texture.jpg", 1024, 1024, 1, 1, 5);
 
 	rifle->init_scale(0.2);
 	rifle->init_rotate(-90, 0, 1, 0);
