@@ -4,7 +4,7 @@
 Field::Field()
 {
 	if (nullptr == bottom)
-		bottom = new Mesh("test_obj\\test_floor.obj");
+		bottom = new Mesh("obj\\field\\test_floor.obj", "obj\\temp_texture.jpg", 1024, 1024);	//
 }
 
 Field::~Field()

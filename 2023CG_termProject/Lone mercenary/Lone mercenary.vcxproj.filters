@@ -256,6 +256,9 @@
     <ClInclude Include="Item.h">
       <Filter>소스 파일\Player, Item, Enemy\Item</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ShaderFile\FragmentShader.glsl">

@@ -1,19 +1,21 @@
-
 #include "Mesh.h"
 #include "ShaderProgram.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 bool Mesh::box_check = false;
 
-Mesh::Mesh(std::string filename) {
+Mesh::Mesh(std::string filename, std::string f_path, int w_size, int h_size) {
 	Initialize(filename);
+	Init_texture(f_path, w_size, h_size);
 }
 
 Mesh::~Mesh()
 {
 	// 사용했으면 반환해라
 	glBindVertexArray(VAO);
-	glDeleteBuffers(1, &EBO);
 	glDeleteBuffers(3, VBO);
+	glDeleteTextures(1, &texture);
 	glDeleteVertexArrays(1, &VAO);
 
 	glBindVertexArray(B_VAO);
@@ -31,18 +33,6 @@ void Mesh::Initialize(std::string filename)
 	}
 	// 현재는 랜덤하게 컬러 지정
 
-	std::random_device rd;
-	std::default_random_engine dre(rd());
-	std::uniform_real_distribution<float> urd_color(0.0, 1.0);
-
-	for (int i = 0; i < vertexs.size(); ++i) {
-		glm::vec3 temp_color;
-		temp_color.x = urd_color(dre);
-		temp_color.y = urd_color(dre);
-		temp_color.z = urd_color(dre);
-		colors.push_back(temp_color);
-	}
-
 	modelTrans = glm::mat4(1.0f);
 	rotateMatrix = glm::mat4(1.0f);
 
@@ -57,11 +47,8 @@ void Mesh::Initialize(std::string filename)
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(3, VBO);
-	glGenBuffers(1, &EBO);
 
 	glBindVertexArray(VAO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * index.size(), &index.front(), GL_STATIC_DRAW);
 
 	int loc = glGetAttribLocation(shader->s_program, "vPos");
 	// 좌표
@@ -71,10 +58,10 @@ void Mesh::Initialize(std::string filename)
 	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(loc);
 
-	loc = glGetAttribLocation(shader->s_program, "vColor");
+	loc = glGetAttribLocation(shader->s_program, "vTexCoord");
 	// 컬러
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * colors.size(), &colors.front(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * texture_coor.size(), &texture_coor.front(), GL_STATIC_DRAW);
 	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(loc);
 
@@ -84,7 +71,7 @@ void Mesh::Initialize(std::string filename)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vertex_normal.size(), &vertex_normal.front(), GL_STATIC_DRAW);
 	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(loc);
-
+	// ==============================================================================================
 	LB = glm::vec3(0.0f);
 	RT = glm::vec3(0.0f);
 	for (glm::vec3& pos : vertexs) {
@@ -179,7 +166,7 @@ void Mesh::Initialize(std::string filename)
 	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(loc);
 
-	loc = glGetAttribLocation(shader->s_program, "vColor");
+	loc = glGetAttribLocation(shader->s_program, "vTexCoord");
 	// 컬러
 	glBindBuffer(GL_ARRAY_BUFFER, B_VBO[1]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * B_color.size(), &B_color.front(), GL_STATIC_DRAW);
@@ -192,13 +179,33 @@ void Mesh::Initialize(std::string filename)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * B_pos.size(), &B_pos.front(), GL_STATIC_DRAW);
 	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(loc);
+	//======================================================================================================
+ }
 
+ void Mesh::Init_texture(std::string filename, int w_size, int h_size)
+ {
+	 glGenTextures(1, &texture);
+	 glBindTexture(GL_TEXTURE_2D, texture);
+	 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	 int t_width = w_size;
+	 int t_height = h_size;
+	 int numberOfChannel;
+	 stbi_set_flip_vertically_on_load(true);
+	 unsigned char* data = stbi_load(filename.c_str(), &t_width, &t_height, &numberOfChannel, 0);
+	 glTexImage2D(GL_TEXTURE_2D, 0, 3, t_width, t_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	 stbi_image_free(data);
  }
 
 // 제대로 읽어 오면 true반환, 지금은 정점과 index만 저장, 추후 수정
 bool Mesh::ReadOBJ(std::string filename)
 {
-	triangle_num = 0;
+	std::vector<glm::vec3> vertex_set;		// 정점 저장공간
+	std::vector<glm::vec3> normal_set;		// 노말 저장공간
+	std::vector<glm::vec3> uv_set;			// 텍스쳐 저장공간
+
 	char c;
 	std::string str;
 	std::ifstream fin(filename);
@@ -206,7 +213,6 @@ bool Mesh::ReadOBJ(std::string filename)
 		std::cerr << "obj파일을 찾지 못했습니다. " << "\n";
 		return false;
 	}
-	std::vector<glm::vec3> subVn;		// 정점수와 노말수가 안맞을 때 사용할 변수
 	std::stringstream stream;
 	stream.str("");
 	fin >> std::noskipws;
@@ -219,7 +225,7 @@ bool Mesh::ReadOBJ(std::string filename)
 				char novalue;
 				glm::vec3 temp_vertex;
 				stream >> novalue >> temp_vertex.x >> temp_vertex.y >> temp_vertex.z;
-				vertexs.push_back(temp_vertex);
+				vertex_set.push_back(temp_vertex);
 				stream.str("");
 			}
 			else if (str[0] == 'v' && str[1] == 'n') {
@@ -227,93 +233,38 @@ bool Mesh::ReadOBJ(std::string filename)
 				char novalue;
 				glm::vec3 temp_vertex;
 				stream >> novalue >> novalue >> temp_vertex.x >> temp_vertex.y >> temp_vertex.z;
-				vertex_normal.push_back(temp_vertex);
-				subVn.push_back(temp_vertex);
+				normal_set.push_back(temp_vertex);
+				stream.str("");
+			}
+			else if (str[0] == 'v' && str[1] == 't') {
+				stream.str(str);
+				char novalue;
+				glm::vec3 temp_vertex;
+				stream >> novalue >> novalue >> temp_vertex.x >> temp_vertex.y >> temp_vertex.z;
+				uv_set.push_back(temp_vertex);
 				stream.str("");
 			}
 			else if (str[0] == 'f' && str[1] == ' ') {
 				stream.str(str);
-				triangle_num++;
+				int v_index[3]{};
+				int n_index[3]{};
+				int uv_index[3]{};
 				char type;
-				int novalue;
-				int temp_index[3];
-				int real_index[3];
-				stream >> type >> temp_index[0] >> type >> novalue >> type >> novalue
-					>> temp_index[1] >> type >> novalue >> type >> novalue
-					>> temp_index[2] >> type >> novalue >> type >> novalue;
-				for (int i = 0; i < 3; ++i) {
-					real_index[i] = temp_index[i] - 1;
-				}
-				index.push_back(real_index[0]);
-				index.push_back(real_index[1]);
-				index.push_back(real_index[2]);
+				stream >> type >> v_index[0] >> type >> uv_index[0] >> type >> n_index[0]
+					>> v_index[1] >> type >> uv_index[1] >> type >> n_index[1]
+					>> v_index[2] >> type >> uv_index[2] >> type >> n_index[2];
+				vertexs.push_back(vertex_set[v_index[0] - 1]);
+				vertexs.push_back(vertex_set[v_index[1] - 1]);
+				vertexs.push_back(vertex_set[v_index[2] - 1]);
+				texture_coor.push_back(uv_set[uv_index[0] - 1]);
+				texture_coor.push_back(uv_set[uv_index[1] - 1]);
+				texture_coor.push_back(uv_set[uv_index[2] - 1]);
+				vertex_normal.push_back(normal_set[n_index[0] - 1]);
+				vertex_normal.push_back(normal_set[n_index[1] - 1]);
+				vertex_normal.push_back(normal_set[n_index[2] - 1]);
 				stream.str("");
 			}
 			str = "";
-		}
-	}
-
-	if (vertexs.size() != vertex_normal.size()) {
-
-		struct Group {
-			std::vector<unsigned int> factor;
-			unsigned int normal;
-		};
-		str = "";
-
-		std::vector<Group> group_set;
-		fin.close();
-		fin.open(filename);
-
-		while (not fin.eof()) {
-			fin >> c;
-			str += c;
-			if (c == '\n') {
-				if (str[0] == 's') {
-					Group g_temp;
-					group_set.push_back(g_temp);
-				}
-				else if (str[0] == 'f' && str[1] == ' ') {
-					stream.str(str);
-					char type;
-					int t_normal;
-					int novalue;
-					int temp_index[3];
-					int real_index[3];
-					stream >> type >> temp_index[0] >> type >> novalue >> type >> t_normal
-						>> temp_index[1] >> type >> novalue >> type >> t_normal
-						>> temp_index[2] >> type >> novalue >> type >> t_normal;
-					for (int i = 0; i < 3; ++i) {
-						real_index[i] = temp_index[i] - 1;
-						group_set[group_set.size() - 1].factor.push_back(real_index[i]);
-					}
-					--t_normal;
-					group_set[group_set.size() - 1].normal = t_normal;
-
-
-					stream.str("");
-				}
-				str = "";
-			}
-		}
-
-		vertex_normal.clear();
-		for (int i = 0; i < vertexs.size(); ++i) {
-			int num_near = 0;		// 근접한 그룹 수
-			glm::vec3 f_normal(0, 0, 0);		// 평균낸 정점 노말
-			for (int j = 0; j < group_set.size(); ++j) {
-				for (int k = 0; k < group_set[j].factor.size(); ++k) {
-					if (group_set[j].factor[k] == i) {
-						num_near++;
-						f_normal += subVn[group_set[j].normal];
-						break;
-					}
-				}
-			}
-			f_normal.x = f_normal.x / num_near;
-			f_normal.y = f_normal.y / num_near;
-			f_normal.z = f_normal.z / num_near;
-			vertex_normal.push_back(glm::normalize(f_normal));
 		}
 	}
 	return true;
@@ -326,7 +277,8 @@ void Mesh::Render() const
 	loc = glGetUniformLocation(shader->s_program, "rotateMatrix");
 	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(rotateMatrix));
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, 3 * triangle_num, GL_UNSIGNED_INT, 0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glDrawArrays(GL_TRIANGLES, 0, vertexs.size());
 
 	if (box_check) {
 		glBindVertexArray(B_VAO);

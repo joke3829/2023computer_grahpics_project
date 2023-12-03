@@ -1,10 +1,10 @@
 #version 330 core
 
 in vec3 vPos;
-in vec3 vColor;
+in vec3 vTexCoord;
 in vec3 vNormal;
 
-out vec3 PassColor;
+out vec3 PassTex;
 out vec3 PassNormal;
 out vec3 FragPos;
 
@@ -17,7 +17,7 @@ void main()
 {
 	gl_Position = proj * view * transform * vec4(vPos, 1.0f);
 	FragPos = vec3(transform * vec4(vPos, 1.0f));
-	PassNormal = vec3(rotateMatrix * vec4(vNormal, 1.0f));
-	//PassNormal = vNormal;
-	PassColor = vColor;
+	//PassNormal = vec3(rotateMatrix * vec4(vNormal, 1.0f));
+	PassNormal = vNormal;
+	PassTex = vTexCoord;
 }

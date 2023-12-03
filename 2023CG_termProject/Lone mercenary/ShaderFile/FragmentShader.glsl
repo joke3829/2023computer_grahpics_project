@@ -1,6 +1,6 @@
 #version 330 core
 
-in vec3 PassColor;
+in vec3 PassTex;
 in vec3 PassNormal;
 in vec3 FragPos;
 
@@ -10,11 +10,13 @@ uniform vec3 veiwPos;
 //uniform vec3 lightPos;		// 조명 위치
 //uniform vec3 lightColor;	// 조명의 색
 
+uniform sampler2D outTexture;
+
 void main()
 {
 	vec3 lightColor = vec3(1.0, 1.0, 1.0);
 	vec3 lightPos = vec3(0.0, 20.0, 0.0);
-	vec3 lightPower = lightColor; // (length(lightColor - FragPos)*0.35);
+	vec3 lightPower = lightColor; // (length(lightPos - FragPos)*0.35);
 	vec3 ambientLight = vec3(0.3);
 	vec3 ambient = ambientLight * lightColor;
 
@@ -32,7 +34,9 @@ void main()
 	specularLight = pow(specularLight, sh);
 	vec3 specular = specularLight * lightPower;
 	
-	vec3 result = (diffuse * PassColor) + (specular * PassColor) + (ambient * PassColor);
+	vec3 result = diffuse + specular + ambient;
 	
 	FragColor = vec4(result, 1.0);
+	vec2 texCoord = PassTex.xy;
+	FragColor = texture(outTexture, texCoord) * FragColor;
 }

@@ -9,7 +9,7 @@
 class ShaderProgram;
 class Mesh {
 public:
-	Mesh(std::string);
+	Mesh(std::string, std::string, int, int);
 	virtual ~Mesh();
 
 	void init_scale(float);							// 초기 스케일 조정
@@ -24,14 +24,13 @@ public:
 	static bool box_check;
 
 protected:
-	unsigned int triangle_num;
-	GLuint VAO, VBO[3], EBO;
+	GLuint VAO, VBO[3];
+	unsigned texture;
 	GLuint B_VAO, B_VBO[3], B_EBO;	// 충돌체크용 박스
-	// 텍스쳐 추가 예정
+
 	std::vector<glm::vec3> vertexs;			// 정점
-	std::vector<glm::vec3> colors;			// 컬러(아마 삭제 예상, 텍스처)
+	std::vector<glm::vec3> texture_coor;	// 텍스쳐좌표
 	std::vector<glm::vec3> vertex_normal;	// 노말
-	std::vector<unsigned int> index;
 
 
 	glm::vec3 LB;			// Left-Bottom
@@ -50,6 +49,7 @@ protected:
 
 	bool ReadOBJ(std::string);		// OBJ읽어오기
 	void Initialize(std::string);				// 초기화
+	void Init_texture(std::string, int, int);
 	ShaderProgram* shader;
 private:
 };
