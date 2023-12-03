@@ -14,10 +14,11 @@ public:
 	Weapon(std::string filename, std::string f_path, int w_size, int h_size, int s_ammo, int r_ammo, int AT);
 
 	int getATK();					// 공격력 받아오기
-	void Shoot();
-	int getWep();
-	bool exist_ammo();
-	void reloading();
+	void Shoot();					// 공격
+	int getWep();					// 무기 정보 받아오기
+	bool exist_ammo();				// 남은 총알이 있는지 -> 반동 적용 미적용 결정 요인
+	void reloading();				// 장전
+	void D_ammo();					//시작전 아이템 효과 - 탄약 2배
 protected:
 	int weapon_num;			// 무기 번호
 

@@ -60,6 +60,10 @@ void Weapon::reloading()
 		std::cout << "남은 총알이 없어유~"<< std::endl;
 	}
 }
+void Weapon::D_ammo()
+{
+	total_ammo *= 2;
+}
 //====================================================================
 
 Knife::Knife(std::string filename, std::string f_path, int w_size, int h_size, int s_ammo, int r_ammo, int AT) : Weapon(filename, f_path, w_size, h_size, s_ammo, r_ammo,AT) {
