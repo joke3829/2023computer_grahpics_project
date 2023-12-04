@@ -26,7 +26,7 @@ bool MainApp::Initialize()
 bool MainApp::test_Initialize()
 {
 	Mesh::box_check = false;
-	game_state = 필드;
+	game_state = 아이템선택;
 	mPlayer = new Player(100, 200, 40, 10, 0);
 	camera = new CameraObj;
 	proj = new ProjObj;
