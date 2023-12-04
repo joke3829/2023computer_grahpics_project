@@ -9,7 +9,10 @@
 #include "Player.h"
 #include "Weapon.h"
 #include "KeyboardFunc.h"
-#include "Field.h"
+#include "FieldMap.h"
 #include "MouseFunc.h"
 #include "Enemy.h"
 #include "NM_zombie.h"
+
+#include "Scene.h"
+#include "Field.h"

@@ -131,6 +131,7 @@
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="FieldMap.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="KeyboardFunc.cpp" />
     <ClCompile Include="Knife.cpp">
@@ -158,6 +159,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="ENUM.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="FieldMap.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="KeyboardFunc.h" />
     <ClInclude Include="Knife.h">
@@ -177,6 +179,7 @@
     <ClInclude Include="Rifle.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stdafx.h" />

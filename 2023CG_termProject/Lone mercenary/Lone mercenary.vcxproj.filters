@@ -25,9 +25,6 @@
     <Filter Include="소스 파일\Scene">
       <UniqueIdentifier>{d3df4425-af78-43c0-9054-6b3814c1f775}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Scene\Field">
-      <UniqueIdentifier>{44710171-c00b-4edf-9e08-997ddbca207e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Control">
       <UniqueIdentifier>{1f20ebd3-e439-46b3-9657-69ba024b19a0}</UniqueIdentifier>
     </Filter>
@@ -91,6 +88,12 @@
     <Filter Include="소스 파일\Player, Item, Enemy\Item">
       <UniqueIdentifier>{bc07f16a-7a9c-4010-a4f7-65b94f4b4332}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Scene\필드">
+      <UniqueIdentifier>{fc526d7b-2303-4b7e-8ebb-d5925c632d6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\FieldMap">
+      <UniqueIdentifier>{44710171-c00b-4edf-9e08-997ddbca207e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -99,8 +102,8 @@
     <ClCompile Include="CharacterBase.cpp">
       <Filter>소스 파일\Player, Item, Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Field.cpp">
-      <Filter>소스 파일\Scene\Field</Filter>
+    <ClCompile Include="FieldMap.cpp">
+      <Filter>소스 파일\FieldMap</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardFunc.cpp">
       <Filter>소스 파일\Control\Keyboard</Filter>
@@ -146,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>소스 파일\Player, Item, Enemy\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>소스 파일\Scene\필드</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,8 +205,8 @@
     <ClInclude Include="ENUM.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Field.h">
-      <Filter>소스 파일\Scene\Field</Filter>
+    <ClInclude Include="FieldMap.h">
+      <Filter>소스 파일\FieldMap</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardFunc.h">
       <Filter>소스 파일\Control\Keyboard</Filter>
@@ -258,6 +264,12 @@
     </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>소스 파일\Scene\필드</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

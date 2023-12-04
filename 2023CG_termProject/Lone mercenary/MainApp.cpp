@@ -33,10 +33,10 @@ bool MainApp::test_Initialize()
 	/*pistol = new Pistol("test_obj\\obj_rifle.obj", 10, 10);
 	rifle = new Rifle("test_obj\\obj_rifle.obj", 30, 30);
 	knife = new Knife("test_obj\\obj_rifle.obj", 1, 1);*/
-	pKeyboard = new KeyboardFunc(mPlayer, camera);
+	pKeyboard = new KeyboardFunc;
 	pKeyboard->setGame_stete(game_state);
 
-	field = new Field;
+	field = new FieldMap;
 	pMouse = new MouseFunc(mPlayer);
 	pMouse->setGame_stete(game_state);
 
@@ -48,6 +48,8 @@ bool MainApp::test_Initialize()
 	aliving = 0;
 
 
+	state_field = new Field(mPlayer, field, camera, enemy_array);
+	pKeyboard->setScene(state_field);
 
 	return true;
 }
@@ -66,30 +68,8 @@ bool MainApp::Update_MainApp()
 		pMouse->setGame_stete(game_state);
 		break;
 	case 필드:
-		// 플레이어 아이템 적용
-		dynamic_cast<Player*>(mPlayer)->apply_item();
-		//  업데이트 헤더에서 애니메이션 적용하기
-		dynamic_cast<Player*>(mPlayer)->animation();
-		dynamic_cast<Player*>(mPlayer)->attack();
-		camera->setCameraEYE(dynamic_cast<Player*>(mPlayer)->getLoc());		// 카메라 업데이트 해주기
-		camera->setCameraAngle(dynamic_cast<Player*>(mPlayer)->getRot());
-		// 총기 위치 변경
-		dynamic_cast<Player*>(mPlayer)->take_out_Wep();
-		dynamic_cast<Player*>(mPlayer)->getWeapon()->setLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
-		dynamic_cast<Player*>(mPlayer)->getWeapon()->setRot(dynamic_cast<Player*>(mPlayer)->getWepRot());
-
-		aliving = 0;
-		for (int i = 0; enemy_array.size(); ++i) {
-			if (aliving < max_alive) {
-				if (not enemy_array[i]->Death_check()) {
-					enemy_array[i]->setPlayerLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
-					enemy_array[i]->walk_ani();
-					++aliving;
-				}
-			}
-			else
-				break;
-		}
+		
+		state_field->Update();
 
 		break;
 	case 결과창:
@@ -107,22 +87,8 @@ bool MainApp::Render()
 		
 		break;
 	case 필드:
-		field->Render();
-		dynamic_cast<Player*>(mPlayer)->getWeapon()->Render();		// 현재 들고 있는 무기를 렌더링 합니다.
-
-
-		aliving = 0;
-		for (int i = 0; enemy_array.size(); ++i) {
-			if (aliving < max_alive) {
-				if (not enemy_array[i]->Death_check()) {
-					enemy_array[i]->Render();
-					++aliving;
-				}
-			}
-			else
-				break;
-		}
-
+		
+		state_field->Render();
 		break;
 	}
 	return true;

@@ -3,11 +3,12 @@
 #include "CharacterBase.h"
 #include "CameraObj.h"
 #include "Player.h"
+#include "Field.h"
 
-KeyboardFunc::KeyboardFunc(CharacterBase* t_player, CameraObj* t_camera)
-	: mPlayer(t_player), mCamera(t_camera)
+
+void KeyboardFunc::setScene(Scene* t_scene)
 {
-	game_state = 필드;
+	mScene = t_scene;
 }
 
 void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
@@ -15,37 +16,37 @@ void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
 	if (필드 == game_state) {
 		switch (key) {
 		case 'w':
-			dynamic_cast<Player*>(mPlayer)->setMove('w', true);
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('w', true);
 			break;
 		case 'a':
-			dynamic_cast<Player*>(mPlayer)->setMove('a', true);
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('a', true);
 			break;
 		case 's':
-			dynamic_cast<Player*>(mPlayer)->setMove('s', true);
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('s', true);
 			break;
 		case 'd':
-			dynamic_cast<Player*>(mPlayer)->setMove('d', true);
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('d', true);
 			break;
 		case 27:	// ESC 그 잘난 김도영이 해냈습니다.
 			glutLeaveMainLoop();
 			break;
 		case '1':
-			dynamic_cast<Player*>(mPlayer)->setWeapon('1');
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setWeapon('1');
 			break;
 		case '2':
-			dynamic_cast<Player*>(mPlayer)->setWeapon('2');
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setWeapon('2');
 			break;
 		case '3':
-			dynamic_cast<Player*>(mPlayer)->setWeapon('3');
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setWeapon('3');
 			break;
 		case 'r':
-			dynamic_cast<Player*>(mPlayer)->setWeapon('r');
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setWeapon('r');
 			break;
 		case '+':
-			dynamic_cast<Player*>(mPlayer)->setsensative('+');
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setsensative('+');
 			break;
 		case '-':
-			dynamic_cast<Player*>(mPlayer)->setsensative('-');
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setsensative('-');
 			break;
 		case 't':
 			if (Mesh::box_check)
@@ -63,16 +64,16 @@ void KeyboardFunc::KeyboardUp(unsigned char key, int x, int y)
 	if (필드 == game_state) {
 		switch (key) {
 		case 'w':
-			dynamic_cast<Player*>(mPlayer)->setMove('w', false);
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('w', false);
 			break;
 		case 'a':
-			dynamic_cast<Player*>(mPlayer)->setMove('a', false);
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('a', false);
 			break;
 		case 's':
-			dynamic_cast<Player*>(mPlayer)->setMove('s', false);
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('s', false);
 			break;
 		case 'd':
-			dynamic_cast<Player*>(mPlayer)->setMove('d', false);
+			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('d', false);
 			break;
 		}
 	}

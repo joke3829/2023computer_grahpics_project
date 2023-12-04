@@ -11,10 +11,11 @@ class CharacterBase;
 class CameraObj;
 class ProjObj;
 class Weapon;
-class Field;
+class FieldMap;
 class KeyboardFunc;
 class MouseFunc;
 class EnemyBase;
+class Scene;
 
 class MainApp {
 public:
@@ -49,5 +50,11 @@ private:
 	int max_alive;		// 한 필드에 최대 존재 좀비 수
 	int aliving;		// 한 필드에 존재하는 좀비 수
 
-	Field* field;
+	FieldMap* field;
+
+
+
+	Scene* state_field;
+
+
 };

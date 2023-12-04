@@ -1,21 +1,27 @@
-//==========================================================
-// Field.h
-// 필드 관리 헤더
-//==========================================================
-
 #pragma once
+#include "Scene.h"
+#include "CharacterBase.h"
+#include "FieldMap.h"
+#include "Enemy.h"
+#include "CameraObj.h"
 
-#include "stdafx.h"
 
-class Mesh;
-class Field {
+class Field : public Scene {
 public:
-	Field();
+	Field(CharacterBase*, FieldMap*, CameraObj*, std::vector<EnemyBase*>&);
 	~Field();
 
-	void Render() const;
-protected:
+	CharacterBase* getPlayer();
+	CameraObj* getCamera();
+
+	void Update();
+	void Render();
 private:
-	Mesh* bottom{ nullptr };
-	// 건물들 추가
+	CharacterBase* mPlayer{ nullptr };
+	FieldMap* mField;
+	std::vector<EnemyBase*> enemy_list;
+	CameraObj* mCamera{ nullptr };
+
+	int max_alive{};		// 한 필드에 최대 존재 좀비 수
+	int aliving{};		// 한 필드에 존재하는 좀비 수
 };
