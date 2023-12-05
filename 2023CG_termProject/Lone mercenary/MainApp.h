@@ -23,13 +23,13 @@ public:
 	~MainApp();
 
 	bool Initialize();				
-	bool test_Initialize();			// 테스트용 초기화
 	bool Update_MainApp();
 	void DestroyMainApp();
 
 	bool e_arrayReady();			// 좀비 배열 준비
 
 	bool Render();
+	void next_state();
 	KeyboardFunc* pKeyboard;
 	MouseFunc* pMouse;
 protected:
@@ -37,24 +37,17 @@ private:
 	int game_state;
 	CameraObj* camera;
 	ProjObj* proj;
-
-
 	CharacterBase* mPlayer;
-	//Weapon* pistol;
-	//Weapon* rifle;
-	//Weapon* knife;
 
 
 
 	std::vector<EnemyBase*> enemy_array;
-	int max_alive;		// 한 필드에 최대 존재 좀비 수
-	int aliving;		// 한 필드에 존재하는 좀비 수
+	GameTimer* game_timer;
+
 
 	FieldMap* field;
+	Scene* current_scene;
 
-
-
-	Scene* state_field;
 
 
 };

@@ -132,7 +132,9 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="FieldMap.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="KeyboardFunc.cpp" />
     <ClCompile Include="Knife.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -150,6 +152,7 @@
     <ClCompile Include="Rifle.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Select_Item.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
@@ -160,7 +163,9 @@
     <ClInclude Include="ENUM.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="FieldMap.h" />
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemBox.h" />
     <ClInclude Include="KeyboardFunc.h" />
     <ClInclude Include="Knife.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -180,6 +185,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Select_Item.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stdafx.h" />

@@ -13,6 +13,9 @@
 #include "MouseFunc.h"
 #include "Enemy.h"
 #include "NM_zombie.h"
+#include "GameTimer.h"
 
+// ¿Â∏ÈµÈ
 #include "Scene.h"
 #include "Field.h"
+#include "Select_Item.h"

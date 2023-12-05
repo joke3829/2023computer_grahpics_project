@@ -43,7 +43,7 @@ void main(int argc, char** argv)
 
 	//============================================================
 	mainApp = new MainApp;								// MainApp 생성
-	if (not mainApp->test_Initialize()) {				// MainApp 초기화
+	if (not mainApp->Initialize()) {				// MainApp 초기화
 		std::cout << "MainApp 초기화 실패!" << std::endl;
 		return;
 	}
@@ -77,6 +77,7 @@ GLvoid drawScene()									// 콜백 함수: 그리기 콜백 함수
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	mainApp->next_state();
 	if (not mainApp->Render())
 		return;
 

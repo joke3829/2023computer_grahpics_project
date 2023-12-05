@@ -1,6 +1,8 @@
 
+
 #include "MainApp.h"
 #include "main_define.h"
+
 
 MainApp::~MainApp()
 {
@@ -10,87 +12,79 @@ MainApp::~MainApp()
 // 최종본엔 이걸 사용할것
 bool MainApp::Initialize()
 {
+	// 기초 요소들 초기화
 	Mesh::box_check = false;
-	mPlayer = new Player(100, 200, 5, 10, 0);
 	camera = new CameraObj;
 	proj = new ProjObj;
-	game_state = 타이틀;
+	game_state = 메인;
 
-	max_alive = 12;			// 한 필드에 12마리
-	aliving = 0;
-
-	return true;
-}
-
-
-bool MainApp::test_Initialize()
-{
-	Mesh::box_check = false;
-	game_state = 필드;
-	mPlayer = new Player(100, 200, 40, 10, 0);
-	camera = new CameraObj;
-	proj = new ProjObj;
-	/*pistol = new Pistol("test_obj\\obj_rifle.obj", 10, 10);
-	rifle = new Rifle("test_obj\\obj_rifle.obj", 30, 30);
-	knife = new Knife("test_obj\\obj_rifle.obj", 1, 1);*/
+	current_scene = new Scene; // 메인 장면도 만들예정
+	
+	// 키보드 마우스 초기화
 	pKeyboard = new KeyboardFunc;
 	pKeyboard->setGame_stete(game_state);
+	pKeyboard->setScene(current_scene);
 
-	field = new FieldMap;
-	pMouse = new MouseFunc(mPlayer);
+	pMouse = new MouseFunc;
 	pMouse->setGame_stete(game_state);
+	pKeyboard->setScene(current_scene);
 
-	//glutWarpPointer(1280 / 2, 720 / 2);
-
-
-	e_arrayReady();			// 좀비 준비
-	max_alive = 6;			// 한 필드에 12마리
-	aliving = 0;
-
-
-	state_field = new Field(mPlayer, field, camera, enemy_array);
-	pKeyboard->setScene(state_field);
+	// 게임 요소 초기화
+	field = new FieldMap;
 
 	return true;
 }
 
-// 상태가 바뀌면 그 때에 따라 새로운 자원을 받아와라
-bool MainApp::Update_MainApp()
+void MainApp::next_state()
 {
 	switch (game_state) {
 	case 타이틀:
 		break;
 	case 메인:
+		if (pMouse->next_state()) {
+			game_state = 아이템선택;
+			delete current_scene;
+			mPlayer = new Player(100, 200, 40, 10, 0);
+			current_scene = new Select_Item(mPlayer);
+			pKeyboard->setGame_stete(game_state);
+			pKeyboard->setScene(current_scene);
+
+			pMouse->setGame_stete(game_state);
+			pMouse->setScene(current_scene);
+		}
 		break;
 	case 아이템선택:
-		game_state = dynamic_cast<MouseFunc*>(pMouse)->getGame_state();
-		pKeyboard->setGame_stete(game_state);
-		pMouse->setGame_stete(game_state);
+		if (pMouse->next_state()) {
+			game_state = 필드;
+			delete current_scene;
+			e_arrayReady();
+			game_timer = new GameTimer;
+			current_scene = new Field(mPlayer, field, camera, enemy_array, game_timer);
+			pKeyboard->setGame_stete(game_state);
+			pKeyboard->setScene(current_scene);
+
+			pMouse->setGame_stete(game_state);
+			pMouse->setScene(current_scene);
+		}
 		break;
 	case 필드:
-		
-		state_field->Update();
-
 		break;
 	case 결과창:
 		break;
 	}
+}
+
+
+// 상태가 바뀌면 그 때에 따라 새로운 자원을 받아와라
+bool MainApp::Update_MainApp()
+{
+	current_scene->Update();
 	return true;
 }
 
 bool MainApp::Render()
 {
-	switch (game_state) {
-	case 타이틀:
-		break;
-	case 메인:
-		
-		break;
-	case 필드:
-		
-		state_field->Render();
-		break;
-	}
+	current_scene->Render();
 	return true;
 }
 
@@ -102,7 +96,7 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 20; ++i) {
 		enemy_array.push_back(new NM_zombie(100, 200, i, 10, 10));
 	}
 

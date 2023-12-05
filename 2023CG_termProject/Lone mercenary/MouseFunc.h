@@ -16,7 +16,12 @@ public:
 
 	void setScene(Scene*);
 	void setGame_stete(int);
+	
+	bool next_state();
+
 	int getGame_state();
+	static int s_x;
+	static int s_y;
 protected:
 private:
 	Scene* mScene;

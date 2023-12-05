@@ -1,10 +1,10 @@
 #include "Field.h"
 #include "Player.h"
 
-Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, std::vector<EnemyBase*>& t_list)
-	: mPlayer(t_player), mField(t_field), mCamera(t_camera), enemy_list(t_list)
+Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, std::vector<EnemyBase*>& t_list, GameTimer* t_timer)
+	: mPlayer(t_player), mField(t_field), mCamera(t_camera), enemy_list(t_list), mTimer(t_timer)
 {
-	max_alive = 6;
+	max_alive = 12;
 }
 
 Field::~Field()
@@ -40,6 +40,7 @@ void Field::Update()
 		else
 			break;
 	}
+	mTimer->Update();
 }
 
 void Field::Render()
@@ -58,6 +59,7 @@ void Field::Render()
 		else
 			break;
 	}
+	mTimer->Render();
 }
 
 CharacterBase* Field::getPlayer()

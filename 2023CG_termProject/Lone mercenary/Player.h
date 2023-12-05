@@ -5,7 +5,7 @@
 //============================================================
 
 
-
+#pragma once
 #include "CharacterBase.h"
 #include "Weapon.h"
 

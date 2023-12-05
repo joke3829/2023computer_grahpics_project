@@ -94,6 +94,15 @@
     <Filter Include="소스 파일\FieldMap">
       <UniqueIdentifier>{44710171-c00b-4edf-9e08-997ddbca207e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Scene\아이템선택">
+      <UniqueIdentifier>{0f7065cd-1bd8-476b-80b3-82867b9ce304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Player, Item, Enemy\ItemBox">
+      <UniqueIdentifier>{88e4fc4e-ad90-4718-a667-776e98e65613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameTimer">
+      <UniqueIdentifier>{317d0254-10c9-4171-982d-363e17d76a4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -152,6 +161,15 @@
     </ClCompile>
     <ClCompile Include="Field.cpp">
       <Filter>소스 파일\Scene\필드</Filter>
+    </ClCompile>
+    <ClCompile Include="Select_Item.cpp">
+      <Filter>소스 파일\Scene\아이템선택</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBox.cpp">
+      <Filter>소스 파일\Player, Item, Enemy\ItemBox</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>소스 파일\GameTimer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +288,15 @@
     </ClInclude>
     <ClInclude Include="Field.h">
       <Filter>소스 파일\Scene\필드</Filter>
+    </ClInclude>
+    <ClInclude Include="Select_Item.h">
+      <Filter>소스 파일\Scene\아이템선택</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBox.h">
+      <Filter>소스 파일\Player, Item, Enemy\ItemBox</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>소스 파일\GameTimer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
