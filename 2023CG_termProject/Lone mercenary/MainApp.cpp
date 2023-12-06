@@ -96,10 +96,11 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
-	for (int i = 0; i < 20; ++i) {
-		enemy_array.push_back(new NM_zombie(100, 200, 20, 10, 10, ÀÏ¹Ý));
+	for (int i = 0; i < 4; ++i) {
+		enemy_array.push_back(new NM_zombie(100, 200, 20, 10, 10, Èú·¯));
 	}
-
+	enemy_array.push_back(new NM_zombie(100, 200, 10, 20, 50, Æø¹ß));
+	enemy_array.push_back(new NM_zombie(100, 200, 10, 30, 50, ÀÏ¹Ý));
 	return true;
 }
 

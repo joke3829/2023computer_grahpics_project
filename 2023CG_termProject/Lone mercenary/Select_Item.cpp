@@ -12,5 +12,7 @@ void Select_Item::Update()
 
 void Select_Item::Render()
 {
-
+	glEnable(GL_BLEND);
+	button->Render();
+	glDisable(GL_BLEND);
 }

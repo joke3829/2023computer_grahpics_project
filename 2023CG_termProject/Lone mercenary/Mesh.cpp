@@ -195,7 +195,7 @@ void Mesh::Initialize(std::string filename)
 	 int numberOfChannel;
 	 stbi_set_flip_vertically_on_load(true);
 	 unsigned char* data = stbi_load(filename.c_str(), &t_width, &t_height, &numberOfChannel, 0);
-	 glTexImage2D(GL_TEXTURE_2D, 0, 3, t_width, t_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	 glTexImage2D(GL_TEXTURE_2D, 0, 4, t_width, t_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 	 stbi_image_free(data);
  }
 

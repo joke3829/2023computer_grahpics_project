@@ -12,7 +12,7 @@ void CameraObj::Initialize()
 {
 	shader = ShaderProgram::getShader();
 	camera_dis = 40;				// EYE - AT
-	cameraEYE = glm::vec3(-20, 0, 0);
+	cameraEYE = glm::vec3(0, 0, 0);
 	cameraUP = glm::vec3(0, 1, 0);
 	// ========================!중요!=====================
 	// x가 증가하면 AT이 내가 바라보는 방향에서 우측으로

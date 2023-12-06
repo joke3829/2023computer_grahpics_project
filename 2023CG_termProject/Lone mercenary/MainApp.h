@@ -48,6 +48,6 @@ private:
 	FieldMap* field;
 	Scene* current_scene;
 
-
+	// 아이템 선택 신에 들어갈 요소
 
 };

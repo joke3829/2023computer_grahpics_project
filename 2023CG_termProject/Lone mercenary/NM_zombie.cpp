@@ -76,8 +76,20 @@ NM_zombie::NM_zombie(float hp, float max, float spd, float def, float atk, int t
 		leg[1] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_rightleg.obj", "obj_source\\zombie\\NM_zombie\\rightleg_colorBase_test.png", 1024, 1024);
 		break;
 	case Èú·¯:
+		head = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_head.obj", "obj_source\\zombie\\NM_zombie\\heal_z_head.png", 1024, 1024);
+		body = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_body.obj", "obj_source\\zombie\\NM_zombie\\heal_z_body.png", 1024, 1024);
+		arm[0] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_leftarm.obj", "obj_source\\zombie\\NM_zombie\\heal_z_leftarm.png", 1024, 1024);
+		arm[1] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_rightarm.obj", "obj_source\\zombie\\NM_zombie\\heal_z_rightarm.png", 1024, 1024);
+		leg[0] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_leftleg.obj", "obj_source\\zombie\\NM_zombie\\heal_z_leftleg.png", 1024, 1024);
+		leg[1] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_rightleg.obj", "obj_source\\zombie\\NM_zombie\\heal_z_rightleg.png", 1024, 1024);
 		break;
-	case ÅÊÅ©:
+	case Æø¹ß:
+		head = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_head.obj", "obj_source\\zombie\\NM_zombie\\bomb_zombie.png", 1024, 1024);
+		body = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_body.obj", "obj_source\\zombie\\NM_zombie\\bomb_zombie.png", 1024, 1024);
+		arm[0] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_leftarm.obj", "obj_source\\zombie\\NM_zombie\\bomb_zombie.png", 1024, 1024);
+		arm[1] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_rightarm.obj", "obj_source\\zombie\\NM_zombie\\bomb_zombie.png", 1024, 1024);
+		leg[0] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_leftleg.obj", "obj_source\\zombie\\NM_zombie\\bomb_zombie.png", 1024, 1024);
+		leg[1] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_rightleg.obj", "obj_source\\zombie\\NM_zombie\\bomb_zombie.png", 1024, 1024);
 		break;
 	}
 	head->init_scale(0.15);

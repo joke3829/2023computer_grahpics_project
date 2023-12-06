@@ -38,5 +38,5 @@ void main()
 	
 	FragColor = vec4(result, 1.0);
 	vec2 texCoord = PassTex.xy;
-	FragColor = texture(outTexture, texCoord) * FragColor;
+	FragColor = texture(outTexture, texCoord);// * FragColor;
 }

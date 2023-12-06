@@ -29,7 +29,7 @@ void Field::Update()
 
 
 	aliving = 0;
-	for (int i = 0; enemy_list.size(); ++i) {
+	for (int i = 0; i < enemy_list.size(); ++i) {
 		if (aliving < max_alive) {
 			if (not enemy_list[i]->Death_check()) {
 				enemy_list[i]->setPlayerLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
@@ -49,7 +49,7 @@ void Field::Render()
 	dynamic_cast<Player*>(mPlayer)->getWeapon()->Render();
 
 	aliving = 0;
-	for (int i = 0; enemy_list.size(); ++i) {
+	for (int i = 0; i < enemy_list.size(); ++i) {
 		if (aliving < max_alive) {
 			if (not enemy_list[i]->Death_check()) {
 				enemy_list[i]->Render();
