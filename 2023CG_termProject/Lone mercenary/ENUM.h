@@ -11,3 +11,5 @@ enum EQUIP_ITEM{김도영의_자켓, 김도영의_핸드폰, 등등};
 
 // 무기별 번호, 추가하기---
 enum WEAPONS{나이프, 권총, 라이플};
+
+enum ZOMBIE_TYPE{일반, 힐러, 탱크, 폭발};

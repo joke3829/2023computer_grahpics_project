@@ -11,14 +11,20 @@
 class NM_zombie : public EnemyBase {
 public:
 	NM_zombie();
-	NM_zombie(float hp, float max, float spd, float def, float atk);
+	NM_zombie(float hp, float max, float spd, float def, float atk, int type);
 	~NM_zombie();
 
 	void walk_ani();
+	void z_heal(std::vector<EnemyBase*>&);
+
 	
 	void Render() const;
 protected:
 private:
+	int z_type;
+	clock_t start_time{};
+	clock_t current_time{};
+	double p_delay{};
 	NM_Mesh* head;		// ¸Ó¸®
 	NM_Mesh* body;		// ¸öÅë
 	NM_Mesh* arm[2];	// ¿ÞÆÈ, ¿À¸¥ÆÈ

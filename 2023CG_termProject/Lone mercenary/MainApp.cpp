@@ -97,7 +97,7 @@ bool MainApp::e_arrayReady()
 	}
 
 	for (int i = 0; i < 20; ++i) {
-		enemy_array.push_back(new NM_zombie(100, 200, i, 10, 10));
+		enemy_array.push_back(new NM_zombie(100, 200, 20, 10, 10, ÀÏ¹Ý));
 	}
 
 	return true;

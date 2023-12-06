@@ -40,20 +40,46 @@ NM_zombie::NM_zombie() : EnemyBase() {
 	leg[1]->init_position(-0.02, 3, 0.5);
 }
 
-NM_zombie::NM_zombie(float hp, float max, float spd, float def, float atk)
+NM_zombie::NM_zombie(float hp, float max, float spd, float def, float atk, int type)
 	: EnemyBase(hp, max, spd, def, atk)
 {
+	start_time = clock();
+	std::random_device rd;
+	std::default_random_engine dre(rd());
+	std::uniform_int_distribution<int> uid(1, 4);
 
-	cur_loc = glm::vec3(0.0f);
+	std::uniform_int_distribution<int> z_rnd(-50, 50);
+	z_type = type;
+	switch (uid(dre)) {
+	case 1:
+		cur_loc = glm::vec3(100, 0, z_rnd(dre));
+		break;
+	case 2:
+		cur_loc = glm::vec3(z_rnd(dre), 0, 100);
+		break;
+	case 3:
+		cur_loc = glm::vec3(-100, 0, z_rnd(dre));
+		break;
+	case 4:
+		cur_loc = glm::vec3(z_rnd(dre), 0, -100);
+		break;
+	}
 	cur_rot = glm::vec3(0.0f);
 
-	head = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_head.obj", "obj_source\\zombie\\NM_zombie\\head_colorBase_test.jpg", 1024, 1024);
-	body = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_body.obj", "obj_source\\zombie\\NM_zombie\\body_colorBase_test.jpg", 1024, 1024);
-	arm[0] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_leftarm.obj", "obj_source\\zombie\\NM_zombie\\leftarm_colorBase_test.jpg", 1024, 1024);
-	arm[1] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_rightarm.obj", "obj_source\\zombie\\NM_zombie\\rightarm_colorBase_test.jpg", 1024, 1024);
-	leg[0] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_leftleg.obj", "obj_source\\zombie\\NM_zombie\\leftleg_colorBase_test.jpg", 1024, 1024);
-	leg[1] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_rightleg.obj", "obj_source\\zombie\\NM_zombie\\rightleg_colorBase_test.jpg", 1024, 1024);
-
+	switch (z_type) {
+	case ÀÏ¹Ý:
+		head = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_head.obj", "obj_source\\zombie\\NM_zombie\\head_colorBase_test.png", 1024, 1024);
+		body = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_body.obj", "obj_source\\zombie\\NM_zombie\\body_colorBase_test.png", 1024, 1024);
+		arm[0] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_leftarm.obj", "obj_source\\zombie\\NM_zombie\\leftarm_colorBase_test.png", 1024, 1024);
+		arm[1] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_rightarm.obj", "obj_source\\zombie\\NM_zombie\\rightarm_colorBase_test.png", 1024, 1024);
+		leg[0] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_leftleg.obj", "obj_source\\zombie\\NM_zombie\\leftleg_colorBase_test.png", 1024, 1024);
+		leg[1] = new NM_Mesh("obj_source\\zombie\\NM_zombie\\NM_zombie_rightleg.obj", "obj_source\\zombie\\NM_zombie\\rightleg_colorBase_test.png", 1024, 1024);
+		break;
+	case Èú·¯:
+		break;
+	case ÅÊÅ©:
+		break;
+	}
 	head->init_scale(0.15);
 	body->init_scale(0.15);
 	arm[0]->init_scale(0.15);
@@ -74,6 +100,7 @@ NM_zombie::NM_zombie(float hp, float max, float spd, float def, float atk)
 	arm[1]->init_position(1.45, 8.4, 1.2);
 	leg[0]->init_position(-0.02, 3, -0.5);
 	leg[1]->init_position(-0.02, 3, 0.5);
+	
 }
 
 NM_zombie::~NM_zombie()
@@ -152,4 +179,28 @@ void NM_zombie::Render() const
 	arm[1]->Render();
 	leg[0]->Render();
 	leg[1]->Render();
+}
+
+void NM_zombie::z_heal(std::vector<EnemyBase*>& temp_list)
+{
+	if (Èú·¯ == z_type && not Death_check()) {
+		current_time = clock();
+		double dd = (current_time - start_time) / CLOCKS_PER_SEC;
+		if (dd > 10.0) {
+			int aliving{};
+			for (int i = 0; i < temp_list.size(); ++i) {
+				if (12 > aliving) {
+					if (not temp_list[i]->Death_check()) {
+						if (glm::distance(cur_loc, temp_list[i]->getLoc()) < 10) {
+							temp_list[i]->Update_HP(30);
+						}
+						++aliving;
+					}
+				}
+				else
+					break;
+			}
+			start_time = clock();
+		}
+	}
 }

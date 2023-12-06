@@ -14,7 +14,7 @@ public:
 	virtual void Render() const {};
 
 	void setPlayerLoc(glm::vec3);
-
+	glm::vec3 getLoc();
 	
 protected:
 	glm::vec3 cur_loc{0.0f};
