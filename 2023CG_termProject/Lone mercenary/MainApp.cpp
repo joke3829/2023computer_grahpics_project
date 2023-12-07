@@ -75,7 +75,7 @@ void MainApp::next_state()
 }
 
 
-// 상태가 바뀌면 그 때에 따라 새로운 자원을 받아와라
+// 현재 장면 업데이트
 bool MainApp::Update_MainApp()
 {
 	current_scene->Update();

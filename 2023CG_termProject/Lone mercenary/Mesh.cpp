@@ -348,3 +348,18 @@ void Mesh::setRot(glm::vec2 new_rot)
 
 	modelTrans = glm::translate(temp, cur_loc) * modelTrans; temp = glm::mat4(1.0f);
 }
+
+glm::vec3 Mesh::getLB()
+{
+	return LB;
+}
+
+glm::vec3 Mesh::getRT()
+{
+	return RT;
+}
+
+glm::mat4 Mesh::getModelTrans()
+{
+	return modelTrans;
+}

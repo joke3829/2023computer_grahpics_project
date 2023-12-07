@@ -19,6 +19,10 @@ public:
 	void setLoc(glm::vec3);							// 위치 바꿔주기
 	void setRot(glm::vec2);							// 회전율 바꿔주기
 
+	glm::vec3 getLB();
+	glm::vec3 getRT();
+	glm::mat4 getModelTrans();
+
 	void Render() const;
 
 	static bool box_check;
