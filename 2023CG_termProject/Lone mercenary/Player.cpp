@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Weapon.h"
+#include "NM_zombie.h"
 
 // =========================P_Mesh==========================
 
@@ -329,5 +330,26 @@ int Player::Weapon()
 Weapon* Player::getWeapon() const
 {
 	return cur_Wea;
+}
+
+void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_camera)
+{	// 인자 설명 1. 좀비 리스트   2. 카메라(위치랑 바라보는 곳 받아서 광선 구하고
+	int aliving = 0;		// 살아있는 좀비 수
+	for (int i = 0; i < temp_list.size(); ++i) {
+		if (aliving < 12) {			// 최대 12마리만 필드에 나온다
+			if (not temp_list[i]->Death_check()) {		// 그 좀비가 살아있냐?
+				// 살았으면 머리 몸통 부위별로 확인해서 
+				// update_hp해준다.
+				// 머리면은 좀 더 넣고(일반 머리만 확인해)
+
+				// 카메라 인터페이스 함수없으면 만들어서 쓰고
+				// 미완성이라도 오늘안에 푸시좀 해줘
+				// 다른 부분 건들지 말고
+				++aliving;
+			}
+		}
+		else
+			break;
+	}
 }
 //===========================================================

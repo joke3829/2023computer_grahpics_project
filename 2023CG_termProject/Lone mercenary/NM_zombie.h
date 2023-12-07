@@ -16,7 +16,7 @@ public:
 
 	void walk_ani();
 	void z_heal(std::vector<EnemyBase*>&);
-
+	NM_Mesh* gethead();
 	
 	void Render() const;
 protected:

@@ -7,7 +7,9 @@
 
 #pragma once
 #include "CharacterBase.h"
+#include "CameraObj.h"
 #include "Weapon.h"
+#include "Enemy.h"
 
 class Player : public CharacterBase {
 private:
@@ -41,6 +43,9 @@ public:
 	void take_out_Wep();
 	void set_item(int, int);
 	void apply_item();
+
+	void attack_check(std::vector<EnemyBase*>&, CameraObj*);	// 광선이 좀비랑 닿았나?
+
 	glm::vec3 getLoc();				// 현재 위치 받아오기
 	glm::vec2 getRot();				// 현재 바라보는 방향 받아오기
 	glm::vec2 getWepRot();			// 현재 바라보는 방향에 맞춰 총기위치 지정하기

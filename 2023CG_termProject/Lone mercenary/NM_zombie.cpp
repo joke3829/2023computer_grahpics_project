@@ -216,3 +216,9 @@ void NM_zombie::z_heal(std::vector<EnemyBase*>& temp_list)
 		}
 	}
 }
+
+
+NM_Mesh* NM_zombie::gethead()
+{
+	return head;
+}
