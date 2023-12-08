@@ -4,7 +4,16 @@
 FieldMap::FieldMap()
 {
 	if (nullptr == bottom)
-		bottom = new Mesh("obj_source\\field\\test_floor.obj", "obj_source\\temp_texture.png", 1024, 1024);	//
+		bottom = new Mesh("obj_source\\field\\floor300_300.obj", "obj_source\\field\\bottom_texture.png", 1024, 1024);	//
+
+	house_1 = new Mesh("obj_source\\field\\house.obj", "obj_source\\field\\house_texture.png", 1024, 1024);
+	house_2 = new Mesh("obj_source\\field\\house.obj", "obj_source\\field\\house_texture.png", 1024, 1024);
+	house_3 = new Mesh("obj_source\\field\\house.obj", "obj_source\\field\\house_texture.png", 1024, 1024);
+	house_4 = new Mesh("obj_source\\field\\house.obj", "obj_source\\field\\house_texture.png", 1024, 1024);
+	house_1->init_position(-100, 0, -100);
+	house_2->init_position(-100, 0, 100);
+	house_3->init_position(100, 0, 100);
+	house_4->init_position(100, 0, -100);
 }
 
 FieldMap::~FieldMap()
@@ -13,9 +22,17 @@ FieldMap::~FieldMap()
 		delete bottom;
 		bottom = nullptr;
 	}
+	delete house_1;
+	delete house_3;
+	delete house_2;
+	delete house_4;
 }
 
 void FieldMap::Render() const
 {
 	bottom->Render();
+	house_1->Render();
+	house_2->Render();
+	house_3->Render();
+	house_4->Render();
 }

@@ -31,6 +31,7 @@ bool MainApp::Initialize()
 
 	// 게임 요소 초기화
 	field = new FieldMap;
+	cubemap = new CubeMap;
 
 	return true;
 }
@@ -45,7 +46,7 @@ void MainApp::next_state()
 			game_state = 아이템선택;
 			delete current_scene;
 			mPlayer = new Player(100, 200, 40, 10, 0);
-			current_scene = new Select_Item(mPlayer);
+			current_scene = new Select_Item(mPlayer, cubemap);
 			pKeyboard->setGame_stete(game_state);
 			pKeyboard->setScene(current_scene);
 
@@ -59,7 +60,7 @@ void MainApp::next_state()
 			delete current_scene;
 			e_arrayReady();
 			game_timer = new GameTimer;
-			current_scene = new Field(mPlayer, field, camera, enemy_array, game_timer);
+			current_scene = new Field(mPlayer, field, camera, enemy_array, game_timer, cubemap);
 			pKeyboard->setGame_stete(game_state);
 			pKeyboard->setScene(current_scene);
 

@@ -45,6 +45,7 @@ private:
 	GameTimer* game_timer;
 
 
+	CubeMap* cubemap;
 	FieldMap* field;
 	Scene* current_scene;
 

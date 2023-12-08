@@ -18,4 +18,8 @@ protected:
 private:
 	Mesh* bottom{ nullptr };
 	// 건물들 추가
+	Mesh* house_1;
+	Mesh* house_2;
+	Mesh* house_3;
+	Mesh* house_4;
 };

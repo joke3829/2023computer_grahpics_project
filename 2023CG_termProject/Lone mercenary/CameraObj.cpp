@@ -62,3 +62,13 @@ void CameraObj::setCameraAngle(glm::vec2 new_rot)
 	rotation_angle = new_rot;
 	OutToShader();
 }
+
+glm::vec3 CameraObj::getEYE()
+{
+	return cameraEYE;
+}
+
+glm::vec3 CameraObj::getAT()
+{
+	return cameraAT;
+}

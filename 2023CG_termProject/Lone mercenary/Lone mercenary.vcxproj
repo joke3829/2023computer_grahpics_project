@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp" />
     <ClCompile Include="CharacterBase.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="FieldMap.cpp" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="CameraObj.h" />
     <ClInclude Include="CharacterBase.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="ENUM.h" />
     <ClInclude Include="Field.h" />

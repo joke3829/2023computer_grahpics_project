@@ -103,6 +103,9 @@
     <Filter Include="소스 파일\GameTimer">
       <UniqueIdentifier>{317d0254-10c9-4171-982d-363e17d76a4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\cubeMap">
+      <UniqueIdentifier>{5a64d1d9-d041-4457-87bc-4fd60946e1d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -170,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="GameTimer.cpp">
       <Filter>소스 파일\GameTimer</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMap.cpp">
+      <Filter>소스 파일\cubeMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -297,6 +303,9 @@
     </ClInclude>
     <ClInclude Include="GameTimer.h">
       <Filter>소스 파일\GameTimer</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMap.h">
+      <Filter>소스 파일\cubeMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

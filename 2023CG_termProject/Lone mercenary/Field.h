@@ -5,11 +5,12 @@
 #include "Enemy.h"
 #include "CameraObj.h"
 #include "GameTimer.h"
+#include "CubeMap.h"
 
 
 class Field : public Scene {
 public:
-	Field(CharacterBase*, FieldMap*, CameraObj*, std::vector<EnemyBase*>&, GameTimer*);
+	Field(CharacterBase*, FieldMap*, CameraObj*, std::vector<EnemyBase*>&, GameTimer*, CubeMap*);
 	~Field();
 
 	CharacterBase* getPlayer();
@@ -20,6 +21,7 @@ public:
 private:
 	CharacterBase* mPlayer{ nullptr };
 	FieldMap* mField;
+	CubeMap* mCubemap;
 	std::vector<EnemyBase*> enemy_list;
 	CameraObj* mCamera{ nullptr };
 	GameTimer* mTimer{ nullptr };

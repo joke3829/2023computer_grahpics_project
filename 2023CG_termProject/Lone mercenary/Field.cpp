@@ -1,8 +1,8 @@
 #include "Field.h"
 #include "Player.h"
 
-Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, std::vector<EnemyBase*>& t_list, GameTimer* t_timer)
-	: mPlayer(t_player), mField(t_field), mCamera(t_camera), enemy_list(t_list), mTimer(t_timer)
+Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, std::vector<EnemyBase*>& t_list, GameTimer* t_timer, CubeMap* t_cube)
+	: mPlayer(t_player), mField(t_field), mCamera(t_camera), enemy_list(t_list), mTimer(t_timer), mCubemap(t_cube)
 {
 	max_alive = 12;
 }
@@ -45,6 +45,7 @@ void Field::Update()
 
 void Field::Render()
 {
+	mCubemap->Render();
 	mField->Render();
 	dynamic_cast<Player*>(mPlayer)->getWeapon()->Render();
 

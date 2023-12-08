@@ -19,3 +19,5 @@
 #include "Scene.h"
 #include "Field.h"
 #include "Select_Item.h"
+
+#include "CubeMap.h"

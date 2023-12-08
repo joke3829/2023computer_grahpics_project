@@ -14,7 +14,7 @@ void ProjObj::Initialize()
 	fovy = 45;
 	aspect = 1280.0f / 720.0f;
 	n = 0.1;
-	f = 200;
+	f = 800;
 	OutToShader();
 }
 

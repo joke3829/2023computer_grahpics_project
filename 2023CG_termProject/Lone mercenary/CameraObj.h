@@ -13,6 +13,9 @@ public:
 	// 카메라 조작 함수 추가
 	void setCameraEYE(glm::vec3);			// player위치 받아오자
 	void setCameraAngle(glm::vec2);			// 마찬가지, player꺼 받아오자
+
+	glm::vec3 getEYE();
+	glm::vec3 getAT();
 protected:
 private:
 	ShaderProgram* shader;

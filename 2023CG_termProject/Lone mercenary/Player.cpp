@@ -339,12 +339,20 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 		if (aliving < 12) {			// 최대 12마리만 필드에 나온다
 			if (not temp_list[i]->Death_check()) {		// 그 좀비가 살아있냐?
 				// 살았으면 머리 몸통 부위별로 확인해서 
-				// update_hp해준다.
-				// 머리면은 좀 더 넣고(일반 머리만 확인해)
+				// update_hp()해준다.
+				// 좀비 부위벌로 받아서 체크(일단은 머리만)
+				dynamic_cast<NM_zombie*>(temp_list[i])->gethead()->getLB();	// <- 바운더리 박스 왼쪽 아래 점
+				dynamic_cast<NM_zombie*>(temp_list[i])->gethead()->getRT();	// <- 오른쪽 위
+				dynamic_cast<NM_zombie*>(temp_list[i])->gethead()->getModelTrans();	// 모델링 변환 해줘야 월드공간 좌표 나온디.
 
-				// 카메라 인터페이스 함수없으면 만들어서 쓰고
-				// 미완성이라도 오늘안에 푸시좀 해줘
-				// 다른 부분 건들지 말고
+				// 사거리 잘 지정해서 내 범위 안에 있는애만 잡고
+				// 앞에있는놈이 우선적으로 맞게
+				// 편하게 할려면 거리를 리스트로 만드는게 좋겠지?
+				// 알아서 잘 판단해보쇼
+
+
+				// 카메라 eye = getEYE();, at = getAT();
+				// 다른 부분 건들지 마시오
 				++aliving;
 			}
 		}
