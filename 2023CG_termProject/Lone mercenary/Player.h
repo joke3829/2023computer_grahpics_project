@@ -10,6 +10,7 @@
 #include "CameraObj.h"
 #include "Weapon.h"
 #include "Enemy.h"
+#include "Scene.h"
 
 class Player : public CharacterBase {
 private:
@@ -23,6 +24,7 @@ private:
 	int weapon;
 	int cnt; //적당한 시간에 쏘자!
 	float mousesense;
+	Scene* mScene;
 	Weapon* cur_Wea = nullptr;
 	Weapon* pistol;
 	Weapon* rifle;
@@ -45,6 +47,7 @@ public:
 	void apply_item();
 
 	void attack_check(std::vector<EnemyBase*>&, CameraObj*);	// 광선이 좀비랑 닿았나?
+	glm::vec3 RaytoPlane(glm::vec3,glm::vec3,float);			// 평면 투영
 
 	glm::vec3 getLoc();				// 현재 위치 받아오기
 	glm::vec2 getRot();				// 현재 바라보는 방향 받아오기

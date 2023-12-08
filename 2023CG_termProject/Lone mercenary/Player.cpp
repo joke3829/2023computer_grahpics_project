@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "Weapon.h"
 #include "NM_zombie.h"
+#include "CameraObj.h"
+#include "Field.h"
 
 // =========================P_Mesh==========================
 
@@ -335,29 +337,126 @@ Weapon* Player::getWeapon() const
 void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_camera)
 {	// 인자 설명 1. 좀비 리스트   2. 카메라(위치랑 바라보는 곳 받아서 광선 구하고
 	int aliving = 0;		// 살아있는 좀비 수
+	glm::vec3 contact = glm::vec3(1.0f);
+	glm::vec3 MinVec = glm::vec3(1.0f);
+	glm::vec3 MaxVec = glm::vec3(1.0f);
+	glm::vec3 FinalMinVec = glm::vec3(1.0f);
+	glm::vec3 FinalMaxVec = glm::vec3(1.0f);
+	glm::mat4 toWorld = glm::mat4(1.0f);
+	float contact_distance[12] = { 0.0f }; //거리 담을 곳 
+	float mydist = 0.0f;
+	switch (weapon) { //내 사거리 조절
+	case 나이프:
+		mydist = 2.0f;
+		break;
+	default:
+		mydist = 15.0f;
+		break;
+	}
+	glm::vec3 ray_first = glm::vec3(temp_camera->getEYE());
+	glm::vec3 ray_last = glm::vec3(temp_camera->getAT());
+	glm::vec3 ray = glm::vec3(temp_camera->getAT() - temp_camera->getEYE());
 	for (int i = 0; i < temp_list.size(); ++i) {
+		float distance = 0.0f;
 		if (aliving < 12) {			// 최대 12마리만 필드에 나온다
 			if (not temp_list[i]->Death_check()) {		// 그 좀비가 살아있냐?
 				// 살았으면 머리 몸통 부위별로 확인해서 
 				// update_hp()해준다.
 				// 좀비 부위벌로 받아서 체크(일단은 머리만)
-				dynamic_cast<NM_zombie*>(temp_list[i])->gethead()->getLB();	// <- 바운더리 박스 왼쪽 아래 점
-				dynamic_cast<NM_zombie*>(temp_list[i])->gethead()->getRT();	// <- 오른쪽 위
-				dynamic_cast<NM_zombie*>(temp_list[i])->gethead()->getModelTrans();	// 모델링 변환 해줘야 월드공간 좌표 나온디.
+				MinVec = dynamic_cast<NM_zombie*>(temp_list[i])->gethead()->getLB();	// <- 바운더리 박스 왼쪽 아래 점
+				MaxVec = dynamic_cast<NM_zombie*>(temp_list[i])->gethead()->getRT();	// <- 오른쪽 위
+				toWorld = dynamic_cast<NM_zombie*>(temp_list[i])->gethead()->getModelTrans();	// 모델링 변환 해줘야 월드공간 좌표 나온디.
+				FinalMinVec = glm::vec3(toWorld * glm::vec4(MinVec,1.0f)); //변환된 최종 바운더리 박스 왼쪽 아래 점
+				FinalMaxVec = glm::vec3(toWorld * glm::vec4(MaxVec,1.0f)); //변환된 최종 바운더리 박스 오른쪽 위 점
 
-				// 사거리 잘 지정해서 내 범위 안에 있는애만 잡고
-				// 앞에있는놈이 우선적으로 맞게
-				// 편하게 할려면 거리를 리스트로 만드는게 좋겠지?
-				// 알아서 잘 판단해보쇼
+				//이 중 하나만 사용해도 될 듯 차피 좀비는 계속 플레이어 쪽을 보니까 한 평면만 검사하면 될 듯
+				// [1] YZ 평면 검사
+				contact = RaytoPlane(ray_first, ray_last, (ray.x > 0) ? FinalMinVec.x : FinalMaxVec.x);
+				if (FinalMinVec.y <= contact.y && contact.y <= FinalMaxVec.y) { //범위 안에 있는지
+					if (FinalMinVec.z <= contact.z && contact.z <= FinalMaxVec.z) {
+						distance = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
+						if (distance < mydist* mydist) {
+							contact_distance[i] = distance;
+						}
+						else {
+							contact_distance[i] = 0.0f;
+						}
+					}
+					else {
+						contact_distance[i] = 0.0f;
+					}
+				}
+				else {
+					contact_distance[i] = 0.0f;
+				}
 
+				// [2] XZ 평면 검사
+				contact = RaytoPlane(ray_first, ray_last, (ray.y > 0) ? FinalMinVec.y : FinalMaxVec.y);
 
-				// 카메라 eye = getEYE();, at = getAT();
-				// 다른 부분 건들지 마시오
+				if (FinalMinVec.x <= contact.x && contact.x <= FinalMaxVec.x) {
+					if (FinalMinVec.z <= contact.z && contact.z <= FinalMaxVec.z) {
+						distance = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
+						if (distance < mydist * mydist) {
+							contact_distance[i] = distance;
+						}
+						else {
+							contact_distance[i] = 0.0f;
+						}
+					}
+					else {
+						contact_distance[i] = 0.0f;
+					}
+				}
+				else {
+					contact_distance[i] = 0.0f;
+				}
+
+				// [3] XY 평면 검사
+				contact = RaytoPlane(ray_first, ray_last, (ray.z > 0) ? FinalMinVec.z : FinalMaxVec.z);
+
+				if (FinalMinVec.x <= contact.x && contact.x <= FinalMaxVec.x) {
+					if (FinalMinVec.y <= contact.y && contact.y <= FinalMaxVec.y) {
+						distance = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
+						if (distance < mydist * mydist) {
+							contact_distance[i] = distance;
+						}
+						else {
+							contact_distance[i] = 0.0f;
+						}
+					}
+					else {
+						contact_distance[i] = 0.0f;
+					}
+				}
+				else {
+					contact_distance[i] = 0.0f;
+				}
 				++aliving;
 			}
 		}
 		else
 			break;
 	}
+	float mindist = 100.0f;
+	int whoisfirst = 0;
+	for (int i = 0;i < 12;i++) { //가장 가까운 좀비 찾기
+		if (contact_distance[i] != 0.0f) {
+			if (mindist > contact_distance[i]) {
+				mindist = contact_distance[i];
+				whoisfirst = i;
+			}
+		}
+	}
+	temp_list[whoisfirst]->Update_HP(-ATK); //공격력만큼 감소
+}
+
+glm::vec3 Player::RaytoPlane(glm::vec3 A, glm::vec3 B, float plane)
+{
+	float ratio = (B.z - plane) / (B.z - A.z);
+	glm::vec3 C = glm::vec3(1.0f);
+	C.x = (A.x - B.x) * ratio + (B.x);
+	C.y = (A.y - B.y) * ratio + (B.y);
+	C.z = plane;
+	return C;
 }
 //===========================================================

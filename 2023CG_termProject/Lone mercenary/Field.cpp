@@ -60,7 +60,7 @@ void Field::Render()
 		else
 			break;
 	}
-	mTimer->Render();
+	//mTimer->Render();
 }
 
 CharacterBase* Field::getPlayer()
@@ -71,4 +71,9 @@ CharacterBase* Field::getPlayer()
 CameraObj* Field::getCamera()
 {
 	return mCamera;
+}
+
+std::vector<EnemyBase*> Field::getEnemy()
+{
+	return enemy_list;
 }
