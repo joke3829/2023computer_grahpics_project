@@ -357,7 +357,9 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	glm::vec3 ray_last = glm::vec3(temp_camera->getAT());
 	glm::vec3 ray = glm::vec3(temp_camera->getAT() - temp_camera->getEYE());
 	for (int i = 0; i < temp_list.size(); ++i) {
-		float distance = 0.0f;
+		float xz_dist = 0.0f;
+		float yz_dist = 0.0f;
+		float xy_dist = 0.0f;
 		if (aliving < 12) {			// 최대 12마리만 필드에 나온다
 			if (not temp_list[i]->Death_check()) {		// 그 좀비가 살아있냐?
 				// 살았으면 머리 몸통 부위별로 확인해서 
@@ -369,25 +371,12 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 				FinalMinVec = glm::vec3(toWorld * glm::vec4(MinVec,1.0f)); //변환된 최종 바운더리 박스 왼쪽 아래 점
 				FinalMaxVec = glm::vec3(toWorld * glm::vec4(MaxVec,1.0f)); //변환된 최종 바운더리 박스 오른쪽 위 점
 
-				//이 중 하나만 사용해도 될 듯 차피 좀비는 계속 플레이어 쪽을 보니까 한 평면만 검사하면 될 듯
 				// [1] YZ 평면 검사
 				contact = RaytoPlane(ray_first, ray_last, (ray.x > 0) ? FinalMinVec.x : FinalMaxVec.x);
 				if (FinalMinVec.y <= contact.y && contact.y <= FinalMaxVec.y) { //범위 안에 있는지
 					if (FinalMinVec.z <= contact.z && contact.z <= FinalMaxVec.z) {
-						distance = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
-						if (distance < mydist* mydist) {
-							contact_distance[i] = distance;
-						}
-						else {
-							contact_distance[i] = 0.0f;
-						}
+						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
 					}
-					else {
-						contact_distance[i] = 0.0f;
-					}
-				}
-				else {
-					contact_distance[i] = 0.0f;
 				}
 
 				// [2] XZ 평면 검사
@@ -395,20 +384,8 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 
 				if (FinalMinVec.x <= contact.x && contact.x <= FinalMaxVec.x) {
 					if (FinalMinVec.z <= contact.z && contact.z <= FinalMaxVec.z) {
-						distance = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
-						if (distance < mydist * mydist) {
-							contact_distance[i] = distance;
-						}
-						else {
-							contact_distance[i] = 0.0f;
-						}
+						xz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
 					}
-					else {
-						contact_distance[i] = 0.0f;
-					}
-				}
-				else {
-					contact_distance[i] = 0.0f;
 				}
 
 				// [3] XY 평면 검사
@@ -416,20 +393,25 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 
 				if (FinalMinVec.x <= contact.x && contact.x <= FinalMaxVec.x) {
 					if (FinalMinVec.y <= contact.y && contact.y <= FinalMaxVec.y) {
-						distance = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
-						if (distance < mydist * mydist) {
-							contact_distance[i] = distance;
-						}
-						else {
-							contact_distance[i] = 0.0f;
-						}
+						xy_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
+					}
+				}
+				//가장 가까운 점 찾은 후 좀비별 거리 갱신
+				if (yz_dist < xz_dist) {
+					if (yz_dist < xy_dist) {
+						contact_distance[i] = yz_dist;
 					}
 					else {
-						contact_distance[i] = 0.0f;
+						contact_distance[i] = xy_dist;
 					}
 				}
 				else {
-					contact_distance[i] = 0.0f;
+					if (xz_dist < xy_dist) {
+						contact_distance[i] = xz_dist;
+					}
+					else {
+						contact_distance[i] = xy_dist;
+					}
 				}
 				++aliving;
 			}
@@ -437,7 +419,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 		else
 			break;
 	}
-	float mindist = 100.0f;
+	float mindist = contact_distance[0];
 	int whoisfirst = 0;
 	for (int i = 0;i < 12;i++) { //가장 가까운 좀비 찾기
 		if (contact_distance[i] != 0.0f) {
