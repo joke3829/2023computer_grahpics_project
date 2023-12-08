@@ -72,8 +72,3 @@ CameraObj* Field::getCamera()
 {
 	return mCamera;
 }
-
-std::vector<EnemyBase*> Field::getEnemy()
-{
-	return enemy_list;
-}
