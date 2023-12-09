@@ -356,11 +356,15 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	glm::vec3 ray_first = glm::vec3(temp_camera->getEYE());
 	glm::vec3 ray_last = glm::vec3(temp_camera->getAT());
 	glm::vec3 ray = ray_last - ray_first;
+	std::cout << ray_first.x << "\t" << ray_first.y << "\t" << ray_first.z << std::endl;
 	std::cout << ray.x << "\t" << ray.y << "\t" << ray.z << std::endl;
 	for (int i = 0; i < temp_list.size(); ++i) {
 		float xz_dist = 0.0f;
 		float yz_dist = 0.0f;
 		float xy_dist = 0.0f;
+		float min_x = 0.0f, max_x = 0.0f;
+		float min_y = 0.0f, max_y = 0.0f;
+		float min_z = 0.0f, max_z = 0.0f;
 		if (aliving < 12) {			// 최대 12마리만 필드에 나온다
 			if (not temp_list[i]->Death_check()) {		// 그 좀비가 살아있냐?
 				// 살았으면 머리 몸통 부위별로 확인해서 
@@ -372,10 +376,34 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 				FinalMinVec = glm::vec3(toWorld * glm::vec4(MinVec,1.0f)); //변환된 최종 바운더리 박스 왼쪽 아래 점
 				FinalMaxVec = glm::vec3(toWorld * glm::vec4(MaxVec,1.0f)); //변환된 최종 바운더리 박스 오른쪽 위 점
 
+				if (FinalMaxVec.x > FinalMinVec.x) {
+					min_x = FinalMinVec.x;
+					max_x = FinalMaxVec.x;
+				}
+				else {
+					min_x = FinalMaxVec.x;
+					max_x = FinalMinVec.x;
+				}
+				if (FinalMaxVec.y > FinalMinVec.y) {
+					min_y = FinalMinVec.y;
+					max_y = FinalMaxVec.y;
+				}
+				else {
+					min_y = FinalMaxVec.y;
+					max_y = FinalMinVec.y;
+				}
+				if (FinalMaxVec.z > FinalMinVec.z) {
+					min_z = FinalMinVec.z;
+					max_z = FinalMaxVec.z;
+				}
+				else {
+					min_z = FinalMaxVec.z;
+					max_z = FinalMinVec.z;
+				}
 				// [1] YZ 평면 검사
-				contact = RaytoPlaneYZ(ray_first, ray_last, (ray.x > 0) ? FinalMinVec.x : FinalMaxVec.x);
-				if (FinalMinVec.y <= contact.y && contact.y <= FinalMaxVec.y) {
-					if (FinalMinVec.z <= contact.z && contact.z <= FinalMaxVec.z) {
+				contact = RaytoPlaneYZ(ray_first, ray_last, min_x);
+				if (min_y <= contact.y && contact.y <= max_y) {
+					if (min_z <= contact.z && contact.z <= max_z) {
 						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
 						contact_distance[i] = yz_dist;
 						std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
@@ -383,11 +411,17 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 				}
 
 				// [2] XZ 평면 검사
-				contact = RaytoPlaneXZ(ray_first, ray_last, (ray.y > 0) ? FinalMinVec.y : FinalMaxVec.y);
-				if (FinalMinVec.x <= contact.x && contact.x <= FinalMaxVec.x) {
-					if (FinalMinVec.z <= contact.z && contact.z <= FinalMaxVec.z) {
+				contact = RaytoPlaneXZ(ray_first, ray_last, min_y);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_z <= contact.z && contact.z <= max_z) {
 						xz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
-						if (xz_dist < contact_distance[i]) {
+						if (contact_distance[i] != 0.0f) {
+							if (xz_dist < contact_distance[i]) {
+								contact_distance[i] = xz_dist;
+								std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
 							contact_distance[i] = xz_dist;
 							std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 						}
@@ -395,11 +429,17 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 				}
 
 				// [3] XY 평면 검사
-				contact = RaytoPlaneXY(ray_first, ray_last, (ray.z > 0) ? FinalMinVec.z : FinalMaxVec.z);
-				if (FinalMinVec.x <= contact.x && contact.x <= FinalMaxVec.x) {
-					if (FinalMinVec.y <= contact.y && contact.y <= FinalMaxVec.y) {
+				contact = RaytoPlaneXY(ray_first, ray_last, min_z);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_y <= contact.y && contact.y <= max_y) {
 						xy_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
-						if (xy_dist < contact_distance[i]) {
+						if (contact_distance[i] != 0.0f) {
+							if (xy_dist < contact_distance[i]) {
+								contact_distance[i] = xy_dist;
+								std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
 							contact_distance[i] = xy_dist;
 							std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 						}
