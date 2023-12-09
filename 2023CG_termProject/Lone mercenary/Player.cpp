@@ -344,13 +344,16 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	glm::vec3 FinalMaxVec = glm::vec3(1.0f);
 	glm::mat4 toWorld = glm::mat4(1.0f);
 	float contact_distance[12] = {0.0f}; //거리 담을 곳 
-	float mydist = 0.0f;
+	float mindist = 0.0f;
 	switch (weapon) { //내 사거리 조절
 	case 나이프:
-		mydist = 2.0f;
+		mindist = 200.0f;
 		break;
-	default:
-		mydist = 15.0f;
+	case 권총:
+		mindist = 800.0f;
+		break;
+	case 라이플:
+		mindist = 1500.0f;
 		break;
 	}
 	glm::vec3 ray_first = glm::vec3(temp_camera->getEYE());
@@ -452,7 +455,6 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 		else
 			break;
 	}
-	float mindist = 1000.0f;
 	int whoisfirst = -1;
 	for (int i = 0;i < 12;i++) { //가장 가까운 좀비 찾기
 		if (contact_distance[i] != 0.0f) {
