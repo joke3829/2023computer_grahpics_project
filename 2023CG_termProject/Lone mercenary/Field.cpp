@@ -60,7 +60,7 @@ void Field::Render()
 		else
 			break;
 	}
-	mTimer->Render();
+	//mTimer->Render();
 }
 
 CharacterBase* Field::getPlayer()
