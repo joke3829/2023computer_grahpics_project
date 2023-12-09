@@ -15,6 +15,7 @@ public:
 
 	CharacterBase* getPlayer();
 	CameraObj* getCamera();
+	std::vector<EnemyBase*>& getList();
 
 	void Update();
 	void Render();

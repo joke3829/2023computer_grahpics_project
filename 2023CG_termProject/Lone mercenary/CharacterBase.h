@@ -13,6 +13,8 @@ public:
 	virtual ~CharacterBase();
 	void Update_HP(float);				// 체력 수정 상대 ATK를 받아와서 사용
 	bool Death_check();					// 체력이 0이하면 true 반환
+
+	float getHP();
 protected:
 	float HP{};				// 체력
 	float MAXHP{};			// 최대 체력

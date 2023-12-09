@@ -14,15 +14,21 @@ void CharacterBase::Update_HP(float received)
 		if (HP >= MAXHP) HP = MAXHP;
 	}
 	else {
-		HP -= received - DEF;		// 계산식은 나중에 생각하자
+		HP -= -received - DEF;		// 계산식은 나중에 생각하자
 	}
 }
 
 // 죽었는지 체크
 bool CharacterBase::Death_check()
 {
-	if (HP < 0)
+	if (HP <= 0)
 		return true;
 
 	return false;
+}
+
+
+float CharacterBase::getHP()
+{
+	return HP;
 }

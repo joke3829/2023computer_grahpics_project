@@ -54,6 +54,7 @@ void Field::Render()
 		if (aliving < max_alive) {
 			if (not enemy_list[i]->Death_check()) {
 				enemy_list[i]->Render();
+				std::cout << i << "번째 좀비 체력: " << enemy_list[i]->getHP() << std::endl;
 				++aliving;
 			}
 		}
@@ -71,4 +72,9 @@ CharacterBase* Field::getPlayer()
 CameraObj* Field::getCamera()
 {
 	return mCamera;
+}
+
+std::vector<EnemyBase*>& Field::getList()
+{
+	return enemy_list;
 }
