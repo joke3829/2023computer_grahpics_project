@@ -9,7 +9,7 @@ public:
 		: CharacterBase(hp, max, spd, def, atk) {};
 	virtual ~EnemyBase() {};
 
-	virtual void walk_ani() {};
+	virtual void walk_ani(int n) {};
 
 	virtual void Render() const {};
 

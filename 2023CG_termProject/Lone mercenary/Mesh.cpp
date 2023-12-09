@@ -180,6 +180,14 @@ void Mesh::Initialize(std::string filename)
 	glVertexAttribPointer(loc, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(loc);
 	//======================================================================================================
+
+	OBB_center = (RT + LB) / 2.0f;
+	axis[0] = glm::vec3(1, 0, 0);
+	axis[1] = glm::vec3(0, 1, 0);
+	axis[2] = glm::vec3(0, 0, 1);
+	radius.x = abs(OBB_center.x - RT.x);
+	radius.y = abs(OBB_center.y - RT.y);
+	radius.z = abs(OBB_center.z - RT.z);
  }
 
  void Mesh::Init_texture(std::string filename, int w_size, int h_size)
@@ -362,4 +370,28 @@ glm::vec3 Mesh::getRT()
 glm::mat4 Mesh::getModelTrans()
 {
 	return modelTrans;
+}
+
+bool Mesh::collision_check(const Mesh& other)
+{
+	glm::vec3 w_center = glm::vec3(modelTrans * glm::vec4(OBB_center, 1.0f));
+	glm::vec3 a_axis[3];
+	glm::vec3 o_w_center = glm::vec3(other.modelTrans * glm::vec4(other.OBB_center, 1.0f));
+	
+	glm::vec3 w_radius = glm::vec3(modelTrans * glm::vec4(radius, 0.0f));
+
+	glm::vec3 o_w_radius = glm::vec3(other.modelTrans * glm::vec4(other.radius, 0.0f));
+	for (int i = 0; i < 3; ++i) {
+		a_axis[i] = glm::normalize(glm::vec3(modelTrans * glm::vec4(axis[i], 0.0f)));
+		/*std::cout << "º¯È¯ ÈÄ: " << a_axis[i].x << ", " << a_axis[i].y << ", " << a_axis[i].z << '\n';
+		std::cout << "w_radius: " << w_radius.x << ", " << w_radius.y << ", " << w_radius.z << '\n';*/
+		float proj_1 = glm::abs(glm::dot(a_axis[i], w_radius));
+		float proj_2 = glm::abs(glm::dot(a_axis[i], o_w_radius));
+
+		float center_dis = glm::abs(glm::dot(a_axis[i], w_center - o_w_center));
+
+		if (center_dis > proj_1 + proj_2)
+			return false;
+	}
+	return true;
 }

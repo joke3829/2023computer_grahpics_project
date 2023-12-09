@@ -14,9 +14,16 @@ public:
 	NM_zombie(float hp, float max, float spd, float def, float atk, int type);
 	~NM_zombie();
 
-	void walk_ani();
+	void walk_ani(int n);
+	void back_walk();
+
 	void z_heal(std::vector<EnemyBase*>&);
 	NM_Mesh* gethead();
+	NM_Mesh* getbody();
+	NM_Mesh* getlarm();
+	NM_Mesh* getrarm();
+	NM_Mesh* getlleg();
+	NM_Mesh* getrleg();
 	
 	void Render() const;
 protected:

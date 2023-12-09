@@ -10,6 +10,7 @@ FieldMap::FieldMap()
 	house_2 = new Mesh("obj_source\\field\\house.obj", "obj_source\\field\\house_texture.png", 1024, 1024);
 	house_3 = new Mesh("obj_source\\field\\house.obj", "obj_source\\field\\house_texture.png", 1024, 1024);
 	house_4 = new Mesh("obj_source\\field\\house.obj", "obj_source\\field\\house_texture.png", 1024, 1024);
+	//house_1->init_rotate(45, 0, 1, 0);
 	house_1->init_position(-100, 0, -100);
 	house_2->init_position(-100, 0, 100);
 	house_3->init_position(100, 0, 100);
@@ -35,4 +36,22 @@ void FieldMap::Render() const
 	house_2->Render();
 	house_3->Render();
 	house_4->Render();
+}
+
+Mesh* FieldMap::gethouse_1()
+{
+	return house_1;
+}
+
+Mesh* FieldMap::gethouse_2()
+{
+	return house_2;
+}
+Mesh* FieldMap::gethouse_3()
+{
+	return house_3;
+}
+Mesh* FieldMap::gethouse_4()
+{
+	return house_4;
 }

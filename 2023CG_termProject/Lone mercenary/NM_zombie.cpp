@@ -143,7 +143,7 @@ NM_zombie::~NM_zombie()
 	}
 }
 
-void NM_zombie::walk_ani()
+void NM_zombie::walk_ani(int n)
 {
 	glm::vec3 z_pos = glm::vec3(cur_loc.x, 0, cur_loc.z);
 	glm::vec3 p_pos = glm::vec3(p_loc.x, 0, p_loc.z);
@@ -165,9 +165,50 @@ void NM_zombie::walk_ani()
 
 	cur_rot.x = degree;
 	glm::vec3 way = glm::normalize(glm::vec3(glm::cos(glm::radians(cur_rot.x)), 0, glm::sin(glm::radians(cur_rot.x))));
-	cur_loc += (speed * way) / 60.0f;
+	if (n == 0)
+		cur_loc += (speed * way) / 60.0f;
+	else
+		cur_loc -= (speed * way) / 60.0f;
 	if(glm::distance(cur_loc, p_pos) < 3)
 		cur_loc -= (speed * way) / 60.0f;
+
+	head->setLoc(cur_loc);
+	head->setRot(cur_rot);
+	body->setLoc(cur_loc);
+	body->setRot(cur_rot);
+	arm[0]->setLoc(cur_loc);
+	arm[0]->setRot(cur_rot);
+	arm[1]->setLoc(cur_loc);
+	arm[1]->setRot(cur_rot);
+	leg[0]->setLoc(cur_loc);
+	leg[0]->setRot(cur_rot);
+	leg[1]->setLoc(cur_loc);
+	leg[1]->setRot(cur_rot);
+}
+
+void NM_zombie::back_walk()
+{
+	glm::vec3 z_pos = glm::vec3(cur_loc.x, 0, cur_loc.z);
+	glm::vec3 p_pos = glm::vec3(p_loc.x, 0, p_loc.z);
+
+	float slope;
+
+	if (z_pos.x == p_pos.x) {
+		slope = (z_pos.z - p_pos.z) / (z_pos.x - (p_pos.x + 0.0000000001));
+	}
+	else
+		slope = (z_pos.z - p_pos.z) / (z_pos.x - p_pos.x);
+
+	float angle = glm::atan(slope);
+	float degree = angle * 180 / glm::pi<float>();
+
+	if (z_pos.x > p_pos.x)
+		degree += 180;
+
+
+	cur_rot.x = degree;
+	glm::vec3 way = glm::normalize(glm::vec3(glm::cos(glm::radians(cur_rot.x)), 0, glm::sin(glm::radians(cur_rot.x))));
+	cur_loc -= (speed * way) / 60.0f;
 
 	head->setLoc(cur_loc);
 	head->setRot(cur_rot);
@@ -221,4 +262,29 @@ void NM_zombie::z_heal(std::vector<EnemyBase*>& temp_list)
 NM_Mesh* NM_zombie::gethead()
 {
 	return head;
+}
+
+NM_Mesh* NM_zombie::getbody()
+{
+	return body;
+}
+
+NM_Mesh* NM_zombie::getlarm()
+{
+	return arm[0];
+}
+
+NM_Mesh* NM_zombie::getrarm()
+{
+	return arm[1];
+}
+
+NM_Mesh* NM_zombie::getlleg()
+{
+	return leg[0];
+}
+
+NM_Mesh* NM_zombie::getrleg()
+{
+	return leg[1];
 }

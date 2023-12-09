@@ -23,6 +23,8 @@ public:
 	glm::vec3 getRT();
 	glm::mat4 getModelTrans();
 
+	bool collision_check(const Mesh&);		// 충돌체크용 함수
+
 	void Render() const;
 
 	static bool box_check;
@@ -39,6 +41,11 @@ protected:
 
 	glm::vec3 LB;			// Left-Bottom
 	glm::vec3 RT;			// Right-Top
+
+	// OBB용 박스
+	glm::vec3 OBB_center;
+	glm::vec3 axis[3];
+	glm::vec3 radius;
 
 
 	glm::mat4 modelTrans;

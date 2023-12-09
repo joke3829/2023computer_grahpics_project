@@ -1,5 +1,6 @@
 #include "Field.h"
 #include "Player.h"
+#include "NM_zombie.h"
 
 Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, std::vector<EnemyBase*>& t_list, GameTimer* t_timer, CubeMap* t_cube)
 	: mPlayer(t_player), mField(t_field), mCamera(t_camera), enemy_list(t_list), mTimer(t_timer), mCubemap(t_cube)
@@ -33,7 +34,21 @@ void Field::Update()
 		if (aliving < max_alive) {
 			if (not enemy_list[i]->Death_check()) {
 				enemy_list[i]->setPlayerLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
-				enemy_list[i]->walk_ani();
+				enemy_list[i]->walk_ani(0);
+				if (dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_1())
+					or dynamic_cast<NM_zombie*>(enemy_list[i])->getrarm()->collision_check(*mField->gethouse_1())
+					or dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_2())
+					or dynamic_cast<NM_zombie*>(enemy_list[i])->getrarm()->collision_check(*mField->gethouse_2())) {
+					std::cout << "충돌 중!" << std::endl;
+					dynamic_cast<NM_zombie*>(enemy_list[i])->walk_ani(1);
+				}
+				/*if (dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_1())) {
+					dynamic_cast<NM_zombie*>(enemy_list[i])->back_walk();
+				}*/
+				/*if (mField->gethouse_1()->collision_check(*dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm())) {
+					std::cout << "충돌 중!" << std::endl;
+					dynamic_cast<NM_zombie*>(enemy_list[i])->walk_ani(1);
+				}*/
 				++aliving;
 			}
 		}
@@ -54,7 +69,7 @@ void Field::Render()
 		if (aliving < max_alive) {
 			if (not enemy_list[i]->Death_check()) {
 				enemy_list[i]->Render();
-				std::cout << i << "번째 좀비 체력: " << enemy_list[i]->getHP() << std::endl;
+				//std::cout << i << "번째 좀비 체력: " << enemy_list[i]->getHP() << std::endl;
 				++aliving;
 			}
 		}

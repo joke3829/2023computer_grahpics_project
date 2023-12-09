@@ -13,6 +13,11 @@ public:
 	FieldMap();
 	~FieldMap();
 
+	Mesh* gethouse_1();
+	Mesh* gethouse_2();
+	Mesh* gethouse_3();
+	Mesh* gethouse_4();
+
 	void Render() const;
 protected:
 private:
