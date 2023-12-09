@@ -97,11 +97,11 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
+	enemy_array.push_back(new NM_zombie(100, 200, 1, 30, 50, ÀÏ¹İ));
 	for (int i = 0; i < 4; ++i) {
 		enemy_array.push_back(new NM_zombie(100, 200, 1, 10, 10, Èú·¯));
 	}
 	enemy_array.push_back(new NM_zombie(100, 200, 1, 20, 50, Æø¹ß));
-	enemy_array.push_back(new NM_zombie(100, 200, 1, 30, 50, ÀÏ¹İ));
 	return true;
 }
 

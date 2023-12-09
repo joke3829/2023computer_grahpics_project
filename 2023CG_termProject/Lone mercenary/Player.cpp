@@ -17,9 +17,9 @@
 Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
-	pistol = new Pistol("obj_source\\weapon\\pistol\\obj_pistol.obj", "obj_source\\weapon\\pistol\\texture_pistol.png", 1024, 1024, 10, 10, 10);
-	rifle = new Rifle("obj_source\\weapon\\rifle\\obj_rifle.obj", "obj_source\\weapon\\rifle\\texture_rifle.png", 1024, 1024, 30, 30, 20);
-	knife = new Knife("obj_source\\weapon\\knife\\Knife.obj", "obj_source\\weapon\\knife\\texture_knife.png", 1024, 1024, 1, 1, 5);
+	pistol = new Pistol("obj_source\\weapon\\pistol\\obj_pistol.obj", "obj_source\\weapon\\pistol\\texture_pistol.png", 1024, 1024, 10, 10, 300);
+	rifle = new Rifle("obj_source\\weapon\\rifle\\obj_rifle.obj", "obj_source\\weapon\\rifle\\texture_rifle.png", 1024, 1024, 30, 30, 500);
+	knife = new Knife("obj_source\\weapon\\knife\\Knife.obj", "obj_source\\weapon\\knife\\texture_knife.png", 1024, 1024, 1, 1, 200);
 
 	rifle->init_scale(0.2);
 	rifle->init_rotate(-90, 0, 1, 0);
@@ -343,7 +343,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	glm::vec3 FinalMinVec = glm::vec3(1.0f);
 	glm::vec3 FinalMaxVec = glm::vec3(1.0f);
 	glm::mat4 toWorld = glm::mat4(1.0f);
-	float contact_distance[12] = { 0.0f }; //거리 담을 곳 
+	float contact_distance[12] = {0.0f}; //거리 담을 곳 
 	float mydist = 0.0f;
 	switch (weapon) { //내 사거리 조절
 	case 나이프:
@@ -355,7 +355,8 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	}
 	glm::vec3 ray_first = glm::vec3(temp_camera->getEYE());
 	glm::vec3 ray_last = glm::vec3(temp_camera->getAT());
-	glm::vec3 ray = glm::vec3(temp_camera->getAT() - temp_camera->getEYE());
+	glm::vec3 ray = ray_last - ray_first;
+	std::cout << ray.x << "\t" << ray.y << "\t" << ray.z << std::endl;
 	for (int i = 0; i < temp_list.size(); ++i) {
 		float xz_dist = 0.0f;
 		float yz_dist = 0.0f;
@@ -372,55 +373,47 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 				FinalMaxVec = glm::vec3(toWorld * glm::vec4(MaxVec,1.0f)); //변환된 최종 바운더리 박스 오른쪽 위 점
 
 				// [1] YZ 평면 검사
-				contact = RaytoPlane(ray_first, ray_last, (ray.x > 0) ? FinalMinVec.x : FinalMaxVec.x);
-				if (FinalMinVec.y <= contact.y && contact.y <= FinalMaxVec.y) { //범위 안에 있는지
+				contact = RaytoPlaneYZ(ray_first, ray_last, (ray.x > 0) ? FinalMinVec.x : FinalMaxVec.x);
+				if (FinalMinVec.y <= contact.y && contact.y <= FinalMaxVec.y) {
 					if (FinalMinVec.z <= contact.z && contact.z <= FinalMaxVec.z) {
-						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
+						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						contact_distance[i] = yz_dist;
+						std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 					}
 				}
 
 				// [2] XZ 평면 검사
-				contact = RaytoPlane(ray_first, ray_last, (ray.y > 0) ? FinalMinVec.y : FinalMaxVec.y);
-
+				contact = RaytoPlaneXZ(ray_first, ray_last, (ray.y > 0) ? FinalMinVec.y : FinalMaxVec.y);
 				if (FinalMinVec.x <= contact.x && contact.x <= FinalMaxVec.x) {
 					if (FinalMinVec.z <= contact.z && contact.z <= FinalMaxVec.z) {
-						xz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
+						xz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (xz_dist < contact_distance[i]) {
+							contact_distance[i] = xz_dist;
+							std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
 					}
 				}
 
 				// [3] XY 평면 검사
-				contact = RaytoPlane(ray_first, ray_last, (ray.z > 0) ? FinalMinVec.z : FinalMaxVec.z);
-
+				contact = RaytoPlaneXY(ray_first, ray_last, (ray.z > 0) ? FinalMinVec.z : FinalMaxVec.z);
 				if (FinalMinVec.x <= contact.x && contact.x <= FinalMaxVec.x) {
 					if (FinalMinVec.y <= contact.y && contact.y <= FinalMaxVec.y) {
-						xy_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2); //있다면 사거리 안에 있는지
+						xy_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (xy_dist < contact_distance[i]) {
+							contact_distance[i] = xy_dist;
+							std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
 					}
 				}
-				//가장 가까운 점 찾은 후 좀비별 거리 갱신
-				if (yz_dist < xz_dist) {
-					if (yz_dist < xy_dist) {
-						contact_distance[i] = yz_dist;
-					}
-					else {
-						contact_distance[i] = xy_dist;
-					}
-				}
-				else {
-					if (xz_dist < xy_dist) {
-						contact_distance[i] = xz_dist;
-					}
-					else {
-						contact_distance[i] = xy_dist;
-					}
-				}
+				
 				++aliving;
 			}
 		}
 		else
 			break;
 	}
-	float mindist = contact_distance[0];
-	int whoisfirst = 0;
+	float mindist = 1000.0f;
+	int whoisfirst = -1;
 	for (int i = 0;i < 12;i++) { //가장 가까운 좀비 찾기
 		if (contact_distance[i] != 0.0f) {
 			if (mindist > contact_distance[i]) {
@@ -429,16 +422,37 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 			}
 		}
 	}
-	temp_list[whoisfirst]->Update_HP(-ATK); //공격력만큼 감소
+	if (whoisfirst != -1) {
+		temp_list[whoisfirst]->Update_HP(-ATK); //공격력만큼 감소
+		std::cout << "결국 맞았구만...\t" << whoisfirst << "\t" << temp_list[whoisfirst]->getHP() << std::endl;
+	}
 }
 
-glm::vec3 Player::RaytoPlane(glm::vec3 A, glm::vec3 B, float plane)
+glm::vec3 Player::RaytoPlaneXY(glm::vec3 A, glm::vec3 B, float plane)
 {
 	float ratio = (B.z - plane) / (B.z - A.z);
 	glm::vec3 C = glm::vec3(1.0f);
 	C.x = (A.x - B.x) * ratio + (B.x);
 	C.y = (A.y - B.y) * ratio + (B.y);
 	C.z = plane;
+	return C;
+}
+glm::vec3 Player::RaytoPlaneXZ(glm::vec3 A, glm::vec3 B, float plane)
+{
+	float ratio = (B.y - plane) / (B.y - A.y);
+	glm::vec3 C = glm::vec3(1.0f);
+	C.x = (A.x - B.x) * ratio + (B.x);
+	C.z = (A.z - B.z) * ratio + (B.z);
+	C.y = plane;
+	return C;
+}
+glm::vec3 Player::RaytoPlaneYZ(glm::vec3 A, glm::vec3 B, float plane)
+{
+	float ratio = (B.x - plane) / (B.x - A.x);
+	glm::vec3 C = glm::vec3(1.0f);
+	C.y = (A.y - B.y) * ratio + (B.y);
+	C.z = (A.z - B.z) * ratio + (B.z);
+	C.x = plane;
 	return C;
 }
 //===========================================================

@@ -14,7 +14,7 @@ void CharacterBase::Update_HP(float received)
 		if (HP >= MAXHP) HP = MAXHP;
 	}
 	else {
-		HP -= -received - DEF;		// 계산식은 나중에 생각하자
+		HP -= (- received) / DEF;		// 계산식은 나중에 생각하자
 	}
 }
 
