@@ -47,7 +47,9 @@ public:
 	void apply_item();
 
 	void attack_check(std::vector<EnemyBase*>&, CameraObj*);	// 광선이 좀비랑 닿았나?
-	glm::vec3 RaytoPlane(glm::vec3,glm::vec3,float);			// 평면 투영
+	glm::vec3 RaytoPlaneXY(glm::vec3,glm::vec3,float);			// XY평면 투영
+	glm::vec3 RaytoPlaneXZ(glm::vec3,glm::vec3,float);			// XZ평면 투영
+	glm::vec3 RaytoPlaneYZ(glm::vec3,glm::vec3,float);			// YZ평면 투영
 
 	glm::vec3 getLoc();				// 현재 위치 받아오기
 	glm::vec2 getRot();				// 현재 바라보는 방향 받아오기
