@@ -20,5 +20,6 @@
 #include "Title.h"
 #include "Field.h"
 #include "Select_Item.h"
+#include "ScoreBoard.h"
 
 #include "CubeMap.h"

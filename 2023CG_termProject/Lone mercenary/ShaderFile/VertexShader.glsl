@@ -17,7 +17,7 @@ void main()
 {
 	gl_Position = proj * view * transform * vec4(vPos, 1.0f);
 	FragPos = vec3(transform * vec4(vPos, 1.0f));
-	PassNormal = vec3(rotateMatrix * vec4(vNormal, 1.0f));
+	PassNormal = vec3(transform * vec4(vNormal, 0.0f));
 	//PassNormal = vNormal;
 	PassTex = vTexCoord;
 }

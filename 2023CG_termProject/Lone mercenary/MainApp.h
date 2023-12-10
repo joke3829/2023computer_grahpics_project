@@ -27,6 +27,7 @@ public:
 	void DestroyMainApp();
 
 	bool e_arrayReady();			// 좀비 배열 준비
+	bool Allkill_check();
 
 	bool Render();
 	void next_state();
@@ -51,6 +52,7 @@ private:
 	CubeMap* cubemap;
 	FieldMap* field;
 	Scene* current_scene;
+	Scene* score_scene;
 
 	// 아이템 선택 신에 들어갈 요소
 

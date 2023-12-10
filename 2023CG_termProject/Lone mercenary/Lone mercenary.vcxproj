@@ -153,6 +153,7 @@
     <ClCompile Include="Rifle.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="Select_Item.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -189,6 +190,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="ScoreBoard.h" />
     <ClInclude Include="Select_Item.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="stb_image.h" />

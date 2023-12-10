@@ -81,7 +81,7 @@ void MainApp::next_state()
 		if (pMouse->next_state()) {
 			game_state = 아이템선택;
 			delete current_scene;
-			mPlayer = new Player(100, 200, 40, 10, 0);
+			mPlayer = new Player(1, 200, 40, 10, 0);
 			current_scene = new Select_Item(mPlayer, cubemap);
 			pKeyboard->setGame_stete(game_state);
 			pKeyboard->setScene(current_scene);
@@ -97,6 +97,7 @@ void MainApp::next_state()
 			e_arrayReady();
 			game_timer = new GameTimer(mPlayer);
 			current_scene = new Field(mPlayer, field, camera, enemy_array, game_timer, cubemap);
+			score_scene = new ScoreBoard(cubemap, enemy_array, game_timer, camera);
 			pKeyboard->setGame_stete(game_state);
 			pKeyboard->setScene(current_scene);
 
@@ -105,6 +106,19 @@ void MainApp::next_state()
 		}
 		break;
 	case 필드:
+		if (mPlayer->Death_check() || Allkill_check() || game_timer->getremaining() == 0) {
+			glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
+			game_state = 결과창;
+			dynamic_cast<ScoreBoard*>(score_scene)->Update_1();
+			delete current_scene;
+			current_scene = score_scene;
+
+			pKeyboard->setGame_stete(game_state);
+			pKeyboard->setScene(current_scene);
+
+			pMouse->setGame_stete(game_state);
+			pMouse->setScene(current_scene);
+		}
 		break;
 	case 결과창:
 		break;
@@ -174,4 +188,13 @@ void MainApp::DestroyMainApp()
 			delete e;
 		enemy_array.clear();
 	}
+}
+
+bool MainApp::Allkill_check()
+{
+	for (int i = 0; i < enemy_array.size(); ++i) {
+		if (not enemy_array[i]->Death_check())
+			return false;
+	}
+	return true;
 }

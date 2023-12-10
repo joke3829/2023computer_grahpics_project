@@ -112,6 +112,9 @@
     <Filter Include="소스 파일\Scene\playerUI">
       <UniqueIdentifier>{d36a52bc-f4d8-4391-a6b8-b0f8d0285a78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Scene\scoreboard">
+      <UniqueIdentifier>{29baf6fb-a48a-4b1b-a257-1326466d85bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -188,6 +191,9 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>소스 파일\Scene\playerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>소스 파일\Scene\scoreboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +330,9 @@
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>소스 파일\Scene\playerUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoard.h">
+      <Filter>소스 파일\Scene\scoreboard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

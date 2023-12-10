@@ -20,6 +20,8 @@ public:
 	void Update();
 	void Render();
 
+	int getremaining();
+
 	static int p_num100;
 	static int p_num10;
 	static int p_num1;

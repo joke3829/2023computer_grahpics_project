@@ -188,3 +188,8 @@ void GameTimer::Render()
 	num1->Render();
 	glDisable(GL_BLEND);
 }
+
+int GameTimer::getremaining()
+{
+	return remaining_time - d_time;
+}
