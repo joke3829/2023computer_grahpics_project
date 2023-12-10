@@ -5,6 +5,7 @@
 class UI {
 public:
 	UI(CharacterBase*, GameTimer*);
+	~UI();
 	
 	void Render();
 	void Update();
@@ -12,6 +13,12 @@ public:
 	static int h100;
 	static int h10;
 	static int h1;
+
+	static int c10;
+	static int c1;
+	static int r100;
+	static int r10;
+	static int r1;
 
 private:
 	CharacterBase* mPlayer;
@@ -29,4 +36,6 @@ private:
 	Mesh* r_b_100;
 	Mesh* r_b_10;
 	Mesh* r_b_1;
+
+	Mesh* crossline;
 };

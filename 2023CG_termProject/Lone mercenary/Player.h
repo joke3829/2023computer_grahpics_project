@@ -29,6 +29,7 @@ private:
 	Weapon* pistol;
 	Weapon* rifle;
 	Weapon* knife;
+
 protected:
 
 public:
@@ -57,4 +58,5 @@ public:
 
 	Weapon* getWeapon() const;		// 내가 들고 있는 무기 정보 받기
 	int Weapon();
+	bool getItemapp(int n);
 };

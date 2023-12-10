@@ -238,47 +238,47 @@ void Player::take_out_Wep()
 
 void Player::set_item(int x,int y)
 {
-	if (200 <= x && x <= 400) {
-		if (200 <= y && y <= 300) {
+	if (274 <= x && x <= 623) {
+		if (12 <= y && y <= 355) {
 			if (!item[0]) {
 				item[0] = true;
-				std::cout << "1번 아이템 선택" << std::endl;
+				//std::cout << "1번 아이템 선택" << std::endl;
 			}
 			else {
 				item[0] = false;
-				std::cout << "1번 아이템 취소" << std::endl;
+				//std::cout << "1번 아이템 취소" << std::endl;
 			}
 		}
-		if (400 <= y && y <= 500) {
+		if (356 <= y && y <= 708) {
 			if (!item[2]) {
 				item[2] = true;
-				std::cout << "3번 아이템 선택" << std::endl;
+				//std::cout << "3번 아이템 선택" << std::endl;
 			}
 			else {
 				item[2] = false;
-				std::cout << "3번 아이템 취소" << std::endl;
+				//std::cout << "3번 아이템 취소" << std::endl;
 			}
 		}
 	}
-	if (500 <= x && x <= 700) {
-		if (200 <= y && y <= 300) {
+	if (657 <= x && x <= 1005) {
+		if (12 <= y && y <= 355) {
 			if (!item[1]) {
 				item[1] = true;
-				std::cout << "2번 아이템 선택" << std::endl;
+				//std::cout << "2번 아이템 선택" << std::endl;
 			}
 			else {
 				item[1] = false;
-				std::cout << "2번 아이템 취소" << std::endl;
+				//std::cout << "2번 아이템 취소" << std::endl;
 			}
 		}
-		if (400 <= y && y <= 500) {
+		if (356 <= y && y <= 708) {
 			if (!item[3]) {
 				item[3] = true;
-				std::cout << "4번 아이템 선택" << std::endl;
+				//std::cout << "4번 아이템 선택" << std::endl;
 			}
 			else {
 				item[3] = false;
-				std::cout << "4번 아이템 취소" << std::endl;
+				//std::cout << "4번 아이템 취소" << std::endl;
 			}
 		}
 	}
@@ -293,6 +293,7 @@ void Player::apply_item()
 	}
 	if (item[1]) { //최대 체력 증가
 		MAXHP += 200;
+		HP += 200;
 		item[1] = false;
 		std::cout << "플레이어 최대 체력 증가 증가 완료 : " << MAXHP << std::endl;
 	}
@@ -498,3 +499,8 @@ glm::vec3 Player::RaytoPlaneYZ(glm::vec3 A, glm::vec3 B, float plane)
 	return C;
 }
 //===========================================================
+
+bool Player::getItemapp(int n)
+{
+	return item[n];
+}

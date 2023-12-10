@@ -16,6 +16,7 @@ void MouseFunc::Mouse(int button, int state, int x, int y)
 		s_x = x;
 		s_y = y;
 		if (아이템선택 == game_state) {
+			std::cout << x << ", " << y << "\n'";
 			dynamic_cast<Player*>(dynamic_cast<Select_Item*>(mScene)->getPlayer())->set_item(x, y);
 		}
 		if (필드 == game_state) {
@@ -70,8 +71,8 @@ bool MouseFunc::next_state()
 		}
 		break;
 	case 아이템선택:
-		if (950 <= s_x && s_x <= 1250) {
-			if (500 <= s_y && s_y <= 700) {
+		if (1053 <= s_x && s_x <= 1238) {
+			if (590 <= s_y && s_y <= 647) {
 				game_state = 필드;
 				return true;
 			}
