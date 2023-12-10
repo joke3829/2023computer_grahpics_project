@@ -21,9 +21,12 @@ private:
 	bool move[4];		// 0 w, 1 a
 	bool atck;
 	bool changing;
+	bool reloading;
 	int weapon;
 	int cnt; //적당한 시간에 쏘자!
 	float mousesense;
+	float angle;
+	int type;
 	Scene* mScene;
 	Weapon* cur_Wea = nullptr;
 	Weapon* pistol;
@@ -46,6 +49,8 @@ public:
 	void take_out_Wep();
 	void set_item(int, int);
 	void apply_item();
+	void reload_ani();
+	bool do_reload_ani();
 
 	void attack_check(std::vector<EnemyBase*>&, CameraObj*);	// 광선이 좀비랑 닿았나?
 	glm::vec3 RaytoPlaneXY(glm::vec3,glm::vec3,float);			// XY평면 투영

@@ -20,10 +20,12 @@ void MouseFunc::Mouse(int button, int state, int x, int y)
 			dynamic_cast<Player*>(dynamic_cast<Select_Item*>(mScene)->getPlayer())->set_item(x, y);
 		}
 		if (필드 == game_state) {
-			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->conti_attack(true);
-			// ↓↓↓ 이부분이 사격, 연사는 너가 어떻게 처리했는지 몰라서 클릭할때만 들어감
-			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->attack_check(
-				dynamic_cast<Field*>(mScene)->getList(), dynamic_cast<Field*>(mScene)->getCamera());
+			if (!dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->do_reload_ani()) {
+				dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->conti_attack(true);
+				// ↓↓↓ 이부분이 사격, 연사는 너가 어떻게 처리했는지 몰라서 클릭할때만 들어감
+				dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->attack_check(
+					dynamic_cast<Field*>(mScene)->getList(), dynamic_cast<Field*>(mScene)->getCamera());
+			}
 		}
 	}
 	else if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
