@@ -5,11 +5,13 @@
 Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, std::vector<EnemyBase*>& t_list, GameTimer* t_timer, CubeMap* t_cube)
 	: mPlayer(t_player), mField(t_field), mCamera(t_camera), enemy_list(t_list), mTimer(t_timer), mCubemap(t_cube)
 {
+	mUi = new UI(mPlayer, mTimer);
 	max_alive = 12;
 }
 
 Field::~Field()
 {
+	delete mUi;
 	mPlayer = nullptr;
 	mField = nullptr;
 }
@@ -34,14 +36,14 @@ void Field::Update()
 		if (aliving < max_alive) {
 			if (not enemy_list[i]->Death_check()) {
 				enemy_list[i]->setPlayerLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
-				enemy_list[i]->walk_ani(0);
-				if (dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_1())
+				//enemy_list[i]->walk_ani(0);
+				/*if (dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_1())
 					or dynamic_cast<NM_zombie*>(enemy_list[i])->getrarm()->collision_check(*mField->gethouse_1())
 					or dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_2())
 					or dynamic_cast<NM_zombie*>(enemy_list[i])->getrarm()->collision_check(*mField->gethouse_2())) {
 					std::cout << "Ãæµ¹ Áß!" << std::endl;
 					dynamic_cast<NM_zombie*>(enemy_list[i])->walk_ani(1);
-				}
+				}*/
 				/*if (dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_1())) {
 					dynamic_cast<NM_zombie*>(enemy_list[i])->back_walk();
 				}*/
@@ -55,7 +57,7 @@ void Field::Update()
 		else
 			break;
 	}
-	mTimer->Update();
+	mUi->Update();
 }
 
 void Field::Render()
@@ -76,7 +78,7 @@ void Field::Render()
 		else
 			break;
 	}
-	//mTimer->Render();
+	mUi->Render();
 }
 
 CharacterBase* Field::getPlayer()

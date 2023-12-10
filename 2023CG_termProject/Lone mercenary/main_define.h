@@ -17,6 +17,7 @@
 
 // ¿Â∏ÈµÈ
 #include "Scene.h"
+#include "Title.h"
 #include "Field.h"
 #include "Select_Item.h"
 

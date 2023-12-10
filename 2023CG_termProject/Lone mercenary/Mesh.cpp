@@ -207,6 +207,22 @@ void Mesh::Initialize(std::string filename)
 	 stbi_image_free(data);
  }
 
+ void Mesh::change_texture(std::string filename, int w_size, int h_size)
+ {
+	 glBindTexture(GL_TEXTURE_2D, texture);
+	 /*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
+	 int t_width = w_size;
+	 int t_height = h_size;
+	 int numberOfChannel;
+	 stbi_set_flip_vertically_on_load(true);
+	 unsigned char* data = stbi_load(filename.c_str(), &t_width, &t_height, &numberOfChannel, 0);
+	 glTexImage2D(GL_TEXTURE_2D, 0, 4, t_width, t_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	 stbi_image_free(data);
+ }
+
 // 제대로 읽어 오면 true반환, 지금은 정점과 index만 저장, 추후 수정
 bool Mesh::ReadOBJ(std::string filename)
 {

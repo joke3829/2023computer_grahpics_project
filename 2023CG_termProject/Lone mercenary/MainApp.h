@@ -32,6 +32,9 @@ public:
 	void next_state();
 	KeyboardFunc* pKeyboard;
 	MouseFunc* pMouse;
+
+
+	bool test_init();
 protected:
 private:
 	int game_state;

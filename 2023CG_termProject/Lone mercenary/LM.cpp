@@ -43,7 +43,7 @@ void main(int argc, char** argv)
 
 	//============================================================
 	mainApp = new MainApp;								// MainApp 생성
-	if (not mainApp->Initialize()) {				// MainApp 초기화
+	if (not mainApp->test_init()) {				// MainApp 초기화
 		std::cout << "MainApp 초기화 실패!" << std::endl;
 		return;
 	}

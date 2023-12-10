@@ -18,7 +18,10 @@ bool MainApp::Initialize()
 	proj = new ProjObj;
 	game_state = 메인;
 
-	current_scene = new Scene; // 메인 장면도 만들예정
+	field = new FieldMap;
+	cubemap = new CubeMap;
+
+	current_scene = new Title(cubemap); // 메인 장면도 만들예정
 	
 	// 키보드 마우스 초기화
 	pKeyboard = new KeyboardFunc;
@@ -30,9 +33,42 @@ bool MainApp::Initialize()
 	pKeyboard->setScene(current_scene);
 
 	// 게임 요소 초기화
+
+	return true;
+}
+
+bool MainApp::test_init()
+{
+	// 기초 요소들 초기화
+	Mesh::box_check = false;
+	camera = new CameraObj;
+	proj = new ProjObj;
+	game_state = 메인;
+
+	mPlayer = new Player(100, 200, 40, 10, 0);
 	field = new FieldMap;
 	cubemap = new CubeMap;
 
+
+
+	// 키보드 마우스 초기화
+	pKeyboard = new KeyboardFunc;
+
+	pMouse = new MouseFunc;
+
+
+	// 게임 요소 초기화
+
+	game_state = 필드;
+	//delete current_scene;
+	e_arrayReady();
+	game_timer = new GameTimer(mPlayer);
+	current_scene = new Field(mPlayer, field, camera, enemy_array, game_timer, cubemap);
+	pKeyboard->setGame_stete(game_state);
+	pKeyboard->setScene(current_scene);
+
+	pMouse->setGame_stete(game_state);
+	pMouse->setScene(current_scene);
 	return true;
 }
 
@@ -59,7 +95,7 @@ void MainApp::next_state()
 			game_state = 필드;
 			delete current_scene;
 			e_arrayReady();
-			game_timer = new GameTimer;
+			game_timer = new GameTimer(mPlayer);
 			current_scene = new Field(mPlayer, field, camera, enemy_array, game_timer, cubemap);
 			pKeyboard->setGame_stete(game_state);
 			pKeyboard->setScene(current_scene);

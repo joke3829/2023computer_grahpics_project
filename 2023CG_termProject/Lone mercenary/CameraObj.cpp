@@ -45,9 +45,9 @@ void CameraObj::OutToShader()
 		std::cout << "uniform 변수를 찾지 못했습니다!" << std::endl;
 	glUniformMatrix4fv(uni, 1, GL_FALSE, &viewMatrix[0][0]);
 	// FragmentShader의 카메라 위치 보내주기
-	uni = glGetUniformLocation(shader->s_program, "veiwPos");
+	/*uni = glGetUniformLocation(shader->s_program, "veiwPos");
 	if (uni < 0)
-		std::cout << "uniform 변수를 찾지 못했습니다!" << std::endl;
+		std::cout << "uniform 변수를 찾지 못했습니다!" << std::endl;*/
 	glUniform3fv(uni, 1, glm::value_ptr(cameraEYE));		// 확인 필요
 }
 

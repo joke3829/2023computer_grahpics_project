@@ -48,6 +48,12 @@ void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
 		case '-':
 			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setsensative('-');
 			break;
+		case ']':
+			dynamic_cast<Field*>(mScene)->getPlayer()->Update_HP(10);
+			break;
+		case '[':
+			dynamic_cast<Field*>(mScene)->getPlayer()->Update_HP(-1);
+			break;
 		case 't':
 			if (Mesh::box_check)
 				Mesh::box_check = false;
