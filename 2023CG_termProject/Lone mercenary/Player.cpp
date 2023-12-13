@@ -44,10 +44,11 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	item[0] = item[1] = item[2] = item[3] = false;
 	atck = false;
 	changing = true;
+	reloading = false;
 	cnt = 0;
 	mousesense = 0.02f;
-
-
+	angle = 0.0f;
+	type = 0;
 }
 
 void Player::animation()
@@ -56,36 +57,148 @@ void Player::animation()
 	if (move[0] && move[1]) { //왼쪽 + 앞
 		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x - 45.0f)), 0, glm::sin(glm::radians(cur_rot.x - 45.0f)));
 		cur_loc += (speed * dir) / 60.0f;
+		if (cur_loc.x >= 150.0f || cur_loc.x <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if (cur_loc.z >= 150.0f || cur_loc.z <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if ((-150.0f <= cur_loc.x && cur_loc.x <= -50.0f) || (50.0f <= cur_loc.x && cur_loc.x <= 150.0f)) {
+			if (-150.0f <= cur_loc.z && cur_loc.z <= -50.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+			if (50.0f <= cur_loc.z && cur_loc.z <= 150.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+		}
 	}
 	else if (move[0] && move[3]) { //오른쪽 + 앞
 		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x + 45.0f)), 0, glm::sin(glm::radians(cur_rot.x + 45.0f)));
 		cur_loc += (speed * dir) / 60.0f;
+		if (cur_loc.x >= 150.0f || cur_loc.x <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if (cur_loc.z >= 150.0f || cur_loc.z <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if ((-150.0f <= cur_loc.x && cur_loc.x <= -50.0f) || (50.0f <= cur_loc.x && cur_loc.x <= 150.0f)) {
+			if (-150.0f <= cur_loc.z && cur_loc.z <= -50.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+			if (50.0f <= cur_loc.z && cur_loc.z <= 150.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+		}
 	}
 	else if (move[2] && move[1]) { //왼쪽 + 뒤
 		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x - 135.0f)), 0, glm::sin(glm::radians(cur_rot.x - 135.0f)));
 		cur_loc += (speed * dir) / 60.0f;
+		if (cur_loc.x >= 150.0f || cur_loc.x <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if (cur_loc.z >= 150.0f || cur_loc.z <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if ((-150.0f <= cur_loc.x && cur_loc.x <= -50.0f) || (50.0f <= cur_loc.x && cur_loc.x <= 150.0f)) {
+			if (-150.0f <= cur_loc.z && cur_loc.z <= -50.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+			if (50.0f <= cur_loc.z && cur_loc.z <= 150.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+		}
 	}
 	else if (move[2] && move[3]) { //오른쪽 + 뒤
 		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x + 135.0f)), 0, glm::sin(glm::radians(cur_rot.x + 135.0f)));
 		cur_loc += (speed * dir) / 60.0f;
+		if (cur_loc.x >= 150.0f || cur_loc.x <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if (cur_loc.z >= 150.0f || cur_loc.z <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if ((-150.0f <= cur_loc.x && cur_loc.x <= -50.0f) || (50.0f <= cur_loc.x && cur_loc.x <= 150.0f)) {
+			if (-150.0f <= cur_loc.z && cur_loc.z <= -50.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+			if (50.0f <= cur_loc.z && cur_loc.z <= 150.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+		}
 	}
 	else if (move[0]) {
 		// 현재 cur_loc에 바라보는 방향으로 spd/60만큼 더한다.(60프레임이니까 4cm/s일시 4/60하자)
 		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x)), 0, glm::sin(glm::radians(cur_rot.x)));
 		cur_loc += (speed * dir) / 60.0f;
+		if (cur_loc.x >= 150.0f || cur_loc.x <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if (cur_loc.z >= 150.0f || cur_loc.z <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if ((-150.0f <= cur_loc.x && cur_loc.x <= -50.0f) || (50.0f <= cur_loc.x && cur_loc.x <= 150.0f)) {
+			if (-150.0f <= cur_loc.z && cur_loc.z <= -50.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+			if (50.0f <= cur_loc.z && cur_loc.z <= 150.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+		}
 	}
 	else if (move[1]) {
 		// 현재 cur_loc에 바라보는 방향의 왼쪽으로 이하 동문
 		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x - 90.0f)), 0, glm::sin(glm::radians(cur_rot.x - 90.0f)));
 		cur_loc += (speed * dir) / 60.0f;
+		if (cur_loc.x >= 150.0f || cur_loc.x <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if (cur_loc.z >= 150.0f || cur_loc.z <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if ((-150.0f <= cur_loc.x && cur_loc.x <= -50.0f) || (50.0f <= cur_loc.x && cur_loc.x <= 150.0f)) {
+			if (-150.0f <= cur_loc.z && cur_loc.z <= -50.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+			if (50.0f <= cur_loc.z && cur_loc.z <= 150.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+		}
 	}
 	else if (move[2]) {
 		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x - 180.0f)), 0, glm::sin(glm::radians(cur_rot.x - 180.0f)));
 		cur_loc += (speed * dir) / 60.0f;
+		if (cur_loc.x >= 150.0f || cur_loc.x <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if (cur_loc.z >= 150.0f || cur_loc.z <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if ((-150.0f <= cur_loc.x && cur_loc.x <= -50.0f) || (50.0f <= cur_loc.x && cur_loc.x <= 150.0f)) {
+			if (-150.0f <= cur_loc.z && cur_loc.z <= -50.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+			if (50.0f <= cur_loc.z && cur_loc.z <= 150.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+		}
 	}
 	else if (move[3]) {
 		glm::vec3 dir = glm::vec3(glm::cos(glm::radians(cur_rot.x + 90.0f)), 0, glm::sin(glm::radians(cur_rot.x + 90.0f)));
 		cur_loc += (speed * dir) / 60.0f;
+		if (cur_loc.x >= 150.0f || cur_loc.x <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if (cur_loc.z >= 150.0f || cur_loc.z <= -150.0f) {
+			cur_loc -= (speed * dir) / 60.0f;
+		}
+		if ((-150.0f <= cur_loc.x && cur_loc.x <= -50.0f) || (50.0f <= cur_loc.x && cur_loc.x <= 150.0f)) {
+			if (-150.0f <= cur_loc.z && cur_loc.z <= -50.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+			if (50.0f <= cur_loc.z && cur_loc.z <= 150.0f) {
+				cur_loc -= (speed * dir) / 60.0f;
+			}
+		}
 	}
 }
 
@@ -190,6 +303,7 @@ void Player::setWeapon(char type)
 		break;
 	case 'r':
 		cur_Wea->reloading();
+		reloading = true;
 		break;
 	}
 }
@@ -304,10 +418,37 @@ void Player::apply_item()
 		std::cout << "플레이어 탄약 수 증가 완료 : " << std::endl;
 	}
 	if (item[3]) { //공격력 증가
-		ATK += 5;
+		ATK += 200;
 		item[3] = false;
 		std::cout << "플레이어 공격력 증가 완료 : " << ATK << std::endl;
 	}
+}
+
+void Player::reload_ani()
+{
+	if (reloading) {
+		if (type == 0) {
+			init_Weapon_rot.x -= 5.0f;
+			angle -= 5.0f;
+			if (angle <= -45.0f) {
+				type = 1;
+			}
+		}
+		if (type == 1) {
+			init_Weapon_rot.x += 5.0f;
+			angle += 5.0f;
+			if (angle >= 0.0f) {
+				type = 0;
+				angle = 0.0f;
+				reloading = false;
+			}
+		}
+	}
+}
+
+bool Player::do_reload_ani()
+{
+	return reloading;
 }
 
 void Player::setsensative(char key)
@@ -360,8 +501,8 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	glm::vec3 ray_first = glm::vec3(temp_camera->getEYE());
 	glm::vec3 ray_last = glm::vec3(temp_camera->getAT());
 	glm::vec3 ray = ray_last - ray_first;
-	std::cout << ray_first.x << "\t" << ray_first.y << "\t" << ray_first.z << std::endl;
-	std::cout << ray.x << "\t" << ray.y << "\t" << ray.z << std::endl;
+	//std::cout << ray_first.x << "\t" << ray_first.y << "\t" << ray_first.z << std::endl;
+	//std::cout << ray.x << "\t" << ray.y << "\t" << ray.z << std::endl;
 	for (int i = 0; i < temp_list.size(); ++i) {
 		float xz_dist = 0.0f;
 		float yz_dist = 0.0f;
@@ -410,7 +551,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 					if (min_z <= contact.z && contact.z <= max_z) {
 						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
 						contact_distance[i] = yz_dist;
-						std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						//std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 					}
 				}
 
@@ -422,12 +563,12 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 						if (contact_distance[i] != 0.0f) {
 							if (xz_dist < contact_distance[i]) {
 								contact_distance[i] = xz_dist;
-								std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+								//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 							}
 						}
 						else {
 							contact_distance[i] = xz_dist;
-							std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 						}
 					}
 				}
@@ -440,12 +581,12 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 						if (contact_distance[i] != 0.0f) {
 							if (xy_dist < contact_distance[i]) {
 								contact_distance[i] = xy_dist;
-								std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+								//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 							}
 						}
 						else {
 							contact_distance[i] = xy_dist;
-							std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 						}
 					}
 				}
@@ -467,7 +608,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	}
 	if (whoisfirst != -1) {
 		temp_list[whoisfirst]->Update_HP(-ATK); //공격력만큼 감소
-		std::cout << "결국 맞았구만...\t" << whoisfirst << "\t" << temp_list[whoisfirst]->getHP() << std::endl;
+		std::cout << whoisfirst << "\t-\t" << temp_list[whoisfirst]->getHP() << std::endl;
 	}
 }
 
@@ -480,6 +621,7 @@ glm::vec3 Player::RaytoPlaneXY(glm::vec3 A, glm::vec3 B, float plane)
 	C.z = plane;
 	return C;
 }
+
 glm::vec3 Player::RaytoPlaneXZ(glm::vec3 A, glm::vec3 B, float plane)
 {
 	float ratio = (B.y - plane) / (B.y - A.y);
@@ -489,6 +631,7 @@ glm::vec3 Player::RaytoPlaneXZ(glm::vec3 A, glm::vec3 B, float plane)
 	C.y = plane;
 	return C;
 }
+
 glm::vec3 Player::RaytoPlaneYZ(glm::vec3 A, glm::vec3 B, float plane)
 {
 	float ratio = (B.x - plane) / (B.x - A.x);
