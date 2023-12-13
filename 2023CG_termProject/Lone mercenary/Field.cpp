@@ -96,3 +96,8 @@ std::vector<EnemyBase*>& Field::getList()
 {
 	return enemy_list;
 }
+
+Sound* Field::getSoundplayer()
+{
+	return sd;
+}

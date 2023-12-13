@@ -5,7 +5,6 @@
 #pragma comment(lib, "freeglut")
 #pragma comment(lib, "glew32")
 
-
 GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
 
