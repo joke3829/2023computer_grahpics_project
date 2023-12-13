@@ -8,6 +8,7 @@ bool Mesh::box_check = false;
 Mesh::Mesh(std::string filename, std::string f_path, int w_size, int h_size) {
 	Initialize(filename);
 	Init_texture(f_path, w_size, h_size);
+	ambient = glm::vec3(0.3);
 }
 
 Mesh::~Mesh()
@@ -34,7 +35,6 @@ void Mesh::Initialize(std::string filename)
 	// 현재는 랜덤하게 컬러 지정
 
 	modelTrans = glm::mat4(1.0f);
-	rotateMatrix = glm::mat4(1.0f);
 
 	cur_loc = glm::vec3(0.0);
 	init_pos = glm::vec3(0.0);
@@ -298,8 +298,8 @@ void Mesh::Render() const
 {
 	int loc = glGetUniformLocation(shader->s_program, "transform");
 	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(modelTrans));
-	loc = glGetUniformLocation(shader->s_program, "rotateMatrix");
-	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(rotateMatrix));
+	loc = glGetUniformLocation(shader->s_program, "ambientLight");
+	glUniform3fv(loc, 1, glm::value_ptr(ambient));
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glDrawArrays(GL_TRIANGLES, 0, vertexs.size());
@@ -334,8 +334,6 @@ void Mesh::init_rotate(float rad, float x, float y, float z)
 		init_rot.z += rad;
 	glm::mat4 temp = glm::mat4(1.0f);
 	modelTrans = glm::rotate(temp, glm::radians(rad), glm::vec3(x, y, z)) * modelTrans;
-	temp = glm::mat4(1.0f);
-	rotateMatrix = glm::rotate(temp, glm::radians(rad), glm::vec3(x, y, z)) * rotateMatrix;
 }
 
 void Mesh::setLoc(glm::vec3 new_loc)
@@ -354,21 +352,13 @@ void Mesh::setRot(glm::vec2 new_rot)
 
 	modelTrans = glm::rotate(temp, glm::radians(-(360 - cur_rot.x)), glm::vec3(0, 1, 0)) * modelTrans; temp = glm::mat4(1.0f);
 
-	rotateMatrix = glm::rotate(temp, glm::radians(-(360 - cur_rot.x)), glm::vec3(0, 1, 0)) * rotateMatrix; temp = glm::mat4(1.0f);
-
 	modelTrans = glm::rotate(temp, glm::radians(-cur_rot.y), glm::vec3(0, 0, 1)) * modelTrans; temp = glm::mat4(1.0f);
-
-	rotateMatrix = glm::rotate(temp, glm::radians(-cur_rot.y), glm::vec3(0, 0, 1)) * rotateMatrix; temp = glm::mat4(1.0f);
 
 	cur_rot = new_rot;
 
 	modelTrans = glm::rotate(temp, glm::radians(cur_rot.y), glm::vec3(0, 0, 1)) * modelTrans; temp = glm::mat4(1.0f);
 
-	rotateMatrix = glm::rotate(temp, glm::radians(cur_rot.y), glm::vec3(0, 0, 1)) * rotateMatrix; temp = glm::mat4(1.0f);
-
 	modelTrans = glm::rotate(temp, glm::radians((360 - cur_rot.x)), glm::vec3(0, 1, 0)) * modelTrans; temp = glm::mat4(1.0f);
-
-	rotateMatrix = glm::rotate(temp, glm::radians((360 - cur_rot.x)), glm::vec3(0, 1, 0)) * rotateMatrix; temp = glm::mat4(1.0f);
 
 	modelTrans = glm::translate(temp, cur_loc) * modelTrans; temp = glm::mat4(1.0f);
 }
@@ -410,4 +400,9 @@ bool Mesh::collision_check(const Mesh& other)
 			return false;
 	}
 	return true;
+}
+
+void Mesh::setAmb(float n)
+{
+	ambient = glm::vec3(n);
 }

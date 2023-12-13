@@ -7,6 +7,7 @@ Title::Title(CubeMap* t_cube)
 	Title_image->init_scale(0.15);
 	Title_image->init_rotate(-90, 0, 1, 0);
 	Title_image->init_position(20, 3, -7);
+	Title_image->setAmb(1.0f);
 }
 
 Title::~Title()

@@ -30,6 +30,11 @@ GameTimer::GameTimer(CharacterBase* t_player)
 	p_num100 = 0;
 	p_num10 = 0;
 	p_num1 = 0;
+
+	back->setAmb(1.0);
+	num100->setAmb(1.0);
+	num10->setAmb(1.0);
+	num1->setAmb(1.0);
 }
 
 GameTimer::~GameTimer()

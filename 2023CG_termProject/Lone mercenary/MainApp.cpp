@@ -81,7 +81,7 @@ void MainApp::next_state()
 		if (pMouse->next_state()) {
 			game_state = ¾ÆÀÌÅÛ¼±ÅÃ;
 			delete current_scene;
-			mPlayer = new Player(1, 200, 40, 10, 0);
+			mPlayer = new Player(100, 200, 40, 10, 0);
 			current_scene = new Select_Item(mPlayer, cubemap);
 			pKeyboard->setGame_stete(game_state);
 			pKeyboard->setScene(current_scene);
@@ -147,11 +147,11 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
-	for (int i = 0; i < 8; ++i) {
+	/*for (int i = 0; i < 1; ++i) {
 		enemy_array.push_back(new NM_zombie(100, 200, 20, 10, 10, Èú·¯));
-	}
-	enemy_array.push_back(new NM_zombie(100, 200, 20, 20, 50, Æø¹ß));
-	enemy_array.push_back(new NM_zombie(100, 200, 20, 30, 50, ÀÏ¹Ý));
+	}*/
+	enemy_array.push_back(new NM_zombie(100, 200, 20, 20, 10, Æø¹ß));
+	//enemy_array.push_back(new NM_zombie(100, 200, 20, 30, 10, ÀÏ¹Ý));
 	return true;
 }
 

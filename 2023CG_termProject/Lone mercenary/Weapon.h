@@ -22,6 +22,8 @@ public:
 
 	int gettotal();
 	int getreloaded();
+
+	void plusammo(int);
 protected:
 	int weapon_num;			// 무기 번호
 

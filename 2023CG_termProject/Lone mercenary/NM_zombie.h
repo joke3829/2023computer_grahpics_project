@@ -15,9 +15,10 @@ public:
 	~NM_zombie();
 
 	void walk_ani(int n);
-	void back_walk();
+	//void back_walk();
 
 	void z_heal(std::vector<EnemyBase*>&);
+	void z_boom();
 	NM_Mesh* gethead();
 	NM_Mesh* getbody();
 	NM_Mesh* getlarm();
@@ -29,8 +30,8 @@ public:
 protected:
 private:
 	int z_type;
-	clock_t start_time{};
-	clock_t current_time{};
+	clock_t h_start_time{};
+	clock_t h_current_time{};
 	double p_delay{};
 	NM_Mesh* head;		// ¸Ó¸®
 	NM_Mesh* body;		// ¸öÅë

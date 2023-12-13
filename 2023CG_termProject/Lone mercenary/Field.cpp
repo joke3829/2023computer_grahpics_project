@@ -7,6 +7,10 @@ Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, st
 {
 	mUi = new UI(mPlayer, mTimer);
 	max_alive = 12;
+	item = new ItemBox(mTimer, mPlayer);
+	sandglass[0] = new Timerplus(mPlayer, mTimer, glm::vec3(-100, 0, 20));
+	sandglass[1] = new Timerplus(mPlayer, mTimer, glm::vec3(20, 0, -100));
+	sandglass[2] = new Timerplus(mPlayer, mTimer, glm::vec3(-20, 0, 70));
 }
 
 Field::~Field()
@@ -14,6 +18,9 @@ Field::~Field()
 	delete mUi;
 	mPlayer = nullptr;
 	mField = nullptr;
+	delete item;
+	for (int i = 0; i < 3; ++i)
+		delete sandglass[i];
 }
 
 void Field::Update()
@@ -37,7 +44,7 @@ void Field::Update()
 	for (int i = 0; i < enemy_list.size(); ++i) {
 		if (aliving < max_alive) {
 			if (not enemy_list[i]->Death_check()) {
-				enemy_list[i]->setPlayerLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
+				enemy_list[i]->setPlayerLoc(mPlayer);
 				enemy_list[i]->walk_ani(0);
 				/*if (dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_1())
 					or dynamic_cast<NM_zombie*>(enemy_list[i])->getrarm()->collision_check(*mField->gethouse_1())
@@ -53,12 +60,23 @@ void Field::Update()
 					std::cout << "Ãæµ¹ Áß!" << std::endl;
 					dynamic_cast<NM_zombie*>(enemy_list[i])->walk_ani(1);
 				}*/
+				enemy_list[i]->attack();
+				dynamic_cast<NM_zombie*>(enemy_list[i])->z_heal(enemy_list);
+				dynamic_cast<NM_zombie*>(enemy_list[i])->z_boom();
+
 				++aliving;
 			}
 		}
 		else
 			break;
 	}
+	for (Timerplus*& t : sandglass) {
+		t->check_collision();
+		t->rot_ani();
+	}
+	item->check_collision();
+	item->check_time();
+	item->rot_ani();
 	mUi->Update();
 }
 
@@ -80,6 +98,9 @@ void Field::Render()
 		else
 			break;
 	}
+	for (Timerplus*& t : sandglass)
+		t->Render();
+	item->Render();
 	mUi->Render();
 }
 

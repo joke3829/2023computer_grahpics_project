@@ -12,6 +12,11 @@ int Weapon::getATK()
 	return ATK;
 }
 
+void Weapon::plusammo(int n)
+{
+	total_ammo += n;
+}
+
 void Weapon::Shoot()
 {
 	if (³ªÀÌÇÁ != weapon_num) {

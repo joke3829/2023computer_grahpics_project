@@ -160,6 +160,7 @@
     <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="Select_Item.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Timeplus.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Weapon.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Timeplus.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Weapon.h" />

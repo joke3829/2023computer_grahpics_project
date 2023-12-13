@@ -47,6 +47,11 @@ public:
 		startbutton->init_scale(0.2);
 		startbutton->init_rotate(-90, 0, 1, 0);
 		startbutton->init_position(50, -15, 29);
+		for (int i = 0; i < 4; ++i) {
+			button[i]->setAmb(1.0f);
+			check[i]->setAmb(1.0f);
+		}
+		startbutton->setAmb(1.0f);
 	}
 	~Select_Item() { 
 		mPlayer = nullptr;
