@@ -7,6 +7,7 @@ Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, st
 {
 	mUi = new UI(mPlayer, mTimer);
 	max_alive = 12;
+	item = new ItemBox(mTimer, mPlayer);
 }
 
 Field::~Field()
@@ -14,6 +15,7 @@ Field::~Field()
 	delete mUi;
 	mPlayer = nullptr;
 	mField = nullptr;
+	delete item;
 }
 
 void Field::Update()
@@ -58,6 +60,9 @@ void Field::Update()
 		else
 			break;
 	}
+	item->check_collision();
+	item->check_time();
+	item->rot_ani();
 	mUi->Update();
 }
 
@@ -79,6 +84,7 @@ void Field::Render()
 		else
 			break;
 	}
+	item->Render();
 	mUi->Render();
 }
 

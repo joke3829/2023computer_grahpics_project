@@ -14,6 +14,7 @@
 #include "Enemy.h"
 #include "NM_zombie.h"
 #include "GameTimer.h"
+#include "ItemBox.h"
 
 // ¿Â∏ÈµÈ
 #include "Scene.h"
