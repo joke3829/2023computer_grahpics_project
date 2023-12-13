@@ -8,7 +8,7 @@ Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, st
 	: mPlayer(t_player), mField(t_field), mCamera(t_camera), enemy_list(t_list), mTimer(t_timer), mCubemap(t_cube)
 {
 	mUi = new UI(mPlayer, mTimer);
-	max_alive = 12;
+	max_alive = 14;
 	item = new ItemBox(mTimer, mPlayer);
 	sandglass[0] = new Timerplus(mPlayer, mTimer, glm::vec3(-100, 0, 20));
 	sandglass[1] = new Timerplus(mPlayer, mTimer, glm::vec3(20, 0, -100));
@@ -42,7 +42,7 @@ void Field::Update()
 	dynamic_cast<Player*>(mPlayer)->knife_AT_ani();
 
 	int alive{};
-	EnemyBase* aliveEnemy[6];
+	EnemyBase* aliveEnemy[14];
 	bool update_first = false;
 	for (int i = first_zom; i < enemy_list.size(); ++i) {
 		if (not enemy_list[i]->Death_check()) {
@@ -51,7 +51,7 @@ void Field::Update()
 				update_first = true;
 			}
 			aliveEnemy[alive++] = enemy_list[i];
-			if (6 == alive)
+			if (14 == alive)
 				break;
 		}
 	}
@@ -89,7 +89,7 @@ void Field::Render()
 
 	int alive{};
 	for (int i = first_zom; i < enemy_list.size(); ++i) {
-		if (alive < 6) {
+		if (alive < 14) {
 			if (not enemy_list[i]->Death_check()) {
 				enemy_list[i]->Render();
 				++alive;

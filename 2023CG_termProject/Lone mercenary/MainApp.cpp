@@ -148,11 +148,15 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
-	for (int i = 0; i < 12; ++i) {
-		enemy_array.push_back(new NM_zombie(100, 200, 20, 10, 10, Èú·¯));
+	for (int i = 0; i < 3; ++i) {
+		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, Èú·¯));
 	}
-	enemy_array.push_back(new NM_zombie(100, 200, 20, 20, 10, Æø¹ß));
-	//enemy_array.push_back(new NM_zombie(100, 200, 20, 30, 10, ÀÏ¹Ý));
+	for (int i = 0; i < 4; ++i) {
+		enemy_array.push_back(new NM_zombie(2100, 2100, 10, 100, 30, Æø¹ß));
+	}
+	for (int i = 0; i < 7; ++i) {
+		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, ÀÏ¹Ý));
+	}
 	return true;
 }
 
