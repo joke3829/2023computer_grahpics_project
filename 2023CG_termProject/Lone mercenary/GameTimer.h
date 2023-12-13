@@ -25,11 +25,11 @@ public:
 	static int p_num100;
 	static int p_num10;
 	static int p_num1;
+	static int remaining_time;		// 남은시간
 private:
 	clock_t start_time;
 	clock_t cur_time;
 	int d_time;
-	int remaining_time;		// 남은시간
 	CharacterBase* mPlayer;
 	Mesh* back;
 	Mesh* num100;

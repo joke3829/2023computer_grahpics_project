@@ -22,3 +22,4 @@ void EnemyBase::attack()
 		}
 	}
 }
+

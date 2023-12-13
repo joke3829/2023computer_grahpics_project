@@ -16,6 +16,7 @@ public:
 
 	void walk_ani(int n);
 	//void back_walk();
+	void setHit(bool);
 
 	void z_heal(std::vector<EnemyBase*>&);
 	void z_boom();
@@ -25,6 +26,8 @@ public:
 	NM_Mesh* getrarm();
 	NM_Mesh* getlleg();
 	NM_Mesh* getrleg();
+
+	bool Death_check();
 	
 	void Render() const;
 protected:
@@ -37,4 +40,6 @@ private:
 	NM_Mesh* body;		// ¸öÅë
 	NM_Mesh* arm[2];	// ¿ÞÆÈ, ¿À¸¥ÆÈ
 	NM_Mesh* leg[2];	// ¿Þ´Ù¸®, ¿À¸¥´Ù¸®
+
+	bool hithead;
 };

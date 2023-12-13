@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "Player.h"
 #include "Field.h"
+#include "GameTimer.h"
 
 NM_zombie::NM_zombie() : EnemyBase() {
 	HP = 0;
@@ -45,12 +46,13 @@ NM_zombie::NM_zombie() : EnemyBase() {
 NM_zombie::NM_zombie(float hp, float max, float spd, float def, float atk, int type)
 	: EnemyBase(hp, max, spd, def, atk)
 {
+	hithead = false;
 	start_time = clock();
 	std::random_device rd;
 	std::default_random_engine dre(rd());
 	std::uniform_int_distribution<int> uid(1, 4);
 
-	std::uniform_int_distribution<int> z_rnd(-50, 50);
+	std::uniform_int_distribution<int> z_rnd(-30, 30);
 	z_type = type;
 	switch (uid(dre)) {
 	case 1:
@@ -305,4 +307,23 @@ NM_Mesh* NM_zombie::getlleg()
 NM_Mesh* NM_zombie::getrleg()
 {
 	return leg[1];
+}
+
+void NM_zombie::setHit(bool n)
+{
+	hithead = n;
+}
+
+bool NM_zombie::Death_check()
+{
+	if (HP <= 0) {
+		if (hithead){
+			GameTimer::remaining_time += 10;
+			hithead = false;
+		}
+		return true;
+	}
+
+	hithead = false;
+	return false;
 }

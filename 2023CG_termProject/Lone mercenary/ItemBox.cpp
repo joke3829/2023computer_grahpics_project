@@ -6,7 +6,7 @@ ItemBox::ItemBox(GameTimer* t_time, CharacterBase* t_play)
 	box = new Mesh("obj_source\\field\\item_box.obj", "obj_source\\field\\item_box.png", 1024, 1024);
 	box->init_scale(0.5);
 	exist = false;
-	remaining = 10;
+	remaining = 7;
 	l_time = clock();
 }
 

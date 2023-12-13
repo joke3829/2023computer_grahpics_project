@@ -18,6 +18,8 @@ public:
 	virtual void Render() const {};
 
 	virtual void attack();
+	
+	
 
 	void setPlayerLoc(CharacterBase*);
 	glm::vec3 getLoc();
