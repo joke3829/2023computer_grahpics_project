@@ -37,7 +37,6 @@ void Field::Update()
 	dynamic_cast<Player*>(mPlayer)->getWeapon()->setLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
 	dynamic_cast<Player*>(mPlayer)->getWeapon()->setRot(dynamic_cast<Player*>(mPlayer)->getWepRot());
 	dynamic_cast<Player*>(mPlayer)->reload_ani();
-	dynamic_cast<Player*>(mPlayer)->knife_move();
 
 
 	aliving = 0;

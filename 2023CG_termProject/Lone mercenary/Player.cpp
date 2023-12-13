@@ -45,9 +45,7 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	atck = false;
 	changing = true;
 	reloading = false;
-	knife_at = false;
 	cnt = 0;
-	cnt_knife = 0;
 	mousesense = 0.02f;
 	angle = 0.0f;
 	type = 0;
@@ -305,9 +303,7 @@ void Player::setWeapon(char type)
 		break;
 	case 'r':
 		cur_Wea->reloading();
-		if (cur_Wea == rifle || cur_Wea == pistol) {
-			reloading = true;
-		}
+		reloading = true;
 		break;
 	}
 }
@@ -331,9 +327,6 @@ void Player::attack()
 					cur_rot.y += 1.0f; //반동
 					init_Weapon_rot.y += 1.0f; //반동
 				}
-			}
-			if (cur_Wea == knife) {
-				knife_at = true;
 			}
 			atck = false;
 		}
@@ -456,28 +449,6 @@ void Player::reload_ani()
 bool Player::do_reload_ani()
 {
 	return reloading;
-}
-
-void Player::knife_move()
-{
-	if (knife_at) {
-		if (type == 0) {
-			init_Weapon_rot.x -= 3.0f;
-			angle -= 3.0f;
-			if (angle <= -36.0f) {
-				type = 1;
-			}
-		}
-		if (type == 1) {
-			init_Weapon_rot.x += 3.0f;
-			angle += 3.0f;
-			if (angle >= 0.0f) {
-				type = 0;
-				angle = 0.0f;
-				knife_at = false;
-			}
-		}
-	}
 }
 
 void Player::setsensative(char key)
