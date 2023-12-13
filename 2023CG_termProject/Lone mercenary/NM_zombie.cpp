@@ -1,5 +1,6 @@
 #include "NM_zombie.h"
 #include "Mesh.h"
+#include "Player.h"
 
 NM_zombie::NM_zombie() : EnemyBase() {
 	HP = 0;
@@ -146,7 +147,7 @@ NM_zombie::~NM_zombie()
 void NM_zombie::walk_ani(int n)
 {
 	glm::vec3 z_pos = glm::vec3(cur_loc.x, 0, cur_loc.z);
-	glm::vec3 p_pos = glm::vec3(p_loc.x, 0, p_loc.z);
+	glm::vec3 p_pos = glm::vec3(dynamic_cast<Player*>(mPlayer)->getLoc().x, 0, dynamic_cast<Player*>(mPlayer)->getLoc().z);
 
 	float slope;
 
@@ -186,43 +187,43 @@ void NM_zombie::walk_ani(int n)
 	leg[1]->setRot(cur_rot);
 }
 
-void NM_zombie::back_walk()
-{
-	glm::vec3 z_pos = glm::vec3(cur_loc.x, 0, cur_loc.z);
-	glm::vec3 p_pos = glm::vec3(p_loc.x, 0, p_loc.z);
-
-	float slope;
-
-	if (z_pos.x == p_pos.x) {
-		slope = (z_pos.z - p_pos.z) / (z_pos.x - (p_pos.x + 0.0000000001));
-	}
-	else
-		slope = (z_pos.z - p_pos.z) / (z_pos.x - p_pos.x);
-
-	float angle = glm::atan(slope);
-	float degree = angle * 180 / glm::pi<float>();
-
-	if (z_pos.x > p_pos.x)
-		degree += 180;
-
-
-	cur_rot.x = degree;
-	glm::vec3 way = glm::normalize(glm::vec3(glm::cos(glm::radians(cur_rot.x)), 0, glm::sin(glm::radians(cur_rot.x))));
-	cur_loc -= (speed * way) / 60.0f;
-
-	head->setLoc(cur_loc);
-	head->setRot(cur_rot);
-	body->setLoc(cur_loc);
-	body->setRot(cur_rot);
-	arm[0]->setLoc(cur_loc);
-	arm[0]->setRot(cur_rot);
-	arm[1]->setLoc(cur_loc);
-	arm[1]->setRot(cur_rot);
-	leg[0]->setLoc(cur_loc);
-	leg[0]->setRot(cur_rot);
-	leg[1]->setLoc(cur_loc);
-	leg[1]->setRot(cur_rot);
-}
+//void NM_zombie::back_walk()
+//{
+//	glm::vec3 z_pos = glm::vec3(cur_loc.x, 0, cur_loc.z);
+//	glm::vec3 p_pos = glm::vec3(p_loc.x, 0, p_loc.z);
+//
+//	float slope;
+//
+//	if (z_pos.x == p_pos.x) {
+//		slope = (z_pos.z - p_pos.z) / (z_pos.x - (p_pos.x + 0.0000000001));
+//	}
+//	else
+//		slope = (z_pos.z - p_pos.z) / (z_pos.x - p_pos.x);
+//
+//	float angle = glm::atan(slope);
+//	float degree = angle * 180 / glm::pi<float>();
+//
+//	if (z_pos.x > p_pos.x)
+//		degree += 180;
+//
+//
+//	cur_rot.x = degree;
+//	glm::vec3 way = glm::normalize(glm::vec3(glm::cos(glm::radians(cur_rot.x)), 0, glm::sin(glm::radians(cur_rot.x))));
+//	cur_loc -= (speed * way) / 60.0f;
+//
+//	head->setLoc(cur_loc);
+//	head->setRot(cur_rot);
+//	body->setLoc(cur_loc);
+//	body->setRot(cur_rot);
+//	arm[0]->setLoc(cur_loc);
+//	arm[0]->setRot(cur_rot);
+//	arm[1]->setLoc(cur_loc);
+//	arm[1]->setRot(cur_rot);
+//	leg[0]->setLoc(cur_loc);
+//	leg[0]->setRot(cur_rot);
+//	leg[1]->setLoc(cur_loc);
+//	leg[1]->setRot(cur_rot);
+//}
 
 void NM_zombie::Render() const
 {
@@ -237,14 +238,14 @@ void NM_zombie::Render() const
 void NM_zombie::z_heal(std::vector<EnemyBase*>& temp_list)
 {
 	if (Èú·¯ == z_type && not Death_check()) {
-		current_time = clock();
-		double dd = (current_time - start_time) / CLOCKS_PER_SEC;
+		h_current_time = clock();
+		double dd = (h_current_time - h_start_time) / CLOCKS_PER_SEC;
 		if (dd > 10.0) {
 			int aliving{};
 			for (int i = 0; i < temp_list.size(); ++i) {
-				if (12 > aliving) {
+				if (6 > aliving) {
 					if (not temp_list[i]->Death_check()) {
-						if (glm::distance(cur_loc, temp_list[i]->getLoc()) < 10) {
+						if (glm::distance(cur_loc, temp_list[i]->getLoc()) < 40) {
 							temp_list[i]->Update_HP(30);
 						}
 						++aliving;
@@ -253,7 +254,22 @@ void NM_zombie::z_heal(std::vector<EnemyBase*>& temp_list)
 				else
 					break;
 			}
-			start_time = clock();
+			h_start_time = clock();
+		}
+	}
+}
+
+void NM_zombie::z_boom()
+{
+	if (Æø¹ß == z_type && not Death_check()) {
+		h_current_time = clock();
+		double dd = (h_current_time - h_start_time) / CLOCKS_PER_SEC;
+		if (dd > 10.0) {
+			glm::vec3 p_loc = glm::vec3(dynamic_cast<Player*>(mPlayer)->getLoc().x, 0, dynamic_cast<Player*>(mPlayer)->getLoc().z);
+			if (glm::distance(p_loc, cur_loc) < 29) {
+				mPlayer->Update_HP(-30);
+			}
+			h_start_time = clock();
 		}
 	}
 }

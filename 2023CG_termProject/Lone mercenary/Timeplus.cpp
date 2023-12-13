@@ -3,8 +3,10 @@
 Timerplus::Timerplus(CharacterBase* t_p, GameTimer* t_t, glm::vec3 t_loc)
 	: mPlayer(t_p), timer(t_t), cur_loc(t_loc)
 {
-	obj = new Mesh("obj_source\\cube.obj", "obj_source\\temp_texture.png", 1024, 1024);
-	obj->init_rotate(45, 1, 0, 0);
+	obj = new Mesh("obj_source\\Wall_Clock.obj", "obj_source\\temp_texture.png", 1024, 1024);
+	obj->init_scale(0.01);
+	obj->init_rotate(-90, 1, 0, 0);
+	obj->init_position(0, 8, 0);
 	obj->setLoc(cur_loc);
 	cur_rot = glm::vec2(0.0f);
 	exist = true;

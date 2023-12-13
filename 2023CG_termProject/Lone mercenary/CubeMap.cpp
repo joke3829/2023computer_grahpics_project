@@ -22,6 +22,12 @@ CubeMap::CubeMap()
 
 	sky->init_rotate(90, 1, 0, 0);
 	sky->init_position(0, 200, 0);
+
+	wall[0]->setAmb(1.0);
+	wall[1]->setAmb(1.0);
+	wall[2]->setAmb(1.0);
+	wall[3]->setAmb(1.0);
+	sky->setAmb(1.0);
 }
 
 CubeMap::~CubeMap()

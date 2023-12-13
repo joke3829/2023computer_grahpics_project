@@ -20,6 +20,7 @@ public:
 
 	void setLoc(glm::vec3);							// 위치 바꿔주기
 	void setRot(glm::vec2);							// 회전율 바꿔주기
+	void setAmb(float);
 
 	glm::vec3 getLB();
 	glm::vec3 getRT();
@@ -51,7 +52,6 @@ protected:
 
 
 	glm::mat4 modelTrans;
-	glm::mat4 rotateMatrix;		// 노말 벡터를 돌리기 위한 행렬
 
 	glm::vec3 init_pos;			// 초기 위치 지정
 	glm::vec3 cur_loc;			// 현재 위치
@@ -59,6 +59,8 @@ protected:
 	glm::vec3 init_rot;			// 초기 회전
 	glm::vec2 cur_rot;			// 현재 회전각
 
+	
+	glm::vec3 ambient;			// 엠비언트
 
 	bool ReadOBJ(std::string);		// OBJ읽어오기
 	void Initialize(std::string);				// 초기화

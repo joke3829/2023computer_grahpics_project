@@ -63,6 +63,21 @@ UI::UI(CharacterBase* t_pl, GameTimer* t_time)
 	crossline->init_scale(0.001);
 	crossline->init_rotate(-90, 0, 1, 0);
 	crossline->init_position(0.3, 0, 0);
+
+	hp_back->setAmb(1.0);
+	hp_100->setAmb(1.0);
+	hp_10->setAmb(1.0);
+	hp_1->setAmb(1.0);
+
+	bullet_back->setAmb(1.0);
+	cur_b_10->setAmb(1.0f);
+	cur_b_1->setAmb(1.0f);
+	cur_b_sl->setAmb(1.0f);
+	r_b_100->setAmb(1.0f);
+	r_b_10->setAmb(1.0f);
+	r_b_1->setAmb(1.0f);
+
+	crossline->setAmb(1.0f);
 }
 
 UI::~UI()

@@ -36,6 +36,13 @@ ScoreBoard::ScoreBoard(CubeMap* t_cube, std::vector<EnemyBase*>& t_list, GameTim
 	num_1->init_scale(0.001);
 	num_1->init_rotate(-90, 0, 1, 0);
 	num_1->init_position(0.3, 0, 0.06);
+
+	back->setAmb(1.0);
+	num_5->setAmb(1.0f);
+	num_4->setAmb(1.0f);
+	num_3->setAmb(1.0);
+	num_2->setAmb(1.0);
+	num_1->setAmb(1.0f);
 }
 
 ScoreBoard::~ScoreBoard()
