@@ -669,6 +669,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 				is_contact = false;
 				++aliving;
 				bonus_damage = 200;
+				dynamic_cast<NM_zombie*>(aliveEnemy[i])->setHit(true);
 				continue;
 			}
 

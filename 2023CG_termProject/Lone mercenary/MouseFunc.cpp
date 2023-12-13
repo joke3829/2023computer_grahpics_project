@@ -1,9 +1,6 @@
 #include "MouseFunc.h"
 #include "CharacterBase.h"
 #include "Player.h"
-#include "Knife.h"
-#include "Rifle.h"
-#include "Pistol.h"
 #include "Field.h"
 #include "Select_Item.h"
 

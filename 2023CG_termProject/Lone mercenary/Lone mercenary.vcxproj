@@ -118,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,25 +135,15 @@
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="FieldMap.cpp" />
     <ClCompile Include="GameTimer.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="KeyboardFunc.cpp" />
-    <ClCompile Include="Knife.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="LM.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MouseFunc.cpp" />
     <ClCompile Include="NM_zombie.cpp" />
-    <ClCompile Include="Pistol.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjObj.cpp" />
-    <ClCompile Include="Rifle.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="Select_Item.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
@@ -170,26 +161,16 @@
     <ClInclude Include="Field.h" />
     <ClInclude Include="FieldMap.h" />
     <ClInclude Include="GameTimer.h" />
-    <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="KeyboardFunc.h" />
-    <ClInclude Include="Knife.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="main_define.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseFunc.h" />
     <ClInclude Include="NM_zombie.h" />
-    <ClInclude Include="Pistol.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProjObj.h" />
-    <ClInclude Include="Rifle.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ScoreBoard.h" />
     <ClInclude Include="Select_Item.h" />
