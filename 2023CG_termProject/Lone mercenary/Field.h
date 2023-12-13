@@ -8,6 +8,7 @@
 #include "CubeMap.h"
 #include "UI.h"
 #include "ItemBox.h"
+#include "Timeplus.h"
 
 
 class Field : public Scene {
@@ -30,6 +31,7 @@ private:
 	GameTimer* mTimer{ nullptr };
 	UI* mUi;
 	ItemBox* item;
+	Timerplus* sandglass[3];
 
 	int max_alive{};		// 한 필드에 최대 존재 좀비 수
 	int aliving{};		// 한 필드에 존재하는 좀비 수

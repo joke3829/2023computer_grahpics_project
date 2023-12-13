@@ -115,6 +115,9 @@
     <Filter Include="소스 파일\Scene\scoreboard">
       <UniqueIdentifier>{29baf6fb-a48a-4b1b-a257-1326466d85bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Timeplus">
+      <UniqueIdentifier>{a267a667-6369-4416-ad75-f4fbdfc1c131}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -194,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="ScoreBoard.cpp">
       <Filter>소스 파일\Scene\scoreboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Timeplus.cpp">
+      <Filter>소스 파일\Timeplus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -333,6 +339,9 @@
     </ClInclude>
     <ClInclude Include="ScoreBoard.h">
       <Filter>소스 파일\Scene\scoreboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Timeplus.h">
+      <Filter>소스 파일\Timeplus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

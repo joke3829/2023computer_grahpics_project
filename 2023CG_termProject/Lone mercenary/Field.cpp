@@ -8,6 +8,9 @@ Field::Field(CharacterBase* t_player, FieldMap* t_field, CameraObj* t_camera, st
 	mUi = new UI(mPlayer, mTimer);
 	max_alive = 12;
 	item = new ItemBox(mTimer, mPlayer);
+	sandglass[0] = new Timerplus(mPlayer, mTimer, glm::vec3(-100, 0, 20));
+	sandglass[1] = new Timerplus(mPlayer, mTimer, glm::vec3(20, 0, -100));
+	sandglass[2] = new Timerplus(mPlayer, mTimer, glm::vec3(-20, 0, 70));
 }
 
 Field::~Field()
@@ -16,6 +19,8 @@ Field::~Field()
 	mPlayer = nullptr;
 	mField = nullptr;
 	delete item;
+	for (int i = 0; i < 3; ++i)
+		delete sandglass[i];
 }
 
 void Field::Update()
@@ -60,6 +65,10 @@ void Field::Update()
 		else
 			break;
 	}
+	for (Timerplus*& t : sandglass) {
+		t->check_collision();
+		t->rot_ani();
+	}
 	item->check_collision();
 	item->check_time();
 	item->rot_ani();
@@ -84,6 +93,8 @@ void Field::Render()
 		else
 			break;
 	}
+	for (Timerplus*& t : sandglass)
+		t->Render();
 	item->Render();
 	mUi->Render();
 }
