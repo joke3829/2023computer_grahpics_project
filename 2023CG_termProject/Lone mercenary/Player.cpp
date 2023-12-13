@@ -487,15 +487,17 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	glm::mat4 toWorld = glm::mat4(1.0f);
 	float contact_distance[12] = {0.0f}; //거리 담을 곳 
 	float mindist = 0.0f;
+	bool is_contact = false;
+	int bonus_damage = 0;
 	switch (weapon) { //내 사거리 조절
 	case 나이프:
 		mindist = 200.0f;
 		break;
 	case 권총:
-		mindist = 800.0f;
+		mindist = 3000.0f;
 		break;
 	case 라이플:
-		mindist = 1500.0f;
+		mindist = 8000.0f;
 		break;
 	}
 	glm::vec3 ray_first = glm::vec3(temp_camera->getEYE());
@@ -551,6 +553,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 					if (min_z <= contact.z && contact.z <= max_z) {
 						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
 						contact_distance[i] = yz_dist;
+						is_contact = true;
 						//std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 					}
 				}
@@ -563,11 +566,13 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 						if (contact_distance[i] != 0.0f) {
 							if (xz_dist < contact_distance[i]) {
 								contact_distance[i] = xz_dist;
+								is_contact = true;
 								//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 							}
 						}
 						else {
 							contact_distance[i] = xz_dist;
+							is_contact = true;
 							//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 						}
 					}
@@ -581,17 +586,459 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 						if (contact_distance[i] != 0.0f) {
 							if (xy_dist < contact_distance[i]) {
 								contact_distance[i] = xy_dist;
+								is_contact = true;
 								//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 							}
 						}
 						else {
 							contact_distance[i] = xy_dist;
+							is_contact = true;
 							//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
 						}
 					}
 				}
 				
-				++aliving;
+				if (is_contact) {
+					is_contact = false;
+					++aliving;
+					bonus_damage = 200;
+					continue;
+				}
+
+				MinVec = dynamic_cast<NM_zombie*>(temp_list[i])->getbody()->getLB();	// <- 바운더리 박스 왼쪽 아래 점
+				MaxVec = dynamic_cast<NM_zombie*>(temp_list[i])->getbody()->getRT();	// <- 오른쪽 위
+				toWorld = dynamic_cast<NM_zombie*>(temp_list[i])->getbody()->getModelTrans();	// 모델링 변환 해줘야 월드공간 좌표 나온디.
+				FinalMinVec = glm::vec3(toWorld * glm::vec4(MinVec, 1.0f)); //변환된 최종 바운더리 박스 왼쪽 아래 점
+				FinalMaxVec = glm::vec3(toWorld * glm::vec4(MaxVec, 1.0f)); //변환된 최종 바운더리 박스 오른쪽 위 점
+
+				if (FinalMaxVec.x > FinalMinVec.x) {
+					min_x = FinalMinVec.x;
+					max_x = FinalMaxVec.x;
+				}
+				else {
+					min_x = FinalMaxVec.x;
+					max_x = FinalMinVec.x;
+				}
+				if (FinalMaxVec.y > FinalMinVec.y) {
+					min_y = FinalMinVec.y;
+					max_y = FinalMaxVec.y;
+				}
+				else {
+					min_y = FinalMaxVec.y;
+					max_y = FinalMinVec.y;
+				}
+				if (FinalMaxVec.z > FinalMinVec.z) {
+					min_z = FinalMinVec.z;
+					max_z = FinalMaxVec.z;
+				}
+				else {
+					min_z = FinalMaxVec.z;
+					max_z = FinalMinVec.z;
+				}
+				contact = RaytoPlaneYZ(ray_first, ray_last, min_x);
+				if (min_y <= contact.y && contact.y <= max_y) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						contact_distance[i] = yz_dist;
+						is_contact = true;
+						//std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+					}
+				}
+
+				// [2] XZ 평면 검사
+				contact = RaytoPlaneXZ(ray_first, ray_last, min_y);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						xz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xz_dist < contact_distance[i]) {
+								contact_distance[i] = xz_dist;
+								is_contact = true;
+								//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xz_dist;
+							is_contact = true;
+							//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				// [3] XY 평면 검사
+				contact = RaytoPlaneXY(ray_first, ray_last, min_z);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_y <= contact.y && contact.y <= max_y) {
+						xy_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xy_dist < contact_distance[i]) {
+								contact_distance[i] = xy_dist;
+								is_contact = true;
+								//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xy_dist;
+							is_contact = true;
+							//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				if (is_contact) {
+					is_contact = false;
+					++aliving;
+					bonus_damage = 0;
+					continue;
+				}
+
+				MinVec = dynamic_cast<NM_zombie*>(temp_list[i])->getlarm()->getLB();	// <- 바운더리 박스 왼쪽 아래 점
+				MaxVec = dynamic_cast<NM_zombie*>(temp_list[i])->getlarm()->getRT();	// <- 오른쪽 위
+				toWorld = dynamic_cast<NM_zombie*>(temp_list[i])->getlarm()->getModelTrans();	// 모델링 변환 해줘야 월드공간 좌표 나온디.
+				FinalMinVec = glm::vec3(toWorld * glm::vec4(MinVec, 1.0f)); //변환된 최종 바운더리 박스 왼쪽 아래 점
+				FinalMaxVec = glm::vec3(toWorld * glm::vec4(MaxVec, 1.0f)); //변환된 최종 바운더리 박스 오른쪽 위 점
+
+				if (FinalMaxVec.x > FinalMinVec.x) {
+					min_x = FinalMinVec.x;
+					max_x = FinalMaxVec.x;
+				}
+				else {
+					min_x = FinalMaxVec.x;
+					max_x = FinalMinVec.x;
+				}
+				if (FinalMaxVec.y > FinalMinVec.y) {
+					min_y = FinalMinVec.y;
+					max_y = FinalMaxVec.y;
+				}
+				else {
+					min_y = FinalMaxVec.y;
+					max_y = FinalMinVec.y;
+				}
+				if (FinalMaxVec.z > FinalMinVec.z) {
+					min_z = FinalMinVec.z;
+					max_z = FinalMaxVec.z;
+				}
+				else {
+					min_z = FinalMaxVec.z;
+					max_z = FinalMinVec.z;
+				}
+				contact = RaytoPlaneYZ(ray_first, ray_last, min_x);
+				if (min_y <= contact.y && contact.y <= max_y) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						contact_distance[i] = yz_dist;
+						is_contact = true;
+						//std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+					}
+				}
+
+				// [2] XZ 평면 검사
+				contact = RaytoPlaneXZ(ray_first, ray_last, min_y);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						xz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xz_dist < contact_distance[i]) {
+								contact_distance[i] = xz_dist;
+								is_contact = true;
+								//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xz_dist;
+							is_contact = true;
+							//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				// [3] XY 평면 검사
+				contact = RaytoPlaneXY(ray_first, ray_last, min_z);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_y <= contact.y && contact.y <= max_y) {
+						xy_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xy_dist < contact_distance[i]) {
+								contact_distance[i] = xy_dist;
+								is_contact = true;
+								//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xy_dist;
+							is_contact = true;
+							//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				if (is_contact) {
+					is_contact = false;
+					++aliving;
+					bonus_damage = 0;
+					continue;
+				}
+
+				MinVec = dynamic_cast<NM_zombie*>(temp_list[i])->getrarm()->getLB();	// <- 바운더리 박스 왼쪽 아래 점
+				MaxVec = dynamic_cast<NM_zombie*>(temp_list[i])->getrarm()->getRT();	// <- 오른쪽 위
+				toWorld = dynamic_cast<NM_zombie*>(temp_list[i])->getrarm()->getModelTrans();	// 모델링 변환 해줘야 월드공간 좌표 나온디.
+				FinalMinVec = glm::vec3(toWorld * glm::vec4(MinVec, 1.0f)); //변환된 최종 바운더리 박스 왼쪽 아래 점
+				FinalMaxVec = glm::vec3(toWorld * glm::vec4(MaxVec, 1.0f)); //변환된 최종 바운더리 박스 오른쪽 위 점
+
+				if (FinalMaxVec.x > FinalMinVec.x) {
+					min_x = FinalMinVec.x;
+					max_x = FinalMaxVec.x;
+				}
+				else {
+					min_x = FinalMaxVec.x;
+					max_x = FinalMinVec.x;
+				}
+				if (FinalMaxVec.y > FinalMinVec.y) {
+					min_y = FinalMinVec.y;
+					max_y = FinalMaxVec.y;
+				}
+				else {
+					min_y = FinalMaxVec.y;
+					max_y = FinalMinVec.y;
+				}
+				if (FinalMaxVec.z > FinalMinVec.z) {
+					min_z = FinalMinVec.z;
+					max_z = FinalMaxVec.z;
+				}
+				else {
+					min_z = FinalMaxVec.z;
+					max_z = FinalMinVec.z;
+				}
+				contact = RaytoPlaneYZ(ray_first, ray_last, min_x);
+				if (min_y <= contact.y && contact.y <= max_y) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						contact_distance[i] = yz_dist;
+						is_contact = true;
+						//std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+					}
+				}
+
+				// [2] XZ 평면 검사
+				contact = RaytoPlaneXZ(ray_first, ray_last, min_y);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						xz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xz_dist < contact_distance[i]) {
+								contact_distance[i] = xz_dist;
+								is_contact = true;
+								//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xz_dist;
+							is_contact = true;
+							//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				// [3] XY 평면 검사
+				contact = RaytoPlaneXY(ray_first, ray_last, min_z);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_y <= contact.y && contact.y <= max_y) {
+						xy_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xy_dist < contact_distance[i]) {
+								contact_distance[i] = xy_dist;
+								is_contact = true;
+								//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xy_dist;
+							is_contact = true;
+							//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				if (is_contact) {
+					is_contact = false;
+					++aliving;
+					bonus_damage = 0;
+					continue;
+				}
+
+				MinVec = dynamic_cast<NM_zombie*>(temp_list[i])->getlleg()->getLB();	// <- 바운더리 박스 왼쪽 아래 점
+				MaxVec = dynamic_cast<NM_zombie*>(temp_list[i])->getlleg()->getRT();	// <- 오른쪽 위
+				toWorld = dynamic_cast<NM_zombie*>(temp_list[i])->getlleg()->getModelTrans();	// 모델링 변환 해줘야 월드공간 좌표 나온디.
+				FinalMinVec = glm::vec3(toWorld * glm::vec4(MinVec, 1.0f)); //변환된 최종 바운더리 박스 왼쪽 아래 점
+				FinalMaxVec = glm::vec3(toWorld * glm::vec4(MaxVec, 1.0f)); //변환된 최종 바운더리 박스 오른쪽 위 점
+
+				if (FinalMaxVec.x > FinalMinVec.x) {
+					min_x = FinalMinVec.x;
+					max_x = FinalMaxVec.x;
+				}
+				else {
+					min_x = FinalMaxVec.x;
+					max_x = FinalMinVec.x;
+				}
+				if (FinalMaxVec.y > FinalMinVec.y) {
+					min_y = FinalMinVec.y;
+					max_y = FinalMaxVec.y;
+				}
+				else {
+					min_y = FinalMaxVec.y;
+					max_y = FinalMinVec.y;
+				}
+				if (FinalMaxVec.z > FinalMinVec.z) {
+					min_z = FinalMinVec.z;
+					max_z = FinalMaxVec.z;
+				}
+				else {
+					min_z = FinalMaxVec.z;
+					max_z = FinalMinVec.z;
+				}
+				contact = RaytoPlaneYZ(ray_first, ray_last, min_x);
+				if (min_y <= contact.y && contact.y <= max_y) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						contact_distance[i] = yz_dist;
+						is_contact = true;
+						//std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+					}
+				}
+
+				// [2] XZ 평면 검사
+				contact = RaytoPlaneXZ(ray_first, ray_last, min_y);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						xz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xz_dist < contact_distance[i]) {
+								contact_distance[i] = xz_dist;
+								is_contact = true;
+								//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xz_dist;
+							is_contact = true;
+							//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				// [3] XY 평면 검사
+				contact = RaytoPlaneXY(ray_first, ray_last, min_z);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_y <= contact.y && contact.y <= max_y) {
+						xy_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xy_dist < contact_distance[i]) {
+								contact_distance[i] = xy_dist;
+								is_contact = true;
+								//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xy_dist;
+							is_contact = true;
+							//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				if (is_contact) {
+					is_contact = false;
+					++aliving;
+					bonus_damage = 0;
+					continue;
+				}
+
+				MinVec = dynamic_cast<NM_zombie*>(temp_list[i])->getrleg()->getLB();	// <- 바운더리 박스 왼쪽 아래 점
+				MaxVec = dynamic_cast<NM_zombie*>(temp_list[i])->getrleg()->getRT();	// <- 오른쪽 위
+				toWorld = dynamic_cast<NM_zombie*>(temp_list[i])->getrleg()->getModelTrans();	// 모델링 변환 해줘야 월드공간 좌표 나온디.
+				FinalMinVec = glm::vec3(toWorld * glm::vec4(MinVec, 1.0f)); //변환된 최종 바운더리 박스 왼쪽 아래 점
+				FinalMaxVec = glm::vec3(toWorld * glm::vec4(MaxVec, 1.0f)); //변환된 최종 바운더리 박스 오른쪽 위 점
+
+				if (FinalMaxVec.x > FinalMinVec.x) {
+					min_x = FinalMinVec.x;
+					max_x = FinalMaxVec.x;
+				}
+				else {
+					min_x = FinalMaxVec.x;
+					max_x = FinalMinVec.x;
+				}
+				if (FinalMaxVec.y > FinalMinVec.y) {
+					min_y = FinalMinVec.y;
+					max_y = FinalMaxVec.y;
+				}
+				else {
+					min_y = FinalMaxVec.y;
+					max_y = FinalMinVec.y;
+				}
+				if (FinalMaxVec.z > FinalMinVec.z) {
+					min_z = FinalMinVec.z;
+					max_z = FinalMaxVec.z;
+				}
+				else {
+					min_z = FinalMaxVec.z;
+					max_z = FinalMinVec.z;
+				}
+				contact = RaytoPlaneYZ(ray_first, ray_last, min_x);
+				if (min_y <= contact.y && contact.y <= max_y) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						yz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						contact_distance[i] = yz_dist;
+						is_contact = true;
+						//std::cout << i << "- YZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+					}
+				}
+
+				// [2] XZ 평면 검사
+				contact = RaytoPlaneXZ(ray_first, ray_last, min_y);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_z <= contact.z && contact.z <= max_z) {
+						xz_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xz_dist < contact_distance[i]) {
+								contact_distance[i] = xz_dist;
+								is_contact = true;
+								//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xz_dist;
+							is_contact = true;
+							//std::cout << i << "- XZ평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				// [3] XY 평면 검사
+				contact = RaytoPlaneXY(ray_first, ray_last, min_z);
+				if (min_x <= contact.x && contact.x <= max_x) {
+					if (min_y <= contact.y && contact.y <= max_y) {
+						xy_dist = pow(contact.x - ray_first.x, 2) + pow(contact.y - ray_first.y, 2) + pow(contact.z - ray_first.z, 2);
+						if (contact_distance[i] != 0.0f) {
+							if (xy_dist < contact_distance[i]) {
+								contact_distance[i] = xy_dist;
+								is_contact = true;
+								//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+							}
+						}
+						else {
+							contact_distance[i] = xy_dist;
+							is_contact = true;
+							//std::cout << i << "- XY평면\t" << contact.x << "\t" << contact.y << "\t" << contact.z << std::endl;
+						}
+					}
+				}
+
+				if (is_contact) {
+					is_contact = false;
+					++aliving;
+					bonus_damage = 0;
+					continue;
+				}
 			}
 		}
 		else
@@ -607,7 +1054,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 		}
 	}
 	if (whoisfirst != -1) {
-		temp_list[whoisfirst]->Update_HP(-ATK); //공격력만큼 감소
+		temp_list[whoisfirst]->Update_HP(-ATK - bonus_damage); //공격력만큼 감소
 		std::cout << whoisfirst << "\t-\t" << temp_list[whoisfirst]->getHP() << std::endl;
 	}
 }

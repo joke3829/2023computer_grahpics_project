@@ -147,11 +147,11 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
-	for (int i = 0; i < 1; ++i) {
+	for (int i = 0; i < 8; ++i) {
 		enemy_array.push_back(new NM_zombie(100, 200, 20, 10, 10, 鳃矾));
 	}
-	/*enemy_array.push_back(new NM_zombie(100, 200, 20, 20, 50, 气惯));
-	enemy_array.push_back(new NM_zombie(100, 200, 20, 30, 50, 老馆));*/
+	enemy_array.push_back(new NM_zombie(100, 200, 20, 20, 50, 气惯));
+	enemy_array.push_back(new NM_zombie(100, 200, 20, 30, 50, 老馆));
 	return true;
 }
 
