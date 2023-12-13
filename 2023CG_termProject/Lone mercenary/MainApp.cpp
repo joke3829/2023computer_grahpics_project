@@ -45,7 +45,7 @@ bool MainApp::test_init()
 	proj = new ProjObj;
 	game_state = ∏ﬁ¿Œ;
 
-	mPlayer = new Player(100, 200, 40, 10, 0);
+	mPlayer = new Player(100, 200, 40, 20, 0);
 	field = new FieldMap;
 	cubemap = new CubeMap;
 
@@ -147,11 +147,15 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
-	/*for (int i = 0; i < 1; ++i) {
-		enemy_array.push_back(new NM_zombie(100, 200, 20, 10, 10, »˙∑Ø));
-	}*/
-	enemy_array.push_back(new NM_zombie(100, 200, 20, 20, 10, ∆¯πﬂ));
-	//enemy_array.push_back(new NM_zombie(100, 200, 20, 30, 10, ¿œπ›));
+	for (int i = 0; i < 3; ++i) {
+		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, »˙∑Ø));
+	}
+	for (int i = 0; i < 4; ++i) {
+		enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, ∆¯πﬂ));
+	}
+	for (int i = 0; i < 7; ++i) {
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ¿œπ›));
+	}
 	return true;
 }
 

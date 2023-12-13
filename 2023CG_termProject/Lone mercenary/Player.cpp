@@ -17,9 +17,9 @@
 Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
-	pistol = new Pistol("obj_source\\weapon\\pistol\\obj_pistol.obj", "obj_source\\weapon\\pistol\\texture_pistol.png", 1024, 1024, 10, 10, 300);
-	rifle = new Rifle("obj_source\\weapon\\rifle\\obj_rifle.obj", "obj_source\\weapon\\rifle\\texture_rifle.png", 1024, 1024, 30, 30, 500);
-	knife = new Knife("obj_source\\weapon\\knife\\Knife.obj", "obj_source\\weapon\\knife\\texture_knife.png", 1024, 1024, 1, 1, 200);
+	pistol = new Pistol("obj_source\\weapon\\pistol\\obj_pistol.obj", "obj_source\\weapon\\pistol\\texture_pistol.png", 1024, 1024, 10, 10, 140);
+	rifle = new Rifle("obj_source\\weapon\\rifle\\obj_rifle.obj", "obj_source\\weapon\\rifle\\texture_rifle.png", 1024, 1024, 30, 30, 200);
+	knife = new Knife("obj_source\\weapon\\knife\\Knife.obj", "obj_source\\weapon\\knife\\texture_knife.png", 1024, 1024, 1, 1, 80);
 
 	rifle->init_scale(0.2);
 	rifle->init_rotate(-90, 0, 1, 0);
@@ -45,10 +45,12 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	atck = false;
 	changing = true;
 	reloading = false;
+	knife_at = false;
 	cnt = 0;
 	mousesense = 0.02f;
 	angle = 0.0f;
 	type = 0;
+	bonus_atack = 0;
 }
 
 void Player::animation()
@@ -278,6 +280,9 @@ void Player::setWeapon(char type)
 		cur_Wea = rifle;
 		weapon = cur_Wea->getWep();
 		ATK = cur_Wea->getATK();
+		if (bonus_atack != 0) {
+			ATK += bonus_atack;
+		}
 		init_Weapon_rot.x = cur_rot.x;
 		init_Weapon_rot.y = cur_rot.y + 90.0f;
 		changing = true;
@@ -287,6 +292,9 @@ void Player::setWeapon(char type)
 		cur_Wea = pistol;
 		weapon = cur_Wea->getWep();
 		ATK = cur_Wea->getATK();
+		if (bonus_atack != 0) {
+			ATK += bonus_atack;
+		}
 		init_Weapon_rot.x = cur_rot.x;
 		init_Weapon_rot.y = cur_rot.y + 90.0f;
 		changing = true;
@@ -296,14 +304,21 @@ void Player::setWeapon(char type)
 		cur_Wea = knife;
 		weapon = cur_Wea->getWep();
 		ATK = cur_Wea->getATK();
+		if (bonus_atack != 0) {
+			ATK += bonus_atack;
+		}
 		init_Weapon_rot.x = cur_rot.x;
 		init_Weapon_rot.y = cur_rot.y + 90.0f;
 		changing = true;
 		std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	case 'r':
-		cur_Wea->reloading();
-		reloading = true;
+		if (cur_Wea != knife) {
+			if (cur_Wea->is_max()) {
+				cur_Wea->reloading();
+				reloading = true;
+			}
+		}
 		break;
 	}
 }
@@ -327,6 +342,9 @@ void Player::attack()
 					cur_rot.y += 1.0f; //반동
 					init_Weapon_rot.y += 1.0f; //반동
 				}
+			}
+			else {
+				knife_at = true;
 			}
 			atck = false;
 		}
@@ -418,7 +436,7 @@ void Player::apply_item()
 		std::cout << "플레이어 탄약 수 증가 완료 : " << std::endl;
 	}
 	if (item[3]) { //공격력 증가
-		ATK += 200;
+		bonus_atack = 200;
 		item[3] = false;
 		std::cout << "플레이어 공격력 증가 완료 : " << ATK << std::endl;
 	}
@@ -449,6 +467,35 @@ void Player::reload_ani()
 bool Player::do_reload_ani()
 {
 	return reloading;
+}
+
+void Player::knife_AT_ani()
+{
+	if (knife_at) {
+		if (type == 0) {
+			init_Weapon_rot.x -= 3.0f;
+			angle -= 3.0f;
+			if (angle <= -15.0f) {
+				type = 1;
+			}
+		}
+		if (type == 1) {
+			init_Weapon_rot.x += 3.0f;
+			angle += 3.0f;
+			if (angle >= 15.0f) {
+				type = 2;
+			}
+		}
+		if (type == 2) {
+			init_Weapon_rot.x -= 3.0f;
+			angle -= 3.0f;
+			if (angle <= 0.0f) {
+				type = 0;
+				angle = 0.0f;
+				knife_at = false;
+			}
+		}
+	}
 }
 
 void Player::setsensative(char key)
@@ -485,7 +532,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	glm::vec3 FinalMinVec = glm::vec3(1.0f);
 	glm::vec3 FinalMaxVec = glm::vec3(1.0f);
 	glm::mat4 toWorld = glm::mat4(1.0f);
-	float contact_distance[12] = {0.0f}; //거리 담을 곳 
+	float contact_distance[14] = {0.0f}; //거리 담을 곳 
 	float mindist = 0.0f;
 	bool is_contact = false;
 	int bonus_damage = 0;
@@ -512,7 +559,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 		float min_x = 0.0f, max_x = 0.0f;
 		float min_y = 0.0f, max_y = 0.0f;
 		float min_z = 0.0f, max_z = 0.0f;
-		if (aliving < 12) {			// 최대 12마리만 필드에 나온다
+		if (aliving < temp_list.size()) {			// 최대 12마리만 필드에 나온다
 			if (not temp_list[i]->Death_check()) {		// 그 좀비가 살아있냐?
 				// 살았으면 머리 몸통 부위별로 확인해서 
 				// update_hp()해준다.
@@ -1045,7 +1092,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 			break;
 	}
 	int whoisfirst = -1;
-	for (int i = 0;i < 12;i++) { //가장 가까운 좀비 찾기
+	for (int i = 0;i < temp_list.size();i++) { //가장 가까운 좀비 찾기
 		if (contact_distance[i] != 0.0f) {
 			if (mindist > contact_distance[i]) {
 				mindist = contact_distance[i];
@@ -1054,7 +1101,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 		}
 	}
 	if (whoisfirst != -1) {
-		temp_list[whoisfirst]->Update_HP(-ATK - bonus_damage); //공격력만큼 감소
+		temp_list[whoisfirst]->Update_HP(-(ATK + bonus_damage)); //공격력만큼 감소
 		std::cout << whoisfirst << "\t-\t" << temp_list[whoisfirst]->getHP() << std::endl;
 	}
 }

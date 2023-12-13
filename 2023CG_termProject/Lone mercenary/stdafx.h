@@ -18,3 +18,5 @@
 
 #include "ENUM.h"
 //#include "stb_image.h"
+
+#define MAX_ALIVE 12

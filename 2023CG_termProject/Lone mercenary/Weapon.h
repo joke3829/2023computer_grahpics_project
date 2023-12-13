@@ -19,7 +19,7 @@ public:
 	bool exist_ammo();				// 남은 총알이 있는지 -> 반동 적용 미적용 결정 요인
 	void reloading();				// 장전
 	void D_ammo();					//시작전 아이템 효과 - 탄약 2배
-
+	bool is_max();
 	int gettotal();
 	int getreloaded();
 

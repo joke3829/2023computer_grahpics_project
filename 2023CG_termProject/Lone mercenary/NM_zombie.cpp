@@ -243,10 +243,11 @@ void NM_zombie::z_heal(std::vector<EnemyBase*>& temp_list)
 		if (dd > 10.0) {
 			int aliving{};
 			for (int i = 0; i < temp_list.size(); ++i) {
-				if (6 > aliving) {
+				if (temp_list.size() > aliving) {
 					if (not temp_list[i]->Death_check()) {
 						if (glm::distance(cur_loc, temp_list[i]->getLoc()) < 40) {
 							temp_list[i]->Update_HP(30);
+							std::cout << i << "\t-\t" << temp_list[i]->getHP() << std::endl;
 						}
 						++aliving;
 					}
