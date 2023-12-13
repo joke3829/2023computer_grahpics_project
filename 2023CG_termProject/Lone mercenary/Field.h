@@ -20,6 +20,10 @@ public:
 	CameraObj* getCamera();
 	std::vector<EnemyBase*>& getList();
 
+	static int first_zom;
+
+	bool check_zomcol(EnemyBase* [], int);
+
 	void Update();
 	void Render();
 private:
