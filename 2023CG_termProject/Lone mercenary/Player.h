@@ -22,8 +22,10 @@ private:
 	bool atck;
 	bool changing;
 	bool reloading;
+	bool knife_at;
 	int weapon;
 	int cnt; //적당한 시간에 쏘자!
+	int bonus_atack;
 	float mousesense;
 	float angle;
 	int type;
@@ -51,6 +53,7 @@ public:
 	void apply_item();
 	void reload_ani();
 	bool do_reload_ani();
+	void knife_AT_ani();
 
 	void attack_check(std::vector<EnemyBase*>&, CameraObj*);	// 광선이 좀비랑 닿았나?
 	glm::vec3 RaytoPlaneXY(glm::vec3,glm::vec3,float);			// XY평면 투영
