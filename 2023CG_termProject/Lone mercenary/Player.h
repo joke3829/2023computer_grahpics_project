@@ -54,6 +54,7 @@ public:
 	void reload_ani();
 	bool do_reload_ani();
 	void knife_AT_ani();
+	bool check_reload_ammo();
 
 	void attack_check(std::vector<EnemyBase*>&, CameraObj*);	// ±¤¼±ÀÌ Á»ºñ¶û ´ê¾Ò³ª?
 	glm::vec3 RaytoPlaneXY(glm::vec3,glm::vec3,float);			// XYÆò¸é Åõ¿µ

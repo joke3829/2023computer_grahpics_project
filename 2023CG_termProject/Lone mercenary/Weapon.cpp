@@ -74,7 +74,7 @@ void Weapon::D_ammo()
 
 bool Weapon::is_max()
 {
-	if (reloaded_ammo != max_ammo) {
+	if ((reloaded_ammo < max_ammo)) {
 		return true;
 	}
 	else {

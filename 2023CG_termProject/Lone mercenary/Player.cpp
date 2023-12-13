@@ -17,9 +17,9 @@
 Player::Player(float hp, float max, float spd, float def, float atk)
 	: CharacterBase(hp, max, spd, def, atk)
 {
-	pistol = new Pistol("obj_source\\weapon\\pistol\\obj_pistol.obj", "obj_source\\weapon\\pistol\\texture_pistol.png", 1024, 1024, 10, 10, 140);
-	rifle = new Rifle("obj_source\\weapon\\rifle\\obj_rifle.obj", "obj_source\\weapon\\rifle\\texture_rifle.png", 1024, 1024, 30, 30, 200);
-	knife = new Knife("obj_source\\weapon\\knife\\Knife.obj", "obj_source\\weapon\\knife\\texture_knife.png", 1024, 1024, 1, 1, 80);
+	pistol = new Pistol("obj_source\\weapon\\pistol\\obj_pistol.obj", "obj_source\\weapon\\pistol\\texture_pistol.png", 1024, 1024, 10, 10, 120);
+	rifle = new Rifle("obj_source\\weapon\\rifle\\obj_rifle.obj", "obj_source\\weapon\\rifle\\texture_rifle.png", 1024, 1024, 30, 30, 160);
+	knife = new Knife("obj_source\\weapon\\knife\\Knife.obj", "obj_source\\weapon\\knife\\texture_knife.png", 1024, 1024, 1, 1, 60);
 
 	rifle->init_scale(0.2);
 	rifle->init_rotate(-90, 0, 1, 0);
@@ -314,9 +314,11 @@ void Player::setWeapon(char type)
 		break;
 	case 'r':
 		if (cur_Wea != knife) {
-			if (cur_Wea->is_max()) {
-				cur_Wea->reloading();
-				reloading = true;
+			if (cur_Wea->gettotal() != 0) {
+				if (cur_Wea->is_max()) {
+					cur_Wea->reloading();
+					reloading = true;
+				}
 			}
 		}
 		break;
@@ -496,6 +498,11 @@ void Player::knife_AT_ani()
 			}
 		}
 	}
+}
+
+bool Player::check_reload_ammo()
+{
+	return cur_Wea->exist_ammo();
 }
 
 void Player::setsensative(char key)
