@@ -630,7 +630,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 				if (is_contact) {
 					is_contact = false;
 					++aliving;
-					bonus_damage = 100;
+					bonus_damage = 200;
 					continue;
 				}
 

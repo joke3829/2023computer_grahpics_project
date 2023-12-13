@@ -6,7 +6,6 @@
 #include "Pistol.h"
 #include "Field.h"
 #include "Select_Item.h"
-#include "Sound.h"
 
 int MouseFunc::s_x = -10;
 int MouseFunc::s_y = -10;
@@ -26,7 +25,6 @@ void MouseFunc::Mouse(int button, int state, int x, int y)
 				// ↓↓↓ 이부분이 사격, 연사는 너가 어떻게 처리했는지 몰라서 클릭할때만 들어감
 				dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->attack_check(
 					dynamic_cast<Field*>(mScene)->getList(), dynamic_cast<Field*>(mScene)->getCamera());
-				dynamic_cast<Field*>(mScene)->getSoundplayer()->Shoot_sound();
 			}
 		}
 	}

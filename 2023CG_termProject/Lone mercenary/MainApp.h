@@ -6,7 +6,6 @@
 #include "stdafx.h"
 #include "KeyboardFunc.h"
 #include "MouseFunc.h"
-#include "Sound.h"
 
 class CharacterBase;
 class CameraObj;
@@ -17,7 +16,6 @@ class KeyboardFunc;
 class MouseFunc;
 class EnemyBase;
 class Scene;
-class Sound;
 
 class MainApp {
 public:
@@ -45,7 +43,7 @@ private:
 	ProjObj* proj;
 	CharacterBase* mPlayer;
 
-	Sound* sd;
+
 
 	std::vector<EnemyBase*> enemy_array;
 	GameTimer* game_timer;

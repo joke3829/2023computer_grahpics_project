@@ -48,13 +48,14 @@ bool MainApp::test_init()
 	mPlayer = new Player(100, 200, 40, 10, 0);
 	field = new FieldMap;
 	cubemap = new CubeMap;
-	sd = new Sound;
+
 
 
 	// 키보드 마우스 초기화
 	pKeyboard = new KeyboardFunc;
 
 	pMouse = new MouseFunc;
+
 
 	// 게임 요소 초기화
 

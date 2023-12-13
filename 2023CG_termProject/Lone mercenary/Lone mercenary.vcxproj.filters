@@ -115,9 +115,6 @@
     <Filter Include="소스 파일\Scene\scoreboard">
       <UniqueIdentifier>{29baf6fb-a48a-4b1b-a257-1326466d85bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Sound">
-      <UniqueIdentifier>{9b077405-99c3-4b25-b9c5-cb6a0f1a4415}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -197,9 +194,6 @@
     </ClCompile>
     <ClCompile Include="ScoreBoard.cpp">
       <Filter>소스 파일\Scene\scoreboard</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>소스 파일\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -339,9 +333,6 @@
     </ClInclude>
     <ClInclude Include="ScoreBoard.h">
       <Filter>소스 파일\Scene\scoreboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>소스 파일\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
