@@ -13,6 +13,7 @@ MainApp::~MainApp()
 bool MainApp::Initialize()
 {
 	// 기초 요소들 초기화
+	mSound = MySound::GetInstance();
 	Mesh::box_check = false;
 	camera = new CameraObj;
 	proj = new ProjObj;

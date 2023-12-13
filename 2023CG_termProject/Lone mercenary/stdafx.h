@@ -17,6 +17,8 @@
 #include <random>
 
 #include "ENUM.h"
+#include "fmod.hpp"
+#include "fmod_errors.h"
 //#include "stb_image.h"
 
 #define MAX_ALIVE 14

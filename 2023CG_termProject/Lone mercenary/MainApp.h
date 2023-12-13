@@ -6,6 +6,7 @@
 #include "stdafx.h"
 #include "KeyboardFunc.h"
 #include "MouseFunc.h"
+#include "Sound.h"
 
 class CharacterBase;
 class CameraObj;
@@ -53,6 +54,8 @@ private:
 	FieldMap* field;
 	Scene* current_scene;
 	Scene* score_scene;
+
+	MySound* mSound;
 
 	// 아이템 선택 신에 들어갈 요소
 

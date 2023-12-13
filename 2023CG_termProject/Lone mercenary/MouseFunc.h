@@ -6,11 +6,15 @@
 #include "stdafx.h"
 #include "Scene.h"
 #include "Field.h"
+#include "Sound.h"
 
 class CharacterBase;
 class CameraObj;
 class MouseFunc {
 public:
+	MouseFunc() {
+		mSound = MySound::GetInstance();
+	}
 	void Mouse(int,int, int, int);
 	void MotionPassive( int, int);
 
@@ -25,5 +29,6 @@ public:
 protected:
 private:
 	Scene* mScene;
+	MySound* mSound;
 	int game_state;
 };

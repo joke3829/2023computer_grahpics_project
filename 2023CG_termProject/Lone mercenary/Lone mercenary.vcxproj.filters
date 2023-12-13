@@ -106,6 +106,9 @@
     <Filter Include="소스 파일\Timeplus">
       <UniqueIdentifier>{a267a667-6369-4416-ad75-f4fbdfc1c131}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Fmod sound">
+      <UniqueIdentifier>{5a713e41-f3f1-441b-b8bc-8946cff34b85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -177,6 +180,9 @@
     <ClCompile Include="Timeplus.cpp">
       <Filter>소스 파일\Timeplus</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>소스 파일\Fmod sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraObj.cpp">
@@ -205,9 +211,6 @@
     </ClCompile>
     <ClCompile Include="NM_zombie.cpp">
       <Filter>소스 파일\Player, Item, Enemy\Enemy\Normal_zombie</Filter>
-    </ClCompile>
-    <ClCompile Include="Pistol.cpp">
-      <Filter>소스 파일\Weapon\Pistol</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일\Player, Item, Enemy\Player</Filter>
@@ -306,6 +309,9 @@
     </ClInclude>
     <ClInclude Include="Timeplus.h">
       <Filter>소스 파일\Timeplus</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>소스 파일\Fmod sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
