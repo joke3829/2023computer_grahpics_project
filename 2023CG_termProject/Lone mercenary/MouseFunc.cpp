@@ -26,6 +26,9 @@ void MouseFunc::Mouse(int button, int state, int x, int y)
 				}
 			}
 		}
+		if (결과창 == game_state) {
+			std::cout << x << ", " << y << "\n'";
+		}
 	}
 	else if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
 		if(필드 == game_state)
@@ -82,6 +85,17 @@ bool MouseFunc::next_state()
 	case 필드:
 		break;
 	case 결과창:
+		if (1053 <= s_x && s_x <= 1238) {
+			if (590 <= s_y && s_y <= 647) {
+				game_state = 메인;
+				return true;
+			}
+		}
+		else if (42 <= s_x && s_x <= 227) {
+			if (590 <= s_y && s_y <= 647) {
+				glutLeaveMainLoop();
+			}
+		}
 		break;
 	}
 	return false;

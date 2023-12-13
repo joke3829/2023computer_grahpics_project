@@ -88,6 +88,8 @@ void MainApp::next_state()
 
 			pMouse->setGame_stete(game_state);
 			pMouse->setScene(current_scene);
+			MouseFunc::s_x = -1;
+			MouseFunc::s_y = -1;
 		}
 		break;
 	case 아이템선택:
@@ -103,6 +105,8 @@ void MainApp::next_state()
 
 			pMouse->setGame_stete(game_state);
 			pMouse->setScene(current_scene);
+			MouseFunc::s_x = -1;
+			MouseFunc::s_y = -1;
 		}
 		break;
 	case 필드:
@@ -118,9 +122,26 @@ void MainApp::next_state()
 
 			pMouse->setGame_stete(game_state);
 			pMouse->setScene(current_scene);
+			MouseFunc::s_x = -1;
+			MouseFunc::s_y = -1;
 		}
 		break;
 	case 결과창:
+		if (pMouse->next_state()) {
+			game_state = 메인;
+			delete mPlayer;
+			delete game_timer;
+			delete current_scene;
+			current_scene = new Title(cubemap);
+
+			pKeyboard->setGame_stete(game_state);
+			pKeyboard->setScene(current_scene);
+
+			pMouse->setGame_stete(game_state);
+			pMouse->setScene(current_scene);
+			MouseFunc::s_x = -1;
+			MouseFunc::s_y = -1;
+		}
 		break;
 	}
 }

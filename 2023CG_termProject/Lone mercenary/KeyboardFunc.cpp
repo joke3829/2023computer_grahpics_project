@@ -13,6 +13,13 @@ void KeyboardFunc::setScene(Scene* t_scene)
 
 void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
 {
+	if (메인 == game_state) {
+		switch (key) {
+		case 27:
+			glutLeaveMainLoop();
+			break;
+		}
+	}
 	if (필드 == game_state) {
 		switch (key) {
 		case 'w':

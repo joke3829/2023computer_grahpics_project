@@ -28,4 +28,7 @@ private:
 	Mesh* num_3;
 	Mesh* num_2;
 	Mesh* num_1;
+
+	Mesh* gomain;
+	Mesh* exitProgram;
 };

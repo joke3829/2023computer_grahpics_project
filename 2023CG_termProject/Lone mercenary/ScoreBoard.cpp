@@ -43,6 +43,18 @@ ScoreBoard::ScoreBoard(CubeMap* t_cube, std::vector<EnemyBase*>& t_list, GameTim
 	num_3->setAmb(1.0);
 	num_2->setAmb(1.0);
 	num_1->setAmb(1.0f);
+
+	gomain = new Mesh("obj_source\\scene_select\\start_button.obj", "obj_source\\scene_select\\back_menu.png", 1024, 1024);
+	gomain->init_scale(0.2);
+	gomain->init_rotate(-90, 0, 1, 0);
+	gomain->init_position(50, -15, 29);
+	gomain->setAmb(1.0f);
+
+	exitProgram = new Mesh("obj_source\\scene_select\\start_button.obj", "obj_source\\scene_select\\exit.png", 1024, 1024);
+	exitProgram->init_scale(0.2);
+	exitProgram->init_rotate(-90, 0, 1, 0);
+	exitProgram->init_position(50, -15, -29);
+	exitProgram->setAmb(1.0f);
 }
 
 ScoreBoard::~ScoreBoard()
@@ -248,6 +260,9 @@ void ScoreBoard::Render()
 	num_3->Render();
 	num_2->Render();
 	num_1->Render();
+
+	gomain->Render();
+	exitProgram->Render();
 
 	glDisable(GL_BLEND);
 }
