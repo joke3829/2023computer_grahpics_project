@@ -4,6 +4,7 @@
 #include "Mouse.h"
 #pragma comment(lib, "freeglut")
 #pragma comment(lib, "glew32")
+#pragma comment (lib, "fmod_vc.lib")
 
 GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
