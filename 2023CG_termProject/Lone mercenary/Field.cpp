@@ -37,7 +37,7 @@ void Field::Update()
 		if (aliving < max_alive) {
 			if (not enemy_list[i]->Death_check()) {
 				enemy_list[i]->setPlayerLoc(dynamic_cast<Player*>(mPlayer)->getLoc());
-				//enemy_list[i]->walk_ani(0);
+				enemy_list[i]->walk_ani(0);
 				/*if (dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_1())
 					or dynamic_cast<NM_zombie*>(enemy_list[i])->getrarm()->collision_check(*mField->gethouse_1())
 					or dynamic_cast<NM_zombie*>(enemy_list[i])->getlarm()->collision_check(*mField->gethouse_2())
