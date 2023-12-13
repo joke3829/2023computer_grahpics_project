@@ -95,6 +95,7 @@ void MainApp::next_state()
 			game_state = ÇÊµå;
 			delete current_scene;
 			e_arrayReady();
+			Field::first_zom = 0;
 			game_timer = new GameTimer(mPlayer);
 			current_scene = new Field(mPlayer, field, camera, enemy_array, game_timer, cubemap);
 			score_scene = new ScoreBoard(cubemap, enemy_array, game_timer, camera);
@@ -147,9 +148,9 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
-	/*for (int i = 0; i < 1; ++i) {
+	for (int i = 0; i < 12; ++i) {
 		enemy_array.push_back(new NM_zombie(100, 200, 20, 10, 10, Èú·¯));
-	}*/
+	}
 	enemy_array.push_back(new NM_zombie(100, 200, 20, 20, 10, Æø¹ß));
 	//enemy_array.push_back(new NM_zombie(100, 200, 20, 30, 10, ÀÏ¹Ý));
 	return true;
