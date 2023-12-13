@@ -1,6 +1,7 @@
 #include "NM_zombie.h"
 #include "Mesh.h"
 #include "Player.h"
+#include "Field.h"
 
 NM_zombie::NM_zombie() : EnemyBase() {
 	HP = 0;
@@ -242,8 +243,8 @@ void NM_zombie::z_heal(std::vector<EnemyBase*>& temp_list)
 		double dd = (h_current_time - h_start_time) / CLOCKS_PER_SEC;
 		if (dd > 10.0) {
 			int aliving{};
-			for (int i = 0; i < temp_list.size(); ++i) {
-				if (temp_list.size() > aliving) {
+			for (int i = Field::first_zom; i < temp_list.size(); ++i) {
+				if (temp_list.size() > aliving && aliving < MAX_ALIVE) {
 					if (not temp_list[i]->Death_check()) {
 						if (glm::distance(cur_loc, temp_list[i]->getLoc()) < 40) {
 							temp_list[i]->Update_HP(30);

@@ -19,4 +19,5 @@
 #include "ENUM.h"
 //#include "stb_image.h"
 
-#define MAX_ALIVE 12
+#define MAX_ALIVE 14
+#define MAX_ZOMBIE 140

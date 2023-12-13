@@ -147,15 +147,74 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
-	for (int i = 0; i < 3; ++i) {
+	/*for (int i = 0; i < 3; ++i) {
 		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
 	}
 	for (int i = 0; i < 4; ++i) {
 		enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, Æø¹ß));
-	}
-	for (int i = 0; i < 7; ++i) {
+	}*/
+	for (int i = 0; i < 19; ++i)
 		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
-	}
+	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
+	for (int i = 0; i < 5; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, Æø¹ß));
+	// ¿©±â±îÁö 26
+	//================================
+	for (int i = 0; i < 7; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	for(int i = 0 ; i < 2;++i)
+		enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, Æø¹ß));
+	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
+	//¿©±â±îÁö 36
+	//==================================
+	for (int i = 0; i < 5; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	for (int i = 0; i < 2; ++i)
+		enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, Æø¹ß));
+	for (int i = 0; i < 3; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
+	for(int i = 0 ; i < 2;++i)
+		enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, Æø¹ß));
+	for (int i = 0; i < 5; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	// ¿©±â±îÁö 54
+	//====================================
+	for (int i = 0; i < 5; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
+	for (int i = 0; i < 10; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	for (int i = 0; i < 3; ++i)
+		enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, Æø¹ß));
+	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
+	for (int i = 0; i < 7; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	// ¿©±â±îÁö 81
+	//=======================================
+	for (int i = 0; i < 4; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	for(int i = 0; i < 2; ++i)
+		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
+	for (int i = 0; i < 8; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	for (int i = 0; i < 2; ++i)
+		enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, Æø¹ß));
+	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
+	for (int i = 0; i < 10; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	// ¿©±â±îÁö 108
+	//=========================================
+	for (int i = 0; i < 19; ++i)
+		enemy_array.push_back(new NM_zombie(1500, 1300, 20, 200, 35, ÀÏ¹Ý));
+	for (int i = 0; i < 2; ++i)
+		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
+	for (int i = 0; i < 7; ++i)
+		enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, Æø¹ß));
+	for (int i = 0; i < 4; ++i)
+		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, Èú·¯));
+
 	return true;
 }
 

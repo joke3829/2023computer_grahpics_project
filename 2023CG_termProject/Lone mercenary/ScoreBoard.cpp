@@ -67,7 +67,7 @@ void ScoreBoard::Update_1()
 	}
 	int re_time = mTimer->getremaining();
 	totalscore += (re_time * 50);
-	if (killcnt == 1)		// 올킬 보너스 60은 바꿔주자
+	if (killcnt == MAX_ZOMBIE)		// 올킬 보너스 60은 바꿔주자
 		totalscore += 2000;
 
 	switch (totalscore / 10000) {
