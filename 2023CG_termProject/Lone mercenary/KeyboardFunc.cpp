@@ -21,6 +21,7 @@ void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
 		}
 	}
 	if (필드 == game_state) {
+		int kcnt{};
 		switch (key) {
 		case 'w':
 			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('w', true);
@@ -34,9 +35,9 @@ void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
 		case 'd':
 			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setMove('d', true);
 			break;
-		case 27:	// ESC 그 잘난 김도영이 해냈습니다.
-			glutLeaveMainLoop();
-			break;
+		//case 27:	// ESC 그 잘난 김도영이 해냈습니다.
+		//	glutLeaveMainLoop();
+		//	break;
 		case '1':
 			dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->setWeapon('1');
 			break;
@@ -59,13 +60,26 @@ void KeyboardFunc::Keyboard(unsigned char key, int x, int y)
 			dynamic_cast<Field*>(mScene)->getPlayer()->Update_HP(10);
 			break;
 		case '[':
-			dynamic_cast<Field*>(mScene)->getPlayer()->Update_HP(-1);
+			dynamic_cast<Field*>(mScene)->getPlayer()->Update_HP(-50);
 			break;
 		case 't':
 			if (Mesh::box_check)
 				Mesh::box_check = false;
 			else
 				Mesh::box_check = true;
+			break;
+		case 'k':	// 하나 죽이기
+			dynamic_cast<Field*>(mScene)->getList()[Field::first_zom]->Update_HP(-9999999);
+			for (int i = 0; i < dynamic_cast<Field*>(mScene)->getList().size(); ++i) {
+				if (dynamic_cast<Field*>(mScene)->getList()[i]->Death_check())
+					++kcnt;
+			}
+			std::cout << "죽은 좀비 수:" << kcnt << '\n';
+			break;
+		case 'K':	// 올킬 명령어
+			for (int i = 0; i < dynamic_cast<Field*>(mScene)->getList().size(); ++i) {
+				dynamic_cast<Field*>(mScene)->getList()[i]->Update_HP(-9999999);
+			}
 			break;
 		}
 	}

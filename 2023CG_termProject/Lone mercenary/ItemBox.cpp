@@ -6,7 +6,7 @@ ItemBox::ItemBox(GameTimer* t_time, CharacterBase* t_play)
 	box = new Mesh("obj_source\\field\\item_box.obj", "obj_source\\field\\item_box.png", 1024, 1024);
 	box->init_scale(0.5);
 	exist = false;
-	remaining = 7;
+	remaining = 8;
 	l_time = clock();
 
 	mSound = MySound::GetInstance();
@@ -32,7 +32,7 @@ void ItemBox::check_collision()
 		if (glm::distance(glm::vec3(dynamic_cast<Player*>(mPlayer)->getLoc().x , 0, dynamic_cast<Player*>(mPlayer)->getLoc().z), cur_loc) < 5) {
 			exist = false;
 			l_time = clock();
-			int heal = 3;
+			int heal = 2;
 			if (mPlayer->getHP() < 100) {
 				heal = 6;
 			}
@@ -43,9 +43,9 @@ void ItemBox::check_collision()
 			mSound->play_pick();
 
 			if (uid(dre) <= heal || dynamic_cast<Player*>(mPlayer)->getWeapon()->getWep() == ³ªÀÌÇÁ)
-				mPlayer->Update_HP(30);
+				mPlayer->Update_HP(50);
 			else
-				dynamic_cast<Player*>(mPlayer)->getWeapon()->plusammo(50);
+				dynamic_cast<Player*>(mPlayer)->getWeapon()->plusammo(100);
 		}
 	}
 }

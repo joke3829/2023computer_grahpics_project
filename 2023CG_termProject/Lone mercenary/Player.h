@@ -49,7 +49,7 @@ public:
 	void setMove(char, bool);
 	void setsensative(char);
 	void setWeapon(char);
-	void attack();
+	void attack(std::vector<EnemyBase*>&, CameraObj*);
 	void conti_attack(bool);
 	void take_out_Wep();
 	void set_item(int, int);

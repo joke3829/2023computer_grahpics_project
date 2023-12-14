@@ -80,7 +80,7 @@ char* ShaderProgram::filetobuf(std::string file)
 		buf += a;
 	}
 	char* c = const_cast<char*>(buf.c_str());
-	std::cout << c << std::endl;
+	//std::cout << c << std::endl;
 	/*char* c = new char[buf.size() + 1];
 	std::copy(buf.begin(), buf.end(), c);
 	c[buf.size()] = '\0';

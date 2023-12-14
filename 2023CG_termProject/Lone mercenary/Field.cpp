@@ -31,7 +31,7 @@ void Field::Update()
 	dynamic_cast<Player*>(mPlayer)->apply_item();
 	//  업데이트 헤더에서 애니메이션 적용하기
 	dynamic_cast<Player*>(mPlayer)->animation();
-	dynamic_cast<Player*>(mPlayer)->attack();
+	dynamic_cast<Player*>(mPlayer)->attack(enemy_list, mCamera);
 	mCamera->setCameraEYE(dynamic_cast<Player*>(mPlayer)->getLoc());		// 카메라 업데이트 해주기
 	mCamera->setCameraAngle(dynamic_cast<Player*>(mPlayer)->getRot());
 	// 총기 위치 변경
@@ -66,9 +66,9 @@ void Field::Update()
 			aliveEnemy[i]->walk_ani(1);
 		else
 			aliveEnemy[i]->walk_ani(0);
-		enemy_list[i]->attack();
-		dynamic_cast<NM_zombie*>(enemy_list[i])->z_heal(enemy_list);
-		dynamic_cast<NM_zombie*>(enemy_list[i])->z_boom();
+		aliveEnemy[i]->attack();
+		dynamic_cast<NM_zombie*>(aliveEnemy[i])->z_heal(enemy_list);
+		dynamic_cast<NM_zombie*>(aliveEnemy[i])->z_boom();
 	}
 
 	for (Timerplus*& t : sandglass) {
@@ -88,9 +88,14 @@ void Field::Render()
 	dynamic_cast<Player*>(mPlayer)->getWeapon()->Render();
 
 	int alive{};
+	bool update_first = false;
 	for (int i = first_zom; i < enemy_list.size(); ++i) {
 		if (alive < MAX_ALIVE) {
 			if (not enemy_list[i]->Death_check()) {
+				if (not update_first) {
+					first_zom = i;
+					update_first = true;
+				}
 				enemy_list[i]->Render();
 				++alive;
 			}

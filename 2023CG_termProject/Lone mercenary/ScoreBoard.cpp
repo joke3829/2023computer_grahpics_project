@@ -55,6 +55,19 @@ ScoreBoard::ScoreBoard(CubeMap* t_cube, std::vector<EnemyBase*>& t_list, GameTim
 	exitProgram->init_rotate(-90, 0, 1, 0);
 	exitProgram->init_position(50, -15, -29);
 	exitProgram->setAmb(1.0f);
+
+	ruf = new Mesh("obj_source\\number\\number.obj", "obj_source\\number\\ruf.png", 1024, 1024);
+	ruf->init_scale(0.001);
+	ruf->init_rotate(-90, 0, 1, 0);
+	ruf->init_position(0.3, 0.06, -0.015);
+	ruf->setAmb(1.0f);
+
+	rhk = new Mesh("obj_source\\number\\number.obj", "obj_source\\number\\rhk.png", 1024, 1024);
+	rhk->init_scale(0.00117);
+	rhk->init_rotate(-90, 0, 1, 0);
+	rhk->init_position(0.3, 0.06, 0.015);
+	rhk->setAmb(1.0f);
+
 }
 
 ScoreBoard::~ScoreBoard()
@@ -65,6 +78,9 @@ ScoreBoard::~ScoreBoard()
 	delete num_3;
 	delete num_2;
 	delete num_1;
+
+	delete ruf;
+	delete rhk;
 }
 
 void ScoreBoard::Update_1()
@@ -263,6 +279,9 @@ void ScoreBoard::Render()
 
 	gomain->Render();
 	exitProgram->Render();
+
+	ruf->Render();
+	rhk->Render();
 
 	glDisable(GL_BLEND);
 }

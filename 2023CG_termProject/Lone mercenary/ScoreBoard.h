@@ -31,4 +31,7 @@ private:
 
 	Mesh* gomain;
 	Mesh* exitProgram;
+
+	Mesh* ruf;
+	Mesh* rhk;
 };

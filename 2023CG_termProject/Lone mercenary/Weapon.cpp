@@ -22,10 +22,10 @@ void Weapon::Shoot()
 	if (³ªÀÌÇÁ != weapon_num) {
 		if (reloaded_ammo > 0) {
 			reloaded_ammo--;
-			std::cout << "³²Àº ÃÑ¾Ë - " << reloaded_ammo << std::endl;
+			//std::cout << "³²Àº ÃÑ¾Ë - " << reloaded_ammo << std::endl;
 		}
 		else {
-			std::cout << "¸ø½÷¿ë°¡¸®Ä¡Å²~" << std::endl;
+			//std::cout << "¸ø½÷¿ë°¡¸®Ä¡Å²~" << std::endl;
 		}
 	}
 }
@@ -54,16 +54,16 @@ void Weapon::reloading()
 			if (total_ammo >= last) {
 				reloaded_ammo = max_ammo;
 				total_ammo -= last;
-				std::cout << "³²Àº ÃÑ ÃÑ¾Ë - " << total_ammo << "ÀåÀüµÈ ÃÑ¾Ë - " << reloaded_ammo << std::endl;
+				//std::cout << "³²Àº ÃÑ ÃÑ¾Ë - " << total_ammo << "ÀåÀüµÈ ÃÑ¾Ë - " << reloaded_ammo << std::endl;
 			}
 			else {
 				reloaded_ammo += total_ammo;
 				total_ammo = 0;
-				std::cout << "³²Àº ÃÑ ÃÑ¾Ë - " << total_ammo << "ÀåÀüµÈ ÃÑ¾Ë - " << reloaded_ammo << std::endl;
+				//std::cout << "³²Àº ÃÑ ÃÑ¾Ë - " << total_ammo << "ÀåÀüµÈ ÃÑ¾Ë - " << reloaded_ammo << std::endl;
 			}
 		}
 		else {
-			std::cout << "³²Àº ÃÑ¾ËÀÌ ¾ø¾îÀ¯~" << std::endl;
+			//std::cout << "³²Àº ÃÑ¾ËÀÌ ¾ø¾îÀ¯~" << std::endl;
 		}
 	}
 }

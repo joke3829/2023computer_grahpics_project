@@ -11,6 +11,7 @@ public:
 	void play_s_shot(int);
 	void play_mainbgm();
 	void play_fieldbgm();
+	void play_resultbgm();
 
 	void play_zom(int);
 
@@ -28,7 +29,7 @@ private:
 	FMOD::System* ssystem;
 	FMOD::Sound* s_reload, * s_rshot, * s_pshot, * s_kshot, *s_boom, * s_heal;	// 추가하자
 	FMOD::Sound* c_reload, * damaged, * click, * pickup;
-	FMOD::Sound* main_bgm;	// 추가하자
+	FMOD::Sound* main_bgm, *field_bgm, *result_bgm;	// 추가하자
 	FMOD::Channel* shot_channel[3]{};	// 공격
 	FMOD::Channel* bgm_channel = 0;
 	FMOD::Channel* effect_channel = 0;	// 픽업, 데미지, 장전, 클릭, 등등

@@ -35,6 +35,8 @@ MySound::MySound()
 	ssystem->createSound("sound\\z_boom.mp3", FMOD_DEFAULT, 0, &s_boom);
 
 	ssystem->createSound("sound\\duskyisland_purplesearoad.ogg", FMOD_LOOP_NORMAL, 0, &main_bgm);
+	ssystem->createSound("sound\\Looming Dread_RE2.mp3", FMOD_LOOP_NORMAL, 0, &field_bgm);
+	ssystem->createSound("sound\\City Walk.mp3", FMOD_LOOP_NORMAL, 0, &result_bgm);
 }
 
 MySound::~MySound()
@@ -106,12 +108,15 @@ void MySound::play_zom(int n) {
 void MySound::play_mainbgm()
 {
 	bgm_channel->stop();
+	bgm_channel->setVolume(0.8);
 	ssystem->playSound(main_bgm, 0, false, &bgm_channel);
 }
 
 void MySound::play_fieldbgm()
 {
 	bgm_channel->stop();
+	bgm_channel->setVolume(0.6);
+	ssystem->playSound(field_bgm, 0, false, &bgm_channel);
 }
 
 void MySound::bgm_off()
@@ -147,4 +152,11 @@ void MySound::play_s_reload()
 {
 	effect_channel->stop();
 	ssystem->playSound(s_reload, 0, false, &effect_channel);
+}
+
+void MySound::play_resultbgm()
+{
+	bgm_channel->stop();
+	bgm_channel->setVolume(1.0);
+	ssystem->playSound(result_bgm, 0, false, &bgm_channel);
 }

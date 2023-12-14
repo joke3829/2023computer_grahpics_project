@@ -288,7 +288,7 @@ void Player::setWeapon(char type)
 		init_Weapon_rot.x = cur_rot.x;
 		init_Weapon_rot.y = cur_rot.y + 90.0f;
 		changing = true;
-		std::cout << weapon << " - " << ATK << std::endl;
+		//std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	case '2':
 		cur_Wea = pistol;
@@ -300,7 +300,7 @@ void Player::setWeapon(char type)
 		init_Weapon_rot.x = cur_rot.x;
 		init_Weapon_rot.y = cur_rot.y + 90.0f;
 		changing = true;
-		std::cout << weapon << " - " << ATK << std::endl;
+		//std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	case '3':
 		cur_Wea = knife;
@@ -312,7 +312,7 @@ void Player::setWeapon(char type)
 		init_Weapon_rot.x = cur_rot.x;
 		init_Weapon_rot.y = cur_rot.y + 90.0f;
 		changing = true;
-		std::cout << weapon << " - " << ATK << std::endl;
+		//std::cout << weapon << " - " << ATK << std::endl;
 		break;
 	case 'r':
 		if (cur_Wea != knife) {
@@ -328,13 +328,15 @@ void Player::setWeapon(char type)
 	}
 }
 
-void Player::attack()
+void Player::attack(std::vector<EnemyBase*>& list, CameraObj* t_camera)
 {
 	if (atck) {
 		if (cur_Wea == rifle) {
 			if (cnt % 10 == 0) {
 				cur_Wea->Shoot();
 				if (cur_Wea->exist_ammo()) {
+					attack_check(list, t_camera);
+					mSound->play_s_shot(cur_Wea->getWep());
 					cur_rot.y += 1.0f; //반동
 					init_Weapon_rot.y += 1.0f; //반동
 				}
@@ -344,11 +346,15 @@ void Player::attack()
 			cur_Wea->Shoot();
 			if (cur_Wea == pistol) {
 				if (cur_Wea->exist_ammo()) {
+					attack_check(list, t_camera);
+					mSound->play_s_shot(cur_Wea->getWep());
 					cur_rot.y += 1.0f; //반동
 					init_Weapon_rot.y += 1.0f; //반동
 				}
 			}
 			else {
+				attack_check(list, t_camera);
+				mSound->play_s_shot(cur_Wea->getWep());
 				knife_at = true;
 			}
 			atck = false;
@@ -428,7 +434,7 @@ void Player::set_item(int x,int y)
 void Player::apply_item()
 {
 	if (item[0]) { //방어력 증가
-		DEF += 30;
+		DEF += 3;
 		item[0] = false;
 		std::cout << "플레이어 방어력 증가 완료 : " << DEF << std::endl;
 	}
@@ -445,7 +451,7 @@ void Player::apply_item()
 		std::cout << "플레이어 탄약 수 증가 완료 : " << std::endl;
 	}
 	if (item[3]) { //공격력 증가
-		bonus_atack = 200;
+		bonus_atack = 55;
 		item[3] = false;
 		std::cout << "플레이어 공격력 증가 완료 : " << ATK << std::endl;
 	}
@@ -675,7 +681,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 			if (is_contact) {
 				is_contact = false;
 				++aliving;
-				bonus_damage = 200;
+				bonus_damage = cur_Wea->getATK();
 				dynamic_cast<NM_zombie*>(aliveEnemy[i])->setHit(true);
 				continue;
 			}
@@ -1127,7 +1133,7 @@ void Player::attack_check(std::vector<EnemyBase*>& temp_list, CameraObj* temp_ca
 	}
 	if (whoisfirst != -1) {
 		aliveEnemy[whoisfirst]->Update_HP(-(ATK + bonus_damage)); //공격력만큼 감소
-		std::cout << whoisfirst << "\t-\t" << aliveEnemy[whoisfirst]->getHP() << std::endl;
+		//std::cout << whoisfirst << "\t-\t" << aliveEnemy[whoisfirst]->getHP() << std::endl;
 	}
 }
 

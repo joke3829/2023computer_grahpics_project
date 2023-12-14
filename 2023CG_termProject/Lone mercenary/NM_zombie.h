@@ -15,7 +15,6 @@ public:
 	~NM_zombie();
 
 	void walk_ani(int n);
-	//void back_walk();
 	void setHit(bool);
 
 	void z_heal(std::vector<EnemyBase*>&);

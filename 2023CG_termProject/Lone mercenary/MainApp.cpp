@@ -39,40 +39,40 @@ bool MainApp::Initialize()
 	return true;
 }
 
-bool MainApp::test_init()
-{
-	// 기초 요소들 초기화
-	Mesh::box_check = false;
-	camera = new CameraObj;
-	proj = new ProjObj;
-	game_state = 메인;
-
-	mPlayer = new Player(100, 200, 40, 20, 0);
-	field = new FieldMap;
-	cubemap = new CubeMap;
-
-
-
-	// 키보드 마우스 초기화
-	pKeyboard = new KeyboardFunc;
-
-	pMouse = new MouseFunc;
-
-
-	// 게임 요소 초기화
-
-	game_state = 필드;
-	//delete current_scene;
-	e_arrayReady();
-	game_timer = new GameTimer(mPlayer);
-	current_scene = new Field(mPlayer, field, camera, enemy_array, game_timer, cubemap);
-	pKeyboard->setGame_stete(game_state);
-	pKeyboard->setScene(current_scene);
-
-	pMouse->setGame_stete(game_state);
-	pMouse->setScene(current_scene);
-	return true;
-}
+//bool MainApp::test_init()
+//{
+//	// 기초 요소들 초기화
+//	Mesh::box_check = false;
+//	camera = new CameraObj;
+//	proj = new ProjObj;
+//	game_state = 메인;
+//
+//	mPlayer = new Player(100, 200, 40, 20, 0);
+//	field = new FieldMap;
+//	cubemap = new CubeMap;
+//
+//
+//
+//	// 키보드 마우스 초기화
+//	pKeyboard = new KeyboardFunc;
+//
+//	pMouse = new MouseFunc;
+//
+//
+//	// 게임 요소 초기화
+//
+//	game_state = 필드;
+//	//delete current_scene;
+//	e_arrayReady();
+//	game_timer = new GameTimer(mPlayer);
+//	current_scene = new Field(mPlayer, field, camera, enemy_array, game_timer, cubemap);
+//	pKeyboard->setGame_stete(game_state);
+//	pKeyboard->setScene(current_scene);
+//
+//	pMouse->setGame_stete(game_state);
+//	pMouse->setScene(current_scene);
+//	return true;
+//}
 
 void MainApp::next_state()
 {
@@ -83,7 +83,7 @@ void MainApp::next_state()
 		if (pMouse->next_state()) {
 			game_state = 아이템선택;
 			delete current_scene;
-			mPlayer = new Player(100, 200, 40, 10, 0);
+			mPlayer = new Player(100, 200, 40, 20, 0);
 			current_scene = new Select_Item(mPlayer, cubemap);
 			pKeyboard->setGame_stete(game_state);
 			pKeyboard->setScene(current_scene);
@@ -127,6 +127,7 @@ void MainApp::next_state()
 			pMouse->setScene(current_scene);
 			MouseFunc::s_x = -1;
 			MouseFunc::s_y = -1;
+			mSound->play_resultbgm();
 		}
 		break;
 	case 결과창:
@@ -144,6 +145,7 @@ void MainApp::next_state()
 			pMouse->setScene(current_scene);
 			MouseFunc::s_x = -1;
 			MouseFunc::s_y = -1;
+			mSound->play_mainbgm();
 		}
 		break;
 	}
@@ -171,73 +173,67 @@ bool MainApp::e_arrayReady()
 		enemy_array.clear();
 	}
 
-	/*for (int i = 0; i < 3; ++i) {
-		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 100, 25, 힐러));
-	}
-	for (int i = 0; i < 4; ++i) {
-		enemy_array.push_back(new NM_zombie(2100, 1900, 10, 150, 30, 폭발));
-	}*/
 	for (int i = 0; i < 19; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
-	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, 힐러));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
+	enemy_array.push_back(new NM_zombie(1500, 1650, 14, 20, 25, 힐러));
 	for (int i = 0; i < 5; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
-	enemy_array.push_back(new NM_zombie(2100, 2100, 10, 100, 30, 폭발));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
+	enemy_array.push_back(new NM_zombie(2200, 2350, 10, 50, 33, 폭발));
 	// 여기까지 26
 	//================================
 	for (int i = 0; i < 7; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
 	for(int i = 0 ; i < 2;++i)
-		enemy_array.push_back(new NM_zombie(2100, 2100, 10, 100, 30, 폭발));
-	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, 힐러));
+		enemy_array.push_back(new NM_zombie(2200, 2350, 10, 50, 33, 폭발));
+	enemy_array.push_back(new NM_zombie(1500, 1650, 14, 20, 25, 힐러));
 	//여기까지 36
 	//==================================
 	for (int i = 0; i < 5; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
 	for (int i = 0; i < 2; ++i)
-		enemy_array.push_back(new NM_zombie(2100, 2100, 10, 100, 30, 폭발));
+		enemy_array.push_back(new NM_zombie(2200, 2350, 10, 50, 33, 폭발));
 	for (int i = 0; i < 3; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
-	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, 힐러));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
+	enemy_array.push_back(new NM_zombie(1500, 1650, 14, 20, 25, 힐러));
 	for(int i = 0 ; i < 2;++i)
-		enemy_array.push_back(new NM_zombie(2100, 2100, 10, 100, 30, 폭발));
+		enemy_array.push_back(new NM_zombie(2200, 2350, 10, 50, 33, 폭발));
 	for (int i = 0; i < 5; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
 	// 여기까지 54
 	//====================================
 	for (int i = 0; i < 5; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
-	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, 힐러));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
+	enemy_array.push_back(new NM_zombie(1500, 1650, 14, 20, 25, 힐러));
 	for (int i = 0; i < 10; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
 	for (int i = 0; i < 3; ++i)
-		enemy_array.push_back(new NM_zombie(2100, 2100, 10, 100, 30, 폭발));
-	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, 힐러));
+		enemy_array.push_back(new NM_zombie(2200, 2350, 10, 50, 33, 폭발));
+	enemy_array.push_back(new NM_zombie(1500, 1650, 14, 20, 25, 힐러));
 	for (int i = 0; i < 7; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
 	// 여기까지 81
 	//=======================================
 	for (int i = 0; i < 4; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
 	for(int i = 0; i < 2; ++i)
-		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, 힐러));
+		enemy_array.push_back(new NM_zombie(1500, 1650, 14, 20, 25, 힐러));
 	for (int i = 0; i < 8; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
 	for (int i = 0; i < 2; ++i)
-		enemy_array.push_back(new NM_zombie(2100, 2100, 10, 100, 30, 폭발));
-	enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, 힐러));
+		enemy_array.push_back(new NM_zombie(2200, 2350, 10, 50, 33, 폭발));
+	enemy_array.push_back(new NM_zombie(1500, 1650, 14, 20, 25, 힐러));
 	for (int i = 0; i < 10; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
 	// 여기까지 108
 	//=========================================
 	for (int i = 0; i < 19; ++i)
-		enemy_array.push_back(new NM_zombie(1500, 1500, 20, 200, 35, 일반));
+		enemy_array.push_back(new NM_zombie(1200, 1350, 20, 30, 27, 일반));
 	for (int i = 0; i < 2; ++i)
-		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, 힐러));
+		enemy_array.push_back(new NM_zombie(1500, 1650, 14, 20, 25, 힐러));
 	for (int i = 0; i < 7; ++i)
-		enemy_array.push_back(new NM_zombie(2100, 2100, 10, 100, 30, 폭발));
+		enemy_array.push_back(new NM_zombie(2200, 2350, 10, 50, 33, 폭발));
 	for (int i = 0; i < 4; ++i)
-		enemy_array.push_back(new NM_zombie(2300, 2300, 14, 150, 25, 힐러));
+		enemy_array.push_back(new NM_zombie(1500, 1650, 14, 20, 25, 힐러));
 
 	return true;
 }

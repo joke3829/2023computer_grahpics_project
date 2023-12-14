@@ -13,18 +13,18 @@ void MouseFunc::Mouse(int button, int state, int x, int y)
 		s_x = x;
 		s_y = y;
 		if (아이템선택 == game_state) {
-			std::cout << x << ", " << y << "\n'";
+			//std::cout << x << ", " << y << "\n'";
 			dynamic_cast<Player*>(dynamic_cast<Select_Item*>(mScene)->getPlayer())->set_item(x, y);
 		}
 		if (필드 == game_state) {
 			if (!dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->do_reload_ani()) {
 				dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->conti_attack(true);
-				if (dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->check_reload_ammo()) {
-					// ↓↓↓ 이부분이 사격, 연사는 너가 어떻게 처리했는지 몰라서 클릭할때만 들어감
-					dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->attack_check(
-						dynamic_cast<Field*>(mScene)->getList(), dynamic_cast<Field*>(mScene)->getCamera());
-					mSound->play_s_shot(dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->getWeapon()->getWep());
-				}
+				//if (dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->check_reload_ammo()) {
+				//	// ↓↓↓ 이부분이 사격, 연사는 너가 어떻게 처리했는지 몰라서 클릭할때만 들어감
+				//	dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->attack_check(
+				//		dynamic_cast<Field*>(mScene)->getList(), dynamic_cast<Field*>(mScene)->getCamera());
+				//	mSound->play_s_shot(dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->getWeapon()->getWep());
+				//}
 			}
 		}
 		if (결과창 == game_state) {

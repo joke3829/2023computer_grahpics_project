@@ -36,7 +36,7 @@ public:
 	MouseFunc* pMouse;
 
 
-	bool test_init();
+	//bool test_init();
 protected:
 private:
 	int game_state;
