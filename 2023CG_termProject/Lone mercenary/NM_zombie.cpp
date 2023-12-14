@@ -249,6 +249,7 @@ void NM_zombie::z_heal(std::vector<EnemyBase*>& temp_list)
 				if (temp_list.size() > aliving && aliving < MAX_ALIVE) {
 					if (not temp_list[i]->Death_check()) {
 						if (glm::distance(cur_loc, temp_list[i]->getLoc()) < 40) {
+							mSound->play_zom(Èú·¯);
 							temp_list[i]->Update_HP(30);
 							std::cout << i << "\t-\t" << temp_list[i]->getHP() << std::endl;
 						}
@@ -271,6 +272,7 @@ void NM_zombie::z_boom()
 		if (dd > 10.0) {
 			glm::vec3 p_loc = glm::vec3(dynamic_cast<Player*>(mPlayer)->getLoc().x, 0, dynamic_cast<Player*>(mPlayer)->getLoc().z);
 			if (glm::distance(p_loc, cur_loc) < 29) {
+				mSound->play_zom(Æø¹ß);
 				mPlayer->Update_HP(-30);
 			}
 			h_start_time = clock();

@@ -8,6 +8,8 @@ ItemBox::ItemBox(GameTimer* t_time, CharacterBase* t_play)
 	exist = false;
 	remaining = 7;
 	l_time = clock();
+
+	mSound = MySound::GetInstance();
 }
 
 ItemBox::~ItemBox()
@@ -15,6 +17,7 @@ ItemBox::~ItemBox()
 	delete box;
 	timer = nullptr;
 	mPlayer = nullptr;
+	mSound = nullptr;
 }
 
 void ItemBox::Render()
@@ -36,6 +39,8 @@ void ItemBox::check_collision()
 			std::random_device rd;
 			std::default_random_engine dre(rd());
 			std::uniform_int_distribution<int> uid(1, 10);
+
+			mSound->play_pick();
 
 			if (uid(dre) <= heal || dynamic_cast<Player*>(mPlayer)->getWeapon()->getWep() == ³ªÀÌÇÁ)
 				mPlayer->Update_HP(30);

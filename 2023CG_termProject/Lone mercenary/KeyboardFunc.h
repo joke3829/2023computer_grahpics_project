@@ -5,12 +5,19 @@
 #pragma once
 #include "stdafx.h"
 #include "Scene.h"
+#include "Sound.h"
 
 class CharacterBase;
 class CameraObj;
 class KeyboardFunc {
 public:
 	//KeyboardFunc(CharacterBase*, CameraObj*);
+	KeyboardFunc() {
+		mSound = MySound::GetInstance();
+	}
+	~KeyboardFunc() {
+		mSound = nullptr;
+	}
 
 
 	void Keyboard(unsigned char, int, int);
@@ -25,4 +32,5 @@ private:
 	CameraObj* mCamera{ nullptr };*/
 	Scene* mScene{ nullptr };
 	int game_state;
+	MySound* mSound;
 };

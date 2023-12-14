@@ -23,7 +23,7 @@ void MouseFunc::Mouse(int button, int state, int x, int y)
 					// ↓↓↓ 이부분이 사격, 연사는 너가 어떻게 처리했는지 몰라서 클릭할때만 들어감
 					dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->attack_check(
 						dynamic_cast<Field*>(mScene)->getList(), dynamic_cast<Field*>(mScene)->getCamera());
-					mSound->play_s_shot();
+					mSound->play_s_shot(dynamic_cast<Player*>(dynamic_cast<Field*>(mScene)->getPlayer())->getWeapon()->getWep());
 				}
 			}
 		}
@@ -72,6 +72,7 @@ bool MouseFunc::next_state()
 	case 메인:
 		if (s_x >= 0 && s_x <= 1280 && s_y >= 0 && s_y <= 720) {
 			game_state = 아이템선택;
+			mSound->play_click();
 			return true;
 		}
 		break;
@@ -79,6 +80,8 @@ bool MouseFunc::next_state()
 		if (1053 <= s_x && s_x <= 1238) {
 			if (590 <= s_y && s_y <= 647) {
 				game_state = 필드;
+				mSound->bgm_off();
+				mSound->play_c_reload();
 				return true;
 			}
 		}
@@ -88,6 +91,7 @@ bool MouseFunc::next_state()
 	case 결과창:
 		if (1053 <= s_x && s_x <= 1238) {
 			if (590 <= s_y && s_y <= 647) {
+				mSound->play_click();
 				game_state = 메인;
 				return true;
 			}

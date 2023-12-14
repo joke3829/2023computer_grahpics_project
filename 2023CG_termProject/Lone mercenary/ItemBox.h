@@ -7,6 +7,7 @@
 #include "stdafx.h"
 #include "Mesh.h"
 #include "GameTimer.h"
+#include "Sound.h"
 class ItemBox {
 public:
 	ItemBox(GameTimer*, CharacterBase*);
@@ -31,4 +32,6 @@ private:
 	int remaining;
 	clock_t i_time;
 	clock_t l_time;
+
+	MySound* mSound;
 };

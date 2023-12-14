@@ -11,6 +11,7 @@
 #include "Weapon.h"
 #include "Enemy.h"
 #include "Scene.h"
+#include "Sound.h"
 
 class Player : public CharacterBase {
 private:
@@ -34,6 +35,8 @@ private:
 	Weapon* pistol;
 	Weapon* rifle;
 	Weapon* knife;
+
+	MySound* mSound;
 
 protected:
 

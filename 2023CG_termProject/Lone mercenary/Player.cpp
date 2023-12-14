@@ -51,6 +51,8 @@ Player::Player(float hp, float max, float spd, float def, float atk)
 	angle = 0.0f;
 	type = 0;
 	bonus_atack = 0;
+
+	mSound = MySound::GetInstance();
 }
 
 void Player::animation()
@@ -316,6 +318,7 @@ void Player::setWeapon(char type)
 		if (cur_Wea != knife) {
 			if (cur_Wea->gettotal() != 0) {
 				if (cur_Wea->is_max()) {
+					mSound->play_s_reload();
 					cur_Wea->reloading();
 					reloading = true;
 				}
@@ -374,6 +377,7 @@ void Player::set_item(int x,int y)
 {
 	if (274 <= x && x <= 623) {
 		if (12 <= y && y <= 355) {
+			mSound->play_click();
 			if (!item[0]) {
 				item[0] = true;
 				//std::cout << "1번 아이템 선택" << std::endl;
@@ -384,6 +388,7 @@ void Player::set_item(int x,int y)
 			}
 		}
 		if (356 <= y && y <= 708) {
+			mSound->play_click();
 			if (!item[2]) {
 				item[2] = true;
 				//std::cout << "3번 아이템 선택" << std::endl;
@@ -396,6 +401,7 @@ void Player::set_item(int x,int y)
 	}
 	if (657 <= x && x <= 1005) {
 		if (12 <= y && y <= 355) {
+			mSound->play_click();
 			if (!item[1]) {
 				item[1] = true;
 				//std::cout << "2번 아이템 선택" << std::endl;
@@ -406,6 +412,7 @@ void Player::set_item(int x,int y)
 			}
 		}
 		if (356 <= y && y <= 708) {
+			mSound->play_click();
 			if (!item[3]) {
 				item[3] = true;
 				//std::cout << "4번 아이템 선택" << std::endl;
